@@ -24,6 +24,7 @@ define('APIALARMINTEGRATION_TEMPLATE_PATH', APIALARMINTEGRATION_PATH . 'template
 
 load_plugin_textdomain('api-alarm-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
+require_once APIALARMINTEGRATION_PATH . 'vendor/autoload.php';
 require_once APIALARMINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once APIALARMINTEGRATION_PATH . 'Public.php';
 
@@ -32,6 +33,15 @@ $loader = new ApiAlarmIntegration\Vendor\Psr4ClassLoader();
 $loader->addPrefix('ApiAlarmIntegration', APIALARMINTEGRATION_PATH);
 $loader->addPrefix('ApiAlarmIntegration', APIALARMINTEGRATION_PATH . 'source/php/');
 $loader->register();
+
+// Acf auto import and export
+$acfExportManager = new \AcfExportManager\AcfExportManager();
+$acfExportManager->setTextdomain('event-manager');
+$acfExportManager->setExportFolder(APIALARMINTEGRATION_PATH . 'source/php/AcfFields/');
+$acfExportManager->autoExport(array(
+
+));
+$acfExportManager->import();
 
 // Start application
 new ApiAlarmIntegration\App();
