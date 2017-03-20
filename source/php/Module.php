@@ -32,9 +32,6 @@ class Module extends \Modularity\Module
             $this->args['icon']
         );
 
-        // Enqueue action
-        add_action('Modularity/Module/' . $this->moduleSlug . '/enqueue', array($this, 'enqueueAssets'));
-
         // Add our template folder as search path for templates
         add_filter('Modularity/Module/TemplatePath', function ($paths) {
             $paths[] = APIALARMINTEGRATION_TEMPLATE_PATH;
@@ -42,12 +39,12 @@ class Module extends \Modularity\Module
         });
     }
 
-    /**
-     * Enqueue your scripts and/or styles with wp_enqueue_script / wp_enqueue_style
-     * @return
-     */
-    public function enqueueAssets()
+    public function script()
     {
+        if (!$this->hasModule()) {
+            return;
+        }
 
+        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.min.js', array('jquery'), '1.0.0', true);
     }
 }
