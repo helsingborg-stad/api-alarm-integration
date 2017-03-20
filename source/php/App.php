@@ -6,25 +6,11 @@ class App
 {
     public function __construct()
     {
-        add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+        add_action('Modularity', array($this, 'addModule'));
     }
 
-    /**
-     * Enqueue required style
-     * @return void
-     */
-    public function enqueueStyles()
+    public function addModule()
     {
-
-    }
-
-    /**
-     * Enqueue required scripts
-     * @return void
-     */
-    public function enqueueScripts()
-    {
-
+        new \ApiAlarmIntegration\Module();
     }
 }
