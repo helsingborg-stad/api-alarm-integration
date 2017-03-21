@@ -4,6 +4,14 @@
     <?php endif; ?>
 
     <ul class="accordion accordion-list accordion-list-small" data-api-alarm-integration="load" data-alamrs-per-page="<?php echo get_field('alarms_per_page', $module->ID); ?>" data-alamrs-current-page="0" data-alarm-api="<?php echo trailingslashit(get_field('api_url', $module->ID)); ?>">
+        <li style="padding:20px 0;" data-alarms-loading>
+            <div class="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </li>
         <li class="accordion-section no-padding" data-template="api-alarm-integration-row">
             <input type="radio" name="active-section" id="accordion-section-{{ id }}">
             <label class="accordion-toggle link-item" for="accordion-section-{{ id }}">

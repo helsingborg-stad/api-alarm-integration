@@ -39,6 +39,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
 
         $.getJSON(requestUrl, data, function (response) {
             $.each(response, function (index, item) {
+                $(element).find('[data-alarms-loading]').remove();
                 this.addAlarmToList(element, item);
             }.bind(this));
         }.bind(this));
