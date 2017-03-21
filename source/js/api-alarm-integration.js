@@ -38,8 +38,23 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
         };
 
         $.getJSON(requestUrl, data, function (response) {
-            console.log(response);
-        });
+            $.each(response, function (index, item) {
+                this.addAlarmToList(element, item);
+            }.bind(this));
+        }.bind(this));
+    };
+
+    /**
+     * Add alarm to alarm list
+     * @param {element} element
+     * @param {object}  item
+     */
+    FetchAlarms.prototype.addAlarmToList = function(element, item) {
+        var date = new Date(item.date);
+        item.date = date.toLocaleFormat('%Y-%m-%d %H:%M');
+
+        var html = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-row', item);
+        $(element).append(html);
     };
 
     return new FetchAlarms();
