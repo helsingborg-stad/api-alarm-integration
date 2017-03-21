@@ -51,6 +51,13 @@
                 'value' => 'mod-alarms',
             ),
         ),
+        1 => array(
+            0 => array(
+                'param' => 'widget',
+                'operator' => '==',
+                'value' => 'api-alarm-widget',
+            ),
+        ),
     ),
     'menu_order' => 0,
     'position' => 'normal',

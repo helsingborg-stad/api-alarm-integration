@@ -47,6 +47,13 @@
                 "operator": "==",
                 "value": "mod-alarms"
             }
+        ],
+        [
+            {
+                "param": "widget",
+                "operator": "==",
+                "value": "api-alarm-widget"
+            }
         ]
     ],
     "menu_order": 0,
