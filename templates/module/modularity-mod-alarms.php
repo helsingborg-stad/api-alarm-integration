@@ -50,7 +50,7 @@
             </li>
             <li class="accordion-section no-padding" data-template="api-alarm-integration-row">
                 <input type="radio" name="active-section" id="accordion-section-{{ id }}">
-                <label class="accordion-toggle link-item" for="accordion-section-{{ id }}">{{ place }}: {{ title.rendered }}<time>{{ date }}</time></label>
+                <label class="accordion-toggle block-level" for="accordion-section-{{ id }}"><span class="link-item link">{{ place }}: {{ title.rendered }}</span><time class="date pull-right text-sm text-dark-gray">{{ date }}</time></label>
                 <div class="accordion-content">
                     <table>
                         <tr>
