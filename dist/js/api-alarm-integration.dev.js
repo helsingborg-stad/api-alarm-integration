@@ -62,6 +62,11 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
         }.bind(this));
     };
 
+    /**
+     * Load more alarms
+     * @param  {elemetn} element Clicked button
+     * @return {void}
+     */
     FetchAlarms.prototype.loadMore = function(element) {
         var baseElement = $(element).parents('.alarms-container');
         var apiUrl = baseElement.attr('data-alarm-api');
