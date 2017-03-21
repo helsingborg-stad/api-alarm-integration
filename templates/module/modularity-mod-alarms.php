@@ -3,20 +3,39 @@
         <h4 class="box-title"><?php echo apply_filters('the_title', $module->post_title); ?></h4>
     <?php endif; ?>
 
-    <div class="box-content filters" style="border-bottom:0;">
-        <div class="grid-table no-padding">
-            <div class="grid-auto">
-                <input type="search" data-alarm-filter="freetext" placeholder="<?php _e('Search…', 'api-alarm-integration'); ?>">
+    <div class="box-content" style="border-bottom:0;">
+        <div class="filters hidden">
+            <div class="form-group">
+                <label for="data-alarm-filter-text"><?php _e('Text search', 'api-alarm-integration'); ?></label>
+                <input type="search" data-alarm-filter="text" id="data-alarm-filter-text" placeholder="<?php _e('Search', 'api-alarm-integration'); ?>…">
             </div>
-            <div class="grid-auto">
-                <select data-alarm-filter="place">
-                    <option value="Helsingborg">Helsingborg</option>
+            <div class="form-group">
+                <label for="data-alarm-filter-place"><?php _e('Place', 'api-alarm-integration'); ?></label>
+                <select data-alarm-filter="place" id="data-alarm-filter-place">
+                    <option value=""><?php _e('All', 'api-alarm-integration'); ?></option>
+                    <?php foreach (ApiAlarmIntegration\Module::getPlaces($module) as $place) : ?>
+                    <option value="<?php echo $place; ?>"><?php echo $place; ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
-            <div class="grid-fit-content">
-                <button class="btn btn-primary">Sök</button>
+            <div class="form-group">
+                <div class="grid">
+                    <div class="grid-md-6">
+                        <label for="data-alarm-filter-date-from"><?php _e('Date from', 'api-alarm-integration'); ?></label>
+                        <input type="date" data-alarm-filter="date-from" id="data-alarm-filter-date-from" class="datepicker">
+                    </div>
+                    <div class="grid-md-6">
+                        <label for="data-alarm-filter-date-to"><?php _e('Date to', 'api-alarm-integration'); ?></label>
+                        <input type="date" data-alarm-filter="date-to" id="data-alarm-filter-date-to" class="datepicker">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" data-alarm-filter="search"><?php _e('Search', 'api-alarm-integration'); ?></button>
             </div>
         </div>
+
+        <button class="btn btn-plain btn-block" data-action="api-alarm-integration-toggle-filters"><span><?php _e('Show filters', 'api-alarm-integration'); ?></span> <i class="pricon pricon-caret-down pricon-sm" style="position:relative;top:-2px;"></i></button>
     </div>
 
     <div class="box-content no-padding">
@@ -31,7 +50,7 @@
             </li>
             <li class="accordion-section no-padding" data-template="api-alarm-integration-row">
                 <input type="radio" name="active-section" id="accordion-section-{{ id }}">
-                <label class="accordion-toggle link-item" for="accordion-section-{{ id }}">{{ place }}: {{ title.rendered }}</label>
+                <label class="accordion-toggle link-item" for="accordion-section-{{ id }}">{{ place }}: {{ title.rendered }}<time>{{ date }}</time></label>
                 <div class="accordion-content">
                     <table>
                         <tr>

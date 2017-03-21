@@ -46,5 +46,20 @@ class Module extends \Modularity\Module
         }
 
         wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.min.js', array('jquery'), '1.0.0', true);
+        wp_localize_script('api-alarm-integration', 'ApiAlarmIntegrationLang', array(
+            'show_filters' => __('Show filters', 'api-alarm-integration'),
+            'hide_filters' => __('Hide filters', 'api-alarm-integration')
+        ));
+    }
+
+    public static function getPlaces($module)
+    {
+        $apiUrl = trailingslashit(get_field('api_url', $module->ID));
+
+        $request = wp_remote_get($apiUrl . 'wp/v2/places');
+        $places = wp_remote_retrieve_body($request);
+        $places = json_decode($places);
+
+        return $places;
     }
 }

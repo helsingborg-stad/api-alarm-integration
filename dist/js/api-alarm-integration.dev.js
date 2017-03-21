@@ -13,6 +13,33 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
             $(document).on('click', '[data-action="api-alarm-integration-load-more"]', function (e) {
                 this.loadMore(e.target);
             }.bind(this));
+
+            // Toggle filters
+            $(document).on('click', '[data-action="api-alarm-integration-toggle-filters"]', function (e) {
+                var $filters = $(this).siblings('.filters');
+
+                if ($filters.hasClass('hidden')) {
+                    $filters.removeClass('hidden').hide();
+                    $filters.addClass('open');
+                }
+
+                $filters.slideToggle();
+
+                if ($filters.hasClass('open')) {
+                    $(this).find('i.pricon').removeClass('pricon-caret-down').addClass('pricon-caret-up');
+                    $(this).find('span').text(ApiAlarmIntegrationLang.hide_filters);
+                    $filters.removeClass('open');
+                } else {
+                    $(this).find('i.pricon').removeClass('pricon-caret-up').addClass('pricon-caret-down');
+                    $(this).find('span').text(ApiAlarmIntegrationLang.show_filters);
+                    $filters.addClass('open');
+                }
+            });
+
+            $(document).on('click', '[data-alarm-filter="search"]', function (e) {
+                var element = $(e.target).parents('.box-content').parent().find('.accordion');
+                this.loadAlarms(element, true);
+            }.bind(this));
         }.bind(this));
     }
 
@@ -22,12 +49,21 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @return {void}
      */
     FetchAlarms.prototype.init = function(element) {
-        var $element = $(element);
-        var apiUrl = $element.attr('data-alarm-api');
-        var perPage = $element.attr('data-alamrs-per-page');
-        var currentPage = $element.attr('data-alamrs-current-page');
+        this.loadAlarms(element);
+    };
 
-        this.loadAlarms(element, apiUrl, perPage, currentPage);
+    FetchAlarms.prototype.getFilters = function(element) {
+        var textFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="text"]').val();
+        var placeFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="place"]').val();
+        var dateFromFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-from"]').val();
+        var dateToFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-to"]').val();
+
+        return {
+            search: textFilter,
+            place: placeFilter,
+            date_from: dateFromFilter,
+            date_to: dateToFilter
+        };
     };
 
     /**
@@ -38,12 +74,31 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @param  {int}    currentPage
      * @return {void}
      */
-    FetchAlarms.prototype.loadAlarms = function(element, apiUrl, perPage, currentPage) {
+    FetchAlarms.prototype.loadAlarms = function(element, isSearch) {
+        if (typeof isSearch === 'undefined') {
+            isSearch = false;
+        }
+
+        var apiUrl = $(element).attr('data-alarm-api');
+        var perPage = $(element).attr('data-alamrs-per-page');
+        var currentPage = $(element).attr('data-alamrs-current-page');
+
         var requestUrl = apiUrl + 'wp/v2/alarm';
         var data = {
             per_page: perPage,
-            page: currentPage + 1
+            page: parseInt(currentPage) + 1
         };
+
+        // Get filters and put them in data object
+        var filters = this.getFilters(element);
+
+        for (var attrname in filters) {
+            data[attrname] = filters[attrname];
+        }
+
+        if (isSearch) {
+            $(element).empty();
+        }
 
         var loading = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-loading');
         $(element).append(loading);
@@ -78,7 +133,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
 
         $(element).closest('[data-api-alarms-load-more]').remove();
 
-        this.loadAlarms(baseElement, apiUrl, perPage, currentPage);
+        this.loadAlarms(baseElement);
     };
 
     /**
