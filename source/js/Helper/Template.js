@@ -25,6 +25,15 @@ ApiAlarmIntegration.Helper.Template = (function () {
             return value;
         });
 
+        // Handle if-statements
+        template = template.replace(/{%\s*if(.*)\s*%}([\s\S]*?){%\s*endif\s*%}/gm, function ($1, $2, $3) {
+            if (!eval($2)) {
+                return '';
+            }
+
+            return $3;
+        });
+
         // Return the new html
         return template;
     };
