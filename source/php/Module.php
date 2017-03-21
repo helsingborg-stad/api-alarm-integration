@@ -45,6 +45,6 @@ class Module extends \Modularity\Module
             return;
         }
 
-        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.dev.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.min.js', array('jquery'), '1.0.0', true);
     }
 }
