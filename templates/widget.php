@@ -1,7 +1,7 @@
 <?php
 
 $classes = array('box', 'box-panel');
-$title = 'titel';
+$title = get_field('title', 'widget_' . $args['widget_id']);
 
 $apiUrl = trailingslashit(get_field('api_url', 'widget_' . $args['widget_id']));
 $places = ApiAlarmIntegration\Module::getPlaces($apiUrl);
