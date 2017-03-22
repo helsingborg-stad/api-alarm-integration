@@ -19,4 +19,13 @@ class App
     {
         register_widget('\ApiAlarmIntegration\Widget');
     }
+
+    public static function enqueueAlarmScripts()
+    {
+        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.dev.js', array('jquery'), '1.0.0', true);
+        wp_localize_script('api-alarm-integration', 'ApiAlarmIntegrationLang', array(
+            'show_filters' => __('Show filters', 'api-alarm-integration'),
+            'hide_filters' => __('Hide filters', 'api-alarm-integration')
+        ));
+    }
 }
