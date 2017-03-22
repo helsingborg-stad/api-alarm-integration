@@ -14,7 +14,7 @@
                 <select data-alarm-filter="place" id="data-alarm-filter-place">
                     <option value=""><?php _e('All', 'api-alarm-integration'); ?></option>
                     <?php foreach (ApiAlarmIntegration\Module::getPlaces($apiUrl) as $place) : ?>
-                    <option value="<?php echo $place; ?>"><?php echo $place; ?></option>
+                    <option value="<?php echo $place->term_id; ?>"><?php echo $place->name; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -50,7 +50,7 @@
             </li>
             <li class="accordion-section no-padding" data-template="api-alarm-integration-row">
                 <input type="radio" name="active-section" id="accordion-section-{{ id }}">
-                <label class="accordion-toggle block-level" for="accordion-section-{{ id }}"><span class="link-item link">{{ place }}: {{ title.rendered }}</span><time class="date pull-right text-sm text-dark-gray">{{ date }}</time></label>
+                <label class="accordion-toggle block-level" for="accordion-section-{{ id }}"><span class="link-item link">{{ place[0].name }}: {{ title.rendered }}</span><time class="date pull-right text-sm text-dark-gray">{{ date }}</time></label>
                 <div class="accordion-content">
                     <table>
                         <tr>
