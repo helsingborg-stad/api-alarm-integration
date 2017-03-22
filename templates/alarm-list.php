@@ -14,7 +14,7 @@
                 <select data-alarm-filter="place" id="data-alarm-filter-place">
                     <option value=""><?php _e('All', 'api-alarm-integration'); ?></option>
                     <?php foreach (ApiAlarmIntegration\Module::getPlaces($apiUrl) as $place) : ?>
-                    <option value="<?php echo $place->term_id; ?>"><?php echo $place->name; ?></option>
+                    <option value="<?php echo $place->id; ?>"><?php echo $place->name; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
