@@ -56,12 +56,25 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
         var dateFromFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-from"]').val();
         var dateToFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-to"]').val();
 
-        return {
-            search: textFilter,
-            place: placeFilter,
-            date_from: dateFromFilter,
-            date_to: dateToFilter
-        };
+        var filters = {};
+
+        if (textFilter.length > 0) {
+            filters.search = textFilter;
+        }
+
+        if (placeFilter.length > 0) {
+            filters.place = placeFilter;
+        }
+
+        if (dateFromFilter.length > 0) {
+            filters.date_from = dateFromFilter;
+        }
+
+        if (dateToFilter.length > 0) {
+            filters.date_to = dateToFilter;
+        }
+
+        return filters;
     };
 
     /**
