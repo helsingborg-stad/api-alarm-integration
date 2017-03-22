@@ -50,7 +50,7 @@ class Module extends \Modularity\Module
 
     public static function getPlaces($apiUrl)
     {
-        $request = wp_remote_get($apiUrl . 'wp/v2/places');
+        $request = wp_remote_get($apiUrl . 'wp/v2/place');
         $places = wp_remote_retrieve_body($request);
         $places = json_decode($places);
 
