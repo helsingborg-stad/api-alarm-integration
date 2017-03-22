@@ -30,12 +30,12 @@ class Disturbance
             disturbances.output_small = \'' . $outputSmallSelector . '\';
             ';
 
-            if (in_array('big', get_field('disturbances_output_automatically', 'options'))) {
-                echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-big-disturbances.min.js');
-            }
-
             if (in_array('small', get_field('disturbances_output_automatically', 'options'))) {
                 echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-small-disturbances.min.js');
+            }
+
+            if (in_array('big', get_field('disturbances_output_automatically', 'options'))) {
+                echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-big-disturbances.min.js');
             }
 
             echo '</script>';
