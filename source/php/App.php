@@ -12,16 +12,27 @@ class App
         new \ApiAlarmIntegration\Disturbance();
     }
 
+    /**
+     * Registers module
+     */
     public function addModule()
     {
         new \ApiAlarmIntegration\Module();
     }
 
+    /**
+     * Registers widget
+     * @return void
+     */
     public function registerWidget()
     {
         register_widget('\ApiAlarmIntegration\Widget');
     }
 
+    /**
+     * Enqueues widget/module assets
+     * @return void
+     */
     public static function enqueueAlarmScripts()
     {
         wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.dev.js', array('jquery'), '1.0.0', true);

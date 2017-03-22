@@ -15,16 +15,33 @@ class Widget extends \WP_Widget
         );
     }
 
+    /**
+     * Widget update (handled by ACF)
+     * @param  array $new
+     * @param  array $old
+     * @return void
+     */
     public function update($new, $old)
     {
     }
 
+    /**
+     * Widget template
+     * @param  array $args
+     * @param  array $instance
+     * @return void
+     */
     public function widget($args, $instance)
     {
         \ApiAlarmIntegration\App::enqueueAlarmScripts();
         require APIALARMINTEGRATION_TEMPLATE_PATH . '/widget.php';
     }
 
+    /**
+     * Widget form (handled by ACF)
+     * @param  array $instance
+     * @return void
+     */
     public function form($instance)
     {
     }

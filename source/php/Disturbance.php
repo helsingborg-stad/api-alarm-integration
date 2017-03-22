@@ -42,6 +42,9 @@ class Disturbance
         }, 100);
     }
 
+    /**
+     * Adds options page for disturbances
+     */
     public function addOptionsPage()
     {
         if (!function_exists('acf_add_options_page')) {
@@ -55,6 +58,10 @@ class Disturbance
         ));
     }
 
+    /**
+     * Add places to places field
+     * @param array $field
+     */
     public function addPlaces($field)
     {
         $apiUrl = trailingslashit(get_field('disturbances_api_url', 'option'));

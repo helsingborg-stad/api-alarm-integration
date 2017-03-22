@@ -39,6 +39,10 @@ class Module extends \Modularity\Module
         });
     }
 
+    /**
+     * Include scripts
+     * @return void
+     */
     public function script()
     {
         if (!$this->hasModule()) {
@@ -48,6 +52,11 @@ class Module extends \Modularity\Module
         \ApiAlarmIntegration\App::enqueueAlarmScripts();
     }
 
+    /**
+     * Get all available places
+     * @param  string $apiUrl
+     * @return array
+     */
     public static function getPlaces($apiUrl)
     {
         $request = wp_remote_get($apiUrl . 'wp/v2/place?per_page=100');
