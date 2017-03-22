@@ -58,12 +58,25 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
         var dateFromFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-from"]').val();
         var dateToFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-to"]').val();
 
-        return {
-            search: textFilter,
-            place: placeFilter,
-            date_from: dateFromFilter,
-            date_to: dateToFilter
-        };
+        var filters = {};
+
+        if (textFilter.length > 0) {
+            filters.search = textFilter;
+        }
+
+        if (placeFilter.length > 0) {
+            filters.place = placeFilter;
+        }
+
+        if (dateFromFilter.length > 0) {
+            filters.date_from = dateFromFilter;
+        }
+
+        if (dateToFilter.length > 0) {
+            filters.date_to = dateToFilter;
+        }
+
+        return filters;
     };
 
     /**
@@ -154,6 +167,25 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
 
 })(jQuery);
 
+Object.byString = function(o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+
+    var a = s.split('.');
+
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+
+    return o;
+};
+
 ApiAlarmIntegration = ApiAlarmIntegration || {};
 ApiAlarmIntegration.Helper = ApiAlarmIntegration.Helper || {};
 
@@ -170,15 +202,8 @@ ApiAlarmIntegration.Helper.Template = (function () {
         var template = _templates[key];
 
         // Replace template strings
-        template = template.replace(/{{\s*([\w\.]+)\s*}}/g, function($1, $2) {
-            var value = data;
-            var objKey = $2.split('.');
-
-            for (var i = 0; i < objKey.length; i++) {
-                value = value[objKey[i]];
-            }
-
-            return value;
+        template = template.replace(/{{\s*([\w\.\[\]]+)\s*}}/g, function($1, $2) {
+            return Object.byString(data, $2);
         });
 
         // Handle if-statements
