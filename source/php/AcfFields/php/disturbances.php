@@ -177,31 +177,6 @@
                 'id' => '',
             ),
         ),
-        6 => array(
-            'message' => __('You can output disturbance messages manually with shortcode(s): [disturbances type="small"] or [disturbances type="big"].', 'event-manager'),
-            'esc_html' => 0,
-            'new_lines' => 'wpautop',
-            'key' => 'field_58d250d40f51f',
-            'label' => __('Output with shortcode', 'event-manager'),
-            'name' => '',
-            'type' => 'message',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => array(
-                0 => array(
-                    0 => array(
-                        'field' => 'field_58d2501c0f51d',
-                        'operator' => '==',
-                        'value' => '1',
-                    ),
-                ),
-            ),
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-        ),
     ),
     'location' => array(
         0 => array(

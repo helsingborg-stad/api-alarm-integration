@@ -171,31 +171,6 @@
                 "class": "",
                 "id": ""
             }
-        },
-        {
-            "message": "You can output disturbance messages manually with shortcode(s): [disturbances type=\"small\"] or [disturbances type=\"big\"].",
-            "esc_html": 0,
-            "new_lines": "wpautop",
-            "key": "field_58d250d40f51f",
-            "label": "Output with shortcode",
-            "name": "",
-            "type": "message",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
         }
     ],
     "location": [
