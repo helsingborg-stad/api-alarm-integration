@@ -3,8 +3,6 @@ window.onload = function () {
     var requestUrl = disturbances.apiUrl + 'wp/v2/small-disturbance';
     var data = {};
 
-    console.log(requestUrl);
-
     if (disturbances.places.join(',').length > 0) {
         data.places = disturbances.places.join(',');
     }
