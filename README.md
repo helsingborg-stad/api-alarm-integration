@@ -1,3 +1,3 @@
 # API Alarm Integration
 
-Shows alarms from API Alarm Manager
+Shows alarms and disturbances from API Alarm Manager
