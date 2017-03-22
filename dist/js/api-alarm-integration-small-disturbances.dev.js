@@ -4,7 +4,7 @@ window.onload = function () {
     var data = {};
 
     if (disturbances.places.join(',').length > 0) {
-        data.places = disturbances.places.join(',');
+        data.place = disturbances.places.join(',');
     }
 
     $(document).on('click', '.notice-disturbance [data-action="toggle-notice-content"]', function (e) {
