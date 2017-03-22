@@ -42,12 +42,35 @@ gulp.task('scripts-dist', function() {
         .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('scripts-dist-big', function() {
+    gulp.src([
+            'source/js-disturbance/Big.js',
+        ])
+        .pipe(concat('api-alarm-integration-big-disturbances.dev.js'))
+        .pipe(gulp.dest('dist/js'))
+        .pipe(rename('api-alarm-integration-big-disturbances.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('scripts-dist-small', function() {
+    gulp.src([
+            'source/js-disturbance/Small.js',
+        ])
+        .pipe(concat('api-alarm-integration-small-disturbances.dev.js'))
+        .pipe(gulp.dest('dist/js'))
+        .pipe(rename('api-alarm-integration-small-disturbances.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'));
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('source/js/**/*.js', ['scripts-dist']);
+    gulp.watch('source/js-disturbance/**/*.js', ['scripts-dist-small', 'scripts-dist-big']);
     gulp.watch('source/sass/**/*.scss', ['sass-dist', 'sass-dev']);
 });
 
 // Default Task
-gulp.task('default', ['sass-dist', 'sass-dev', 'scripts-dist', 'watch']);
+gulp.task('default', ['sass-dist', 'sass-dev', 'scripts-dist', 'scripts-dist-small', 'scripts-dist-big', 'watch']);
 

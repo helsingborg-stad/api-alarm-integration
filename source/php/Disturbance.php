@@ -7,6 +7,29 @@ class Disturbance
     public function __construct()
     {
         add_action('acf/init', array($this, 'addOptionsPage'));
+        add_action('acf/load_field/name=disturbances_places', array($this, 'addPlaces'));
+
+        add_action('wp_footer', function () {
+            echo '<script defer>';
+
+            echo '
+            var disturbances = {};
+            disturbances.apiUrl = \'' . trailingslashit(get_field('disturbances_api_url', 'option')) . '\';
+            disturbances.places = ' . json_encode(get_field('disturbances_places', 'option')) . ';
+            disturbances.more_info = \'' . __('Show more information', 'api-alarm-integration') . '\';
+            disturbances.less_info = \'' . __('Show less information', 'api-alarm-integration') . '\';
+            ';
+
+            if (in_array('big', get_field('disturbances_output_automatically', 'options'))) {
+                echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-big-disturbances.min.js');
+            }
+
+            if (in_array('small', get_field('disturbances_output_automatically', 'options'))) {
+                echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-small-disturbances.min.js');
+            }
+
+            echo '</script>';
+        }, 100);
     }
 
     public function addOptionsPage()
@@ -20,5 +43,22 @@ class Disturbance
             'menu_slug'     => 'api-alarm-integration-disturbances',
             'parent_slug'   => 'tools.php'
         ));
+    }
+
+    public function addPlaces($field)
+    {
+        $apiUrl = trailingslashit(get_field('disturbances_api_url', 'option'));
+
+        if (!$apiUrl) {
+            return $field;
+        }
+
+        $places = \ApiAlarmIntegration\Module::getPlaces($apiUrl);
+
+        foreach ($places as $place) {
+            $field['choices'][$place->id] = $place->name;
+        }
+
+        return $field;
     }
 }
