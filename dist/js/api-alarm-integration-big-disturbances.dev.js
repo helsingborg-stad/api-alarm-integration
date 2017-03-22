@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', function () {
     var $ = jQuery;
     var requestUrl = disturbances.apiUrl + 'wp/v2/big-disturbance';
     var data = {};
@@ -7,15 +7,19 @@ window.onload = function () {
         data.place = disturbances.places.join(',');
     }
 
-    $(document).on('click', '.notice-disturbance [data-action="toggle-notice-content"]', function (e) {
-        $(this).parents('.notice-disturbance').find('.notice-content').toggleClass('open').slideToggle();
+    if (!disturbances.inited) {
+        $(document).on('click', '.notice-disturbance [data-action="toggle-notice-content"]', function (e) {
+            $(this).parents('.notice-disturbance').find('.notice-content').toggleClass('open').slideToggle();
 
-        if ($(this).parents('.notice-disturbance').find('.notice-content').hasClass('open')) {
-            $(this).text(disturbances.less_info);
-        } else {
-            $(this).text(disturbances.more_info);
-        }
-    });
+            if ($(this).parents('.notice-disturbance').find('.notice-content').hasClass('open')) {
+                $(this).text(disturbances.less_info);
+            } else {
+                $(this).text(disturbances.more_info);
+            }
+        });
+
+        disturbances.inited = true;
+    }
 
     $.getJSON(requestUrl, data, function (response) {
         $.each(response, function (index, item) {
@@ -27,7 +31,7 @@ window.onload = function () {
                                 <i class="pricon pricon-notice-warning"></i> <strong>' + item.title.plain_text + '</strong>\
                             </div>\
                             <div class="grid-fit-content">\
-                                <button type="button" class="btn btn-sm" data-action="toggle-notice-content">' + disturbances.more_info + '</button>\
+                                <button type="button" class="btn btn-sm btn-contrasted" data-action="toggle-notice-content">' + disturbances.more_info + '</button>\
                             </div>\
                         </div>\
                         <div class="grid notice-content" style="display:none;">\
@@ -35,7 +39,7 @@ window.onload = function () {
                         </div>\
                     </div>\
                 </div>\
-            ').prependTo('body').slideDown();
+            ').prependTo(disturbances.output_big).slideDown();
         });
     });
-};
+});

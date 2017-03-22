@@ -28,7 +28,7 @@
             "label": "Api url",
             "name": "disturbances_api_url",
             "type": "url",
-            "instructions": "",
+            "instructions": "The base url to the api alarm manager",
             "required": 0,
             "conditional_logic": [
                 [
@@ -40,7 +40,7 @@
                 ]
             ],
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             }
@@ -77,11 +77,11 @@
             "label": "Filter places",
             "name": "disturbances_places",
             "type": "select",
-            "instructions": "Leave empty for all places.",
+            "instructions": "You will first need to set your api url and save this page before places will be filled with alternatives. Leave blank to get disturbances from all places.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             }
@@ -109,6 +109,60 @@
                         "field": "field_58d2501c0f51d",
                         "operator": "==",
                         "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_58d2760046254",
+            "label": "Output selector for big disturbance",
+            "name": "output_selector_big_disturbance",
+            "type": "text",
+            "instructions": "CSS Selector for where to output big disturbances. Defaults to body.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_58d250a30f51e",
+                        "operator": "==",
+                        "value": "big"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_58d2764846255",
+            "label": "Output selector for small disturbance",
+            "name": "output_selector_small_disturbance",
+            "type": "text",
+            "instructions": "CSS Selector for where to output small disturbances. Defaults to body.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_58d250a30f51e",
+                        "operator": "==",
+                        "value": "small"
                     }
                 ]
             ],

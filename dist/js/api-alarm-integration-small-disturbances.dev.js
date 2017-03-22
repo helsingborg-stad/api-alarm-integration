@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', function () {
     var $ = jQuery;
     var requestUrl = disturbances.apiUrl + 'wp/v2/small-disturbance';
     var data = {};
@@ -7,15 +7,19 @@ window.onload = function () {
         data.place = disturbances.places.join(',');
     }
 
-    $(document).on('click', '.notice-disturbance [data-action="toggle-notice-content"]', function (e) {
-        $(this).parents('.notice-disturbance').find('.notice-content').toggleClass('open').slideToggle();
+    if (!disturbances.inited) {
+        $(document).on('click', '.notice-disturbance [data-action="toggle-notice-content"]', function (e) {
+            $(this).parents('.notice-disturbance').find('.notice-content').toggleClass('open').slideToggle();
 
-        if ($(this).parents('.notice-disturbance').find('.notice-content').hasClass('open')) {
-            $(this).text(disturbances.less_info);
-        } else {
-            $(this).text(disturbances.more_info);
-        }
-    });
+            if ($(this).parents('.notice-disturbance').find('.notice-content').hasClass('open')) {
+                $(this).text(disturbances.less_info);
+            } else {
+                $(this).text(disturbances.more_info);
+            }
+        });
+
+        disturbances.inited = true;
+    }
 
     $.getJSON(requestUrl, data, function (response) {
         $.each(response, function (index, item) {
@@ -35,7 +39,7 @@ window.onload = function () {
                         </div>\
                     </div>\
                 </div>\
-            ').prependTo('body').slideDown();
+            ').prependTo(disturbances.output_small).slideDown();
         });
     });
-};
+});

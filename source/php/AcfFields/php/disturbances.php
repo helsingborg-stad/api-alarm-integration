@@ -31,7 +31,7 @@
             'label' => __('Api url', 'event-manager'),
             'name' => 'disturbances_api_url',
             'type' => 'url',
-            'instructions' => '',
+            'instructions' => __('The base url to the api alarm manager', 'event-manager'),
             'required' => 0,
             'conditional_logic' => array(
                 0 => array(
@@ -43,7 +43,7 @@
                 ),
             ),
             'wrapper' => array(
-                'width' => '',
+                'width' => '50',
                 'class' => '',
                 'id' => '',
             ),
@@ -81,11 +81,11 @@
             'label' => __('Filter places', 'event-manager'),
             'name' => 'disturbances_places',
             'type' => 'select',
-            'instructions' => __('Leave empty for all places.', 'event-manager'),
+            'instructions' => __('You will first need to set your api url and save this page before places will be filled with alternatives. Leave blank to get disturbances from all places.', 'event-manager'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
-                'width' => '',
+                'width' => '50',
                 'class' => '',
                 'id' => '',
             ),
@@ -124,6 +124,60 @@
             ),
         ),
         4 => array(
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'key' => 'field_58d2760046254',
+            'label' => __('Output selector for big disturbance', 'event-manager'),
+            'name' => 'output_selector_big_disturbance',
+            'type' => 'text',
+            'instructions' => __('CSS Selector for where to output big disturbances. Defaults to body.', 'event-manager'),
+            'required' => 0,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_58d250a30f51e',
+                        'operator' => '==',
+                        'value' => 'big',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+        ),
+        5 => array(
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'key' => 'field_58d2764846255',
+            'label' => __('Output selector for small disturbance', 'event-manager'),
+            'name' => 'output_selector_small_disturbance',
+            'type' => 'text',
+            'instructions' => __('CSS Selector for where to output small disturbances. Defaults to body.', 'event-manager'),
+            'required' => 0,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_58d250a30f51e',
+                        'operator' => '==',
+                        'value' => 'small',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+        ),
+        6 => array(
             'message' => __('You can output disturbance messages manually with shortcode(s): [disturbances type="small"] or [disturbances type="big"].', 'event-manager'),
             'esc_html' => 0,
             'new_lines' => 'wpautop',
