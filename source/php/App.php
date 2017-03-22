@@ -8,6 +8,8 @@ class App
     {
         add_action('Modularity', array($this, 'addModule'));
         add_action('widgets_init', array($this, 'registerWidget'));
+
+        new \ApiAlarmIntegration\Disturbance();
     }
 
     public function addModule()
