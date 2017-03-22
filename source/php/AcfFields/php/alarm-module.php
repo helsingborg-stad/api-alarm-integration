@@ -23,8 +23,8 @@
         ),
         1 => array(
             'default_value' => 10,
-            'min' => '',
-            'max' => '',
+            'min' => 1,
+            'max' => 100,
             'step' => '',
             'placeholder' => '',
             'prepend' => '',
