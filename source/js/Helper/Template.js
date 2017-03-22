@@ -14,15 +14,8 @@ ApiAlarmIntegration.Helper.Template = (function () {
         var template = _templates[key];
 
         // Replace template strings
-        template = template.replace(/{{\s*([\w\.]+)\s*}}/g, function($1, $2) {
-            var value = data;
-            var objKey = $2.split('.');
-
-            for (var i = 0; i < objKey.length; i++) {
-                value = value[objKey[i]];
-            }
-
-            return value;
+        template = template.replace(/{{\s*([\w\.\[\]]+)\s*}}/g, function($1, $2) {
+            return Object.byString(data, $2);
         });
 
         // Handle if-statements
