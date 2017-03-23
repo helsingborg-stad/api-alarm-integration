@@ -10,7 +10,7 @@ class Disturbance
         add_action('acf/load_field/name=disturbances_places', array($this, 'addPlaces'));
 
         add_action('wp_footer', function () {
-            if (empty(get_field('disturbances_output_automatically', 'options'))) {
+            if (!get_field('disturbnaces_enabled', 'options') || empty(get_field('disturbances_output_automatically', 'options'))) {
                 return;
             }
 
