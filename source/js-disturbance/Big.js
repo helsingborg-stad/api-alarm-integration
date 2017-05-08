@@ -23,8 +23,12 @@ window.addEventListener('load', function () {
 
     $.getJSON(requestUrl, data, function (response) {
         $.each(response, function (index, item) {
+            if ($('#disturbance-' + item.id).length > 0) {
+                return;
+            }
+
             var $notice = $('\
-                <div class="notice notice-disturbance notice-lg notice-fullwidth warning" style="display:none;">\
+                <div class="notice notice-disturbance notice-lg notice-fullwidth warning" id="disturbance-' + item.id + '" style="display:none;">\
                     <div class="container">\
                         <div class="grid grid-table">\
                             <div class="grid-auto">\
