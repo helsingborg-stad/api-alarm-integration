@@ -72,8 +72,10 @@ class Disturbance
 
         $places = \ApiAlarmIntegration\Module::getPlaces($apiUrl);
 
-        foreach ($places as $place) {
-            $field['choices'][$place->id] = $place->name;
+        if (is_array($places) && !empty($places)) {
+            foreach ($places as $place) {
+                $field['choices'][$place->id] = $place->name;
+            }
         }
 
         return $field;
