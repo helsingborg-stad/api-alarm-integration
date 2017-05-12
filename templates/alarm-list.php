@@ -63,16 +63,10 @@
                             <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td><td>{{ type }}</td>
                         </tr>
                         <tr>
-                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td><td>{{ address }}, {{ place }}</td>
+                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td><td>{{ address }}, {{ place[0].name }}</td>
                             <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td><td> {{ station.title }}</td>
                         </tr>
                     </table>
-
-                    {% if data.content.rendered.length %}
-                    <article>
-                        {{ content.rendered }}
-                    </article>
-                    {% endif %}
                 </div>
             </li>
             <li data-template="api-alarm-integration-load-more" style="padding:10px;" data-api-alarms-load-more><button data-action="api-alarm-integration-load-more" class="btn btn-block"><?php _e('Show more alarms', 'api-alarm-integration'); ?></button></li>

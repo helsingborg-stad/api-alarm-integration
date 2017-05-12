@@ -155,8 +155,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @param {object}  item
      */
     FetchAlarms.prototype.addAlarmToList = function(element, item) {
-        var date = new Date(item.date);
-        item.date = date.toLocaleFormat('%Y-%m-%d %H:%M');
+        item.date = item.date.replace("T", " ").substring(0, item.date.length - 3);
 
         // Append alarm
         var alarm = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-row', item);
