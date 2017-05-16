@@ -52,19 +52,25 @@
             </li>
             <li class="accordion-section no-padding" data-template="api-alarm-integration-row">
                 <input type="radio" name="active-section" id="alarm-{# id #}">
-                <label class="accordion-toggle block-level" for="alarm-{# id #}"><span class="link-item link">{# place[0].name #}: {# title.rendered #}</span><time class="date pull-right text-sm text-dark-gray">{# date #}</time></label>
+                <label class="accordion-toggle block-level" for="alarm-{# id #}"><span class="link-item link">{## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}</span><time class="date pull-right text-sm text-dark-gray">{# date #}</time></label>
                 <div class="accordion-content">
                     <table>
                         <tr>
-                            <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td><td>{# date #}</td>
+                            <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# date #}</td>
                         </tr>
                         <tr>
-                            <td><strong><?php _e('Incident', 'api-alarm-integration'); ?>:</strong></td><td>{# title.rendered #}</td>
-                            <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td><td>{# type #}</td>
+                            <td><strong><?php _e('Incident', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# title.rendered #}</td>
+                            <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# type #}</td>
                         </tr>
                         <tr>
-                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td><td>{# address #}, {# place[0].name #}</td>
-                            <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td><td> {# station.title #}</td>
+                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# address #}, {# place[0].name #}</td>
+
+                            <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td>
+                            <td> {# station.title #}</td>
                         </tr>
                     </table>
                 </div>
