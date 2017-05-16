@@ -55,9 +55,19 @@ class Module extends \Modularity\Module
      */
     public static function getPlaces($apiUrl)
     {
+
+        // Retrive from cache
+        if ($places = wp_cache_get('ApiAlarmIntegrationPlaces')) {
+            return $places;
+        }
+
+        //Get fresh fish
         $request = wp_remote_get($apiUrl . 'wp/v2/place?per_page=100');
         $places = wp_remote_retrieve_body($request);
         $places = json_decode($places);
+
+        //Cache result for 3 hours
+        wp_cache_set('ApiAlarmIntegrationPlaces', $places, null, 60*60*3);
 
         return $places;
     }
