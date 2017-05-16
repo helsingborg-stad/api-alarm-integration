@@ -1,7 +1,7 @@
-<div class="<?php echo implode(' ', $classes); ?>">
-    <?php if ($title) : ?>
-        <h4 class="box-title"><?php echo apply_filters('the_title', $title); ?></h4>
-    <?php endif; ?>
+<div class="{{ $classes }}">
+    @if (!$hideTitle && !empty($post_title))
+        <h4 class="box-title">{!! apply_filters('the_title', $post_title) !!}</h4>
+    @endif
 
     <div class="box-content" style="border-bottom:0;">
         <div class="filters hidden">
@@ -13,7 +13,7 @@
                 <label for="data-alarm-filter-place"><?php _e('Place', 'api-alarm-integration'); ?></label>
                 <select data-alarm-filter="place" id="data-alarm-filter-place">
                     <option value=""><?php _e('All', 'api-alarm-integration'); ?></option>
-                    <?php foreach ((array) ApiAlarmIntegration\Module::getPlaces($apiUrl) as $place) : ?>
+                    <?php foreach ((array) \ApiAlarmIntegration\Module::getPlaces($apiUrl) as $place) : ?>
                         <?php if (is_object($place)) { ?>
                             <option value="<?php echo $place->id; ?>"><?php echo $place->name; ?></option>
                         <?php } ?>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="box-content no-padding">
-        <ul class="accordion accordion-list accordion-list-small alarms-container" data-api-alarm-integration="load" data-alamrs-per-page="<?php echo $alarmsPerPage; ?>" data-alamrs-current-page="0" data-alarm-api="<?php echo $apiUrl; ?>">
+        <ul class="accordion accordion-list accordion-list-small alarms-container" data-api-alarm-integration="load" data-alamrs-per-page="{{ $options['alarms_per_page'] }}" data-alamrs-current-page="0" data-alarm-api="{{ trailingslashit($options['api_url']) }}">
             <li style="padding:20px 0;" data-template="api-alarm-integration-loading" data-api-alarms-load-more>
                 <div class="loading">
                     <div></div>
@@ -51,20 +51,20 @@
                 </div>
             </li>
             <li class="accordion-section no-padding" data-template="api-alarm-integration-row">
-                <input type="radio" name="active-section" id="alarm-{{ id }}">
-                <label class="accordion-toggle block-level" for="alarm-{{ id }}"><span class="link-item link">{{ place[0].name }}: {{ title.rendered }}</span><time class="date pull-right text-sm text-dark-gray">{{ date }}</time></label>
+                <input type="radio" name="active-section" id="alarm-{# id #}">
+                <label class="accordion-toggle block-level" for="alarm-{# id #}"><span class="link-item link">{# place[0].name #}: {# title.rendered #}</span><time class="date pull-right text-sm text-dark-gray">{# date #}</time></label>
                 <div class="accordion-content">
                     <table>
                         <tr>
-                            <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td><td>{{ date }}</td>
+                            <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td><td>{# date #}</td>
                         </tr>
                         <tr>
-                            <td><strong><?php _e('Incident', 'api-alarm-integration'); ?>:</strong></td><td>{{ title.rendered }}</td>
-                            <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td><td>{{ type }}</td>
+                            <td><strong><?php _e('Incident', 'api-alarm-integration'); ?>:</strong></td><td>{# title.rendered #}</td>
+                            <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td><td>{# type #}</td>
                         </tr>
                         <tr>
-                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td><td>{{ address }}, {{ place[0].name }}</td>
-                            <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td><td> {{ station.title }}</td>
+                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td><td>{# address #}, {# place[0].name #}</td>
+                            <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td><td> {# station.title #}</td>
                         </tr>
                     </table>
                 </div>

@@ -14,12 +14,12 @@ ApiAlarmIntegration.Helper.Template = (function () {
         var template = _templates[key];
 
         // Replace template strings
-        template = template.replace(/{{\s*([\w\.\[\]]+)\s*}}/g, function($1, $2) {
+        template = template.replace(/{#\s*([\w\.\[\]]+)\s*#}/g, function($1, $2) {
             return Object.byString(data, $2);
         });
 
         // Handle if-statements
-        template = template.replace(/{%\s*if(.*)\s*%}([\s\S]*?){%\s*endif\s*%}/gm, function ($1, $2, $3) {
+        template = template.replace(/{##\s*if(.*)\s*##}([\s\S]*?){##\s*endif\s*##}/gm, function ($1, $2, $3) {
             if (!eval($2)) {
                 return '';
             }

@@ -6,12 +6,13 @@ class App
 {
     public function __construct()
     {
-        add_action('Modularity', array($this, 'addModule'));
+        modularity_register_module(
+            APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
+            'Module' // The class' file and class name (should be the same) withot .php extension
+        );
+
         add_action('widgets_init', array($this, 'registerWidget'));
 
-        if (defined('API_ALARM_INTEGRATION_COMPABILITY_MODE') && API_ALARM_INTEGRATION_COMPABILITY_MODE === true) {
-            add_action('wp_enqueue_scripts', array($this, 'enqueueAlarmScripts'));
-        }
         new \ApiAlarmIntegration\Disturbance();
     }
 
