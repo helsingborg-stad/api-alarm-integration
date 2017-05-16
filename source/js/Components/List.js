@@ -38,6 +38,13 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
                 var element = $(e.target).parents('.box-content').parent().find('.accordion');
                 this.loadAlarms(element, true);
             }.bind(this));
+
+            $(document).on('alarms:loaded', function (e) {
+                var $alarmslist = $(e.target);
+                var hash = window.location.hash;
+                window.location.hash = '';
+                window.location.hash = hash;
+            });
         }.bind(this));
     }
 
@@ -125,6 +132,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
             // Append load more button
             var button = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-load-more');
             $(element).append(button);
+            $(element).trigger('alarms:loaded');
         }.bind(this));
     };
 
