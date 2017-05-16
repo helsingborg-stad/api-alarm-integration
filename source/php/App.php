@@ -6,10 +6,12 @@ class App
 {
     public function __construct()
     {
-        modularity_register_module(
-            APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
-            'Module' // The class' file and class name (should be the same) withot .php extension
-        );
+        add_action('plugins_loaded', function () {
+            modularity_register_module(
+                APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
+                'Module' // The class' file and class name (should be the same) withot .php extension
+            );
+        });
 
         add_action('widgets_init', array($this, 'registerWidget'));
 
