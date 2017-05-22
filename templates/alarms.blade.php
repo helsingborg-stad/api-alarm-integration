@@ -13,11 +13,11 @@
                 <label for="data-alarm-filter-place"><?php _e('Place', 'api-alarm-integration'); ?></label>
                 <select data-alarm-filter="place" id="data-alarm-filter-place">
                     <option value=""><?php _e('All', 'api-alarm-integration'); ?></option>
-                    <?php foreach ((array) \ApiAlarmIntegration\Module::getPlaces($apiUrl) as $place) : ?>
-                        <?php if (is_object($place)) { ?>
-                            <option value="<?php echo $place->id; ?>"><?php echo $place->name; ?></option>
-                        <?php } ?>
-                    <?php endforeach; ?>
+                    @foreach ((array) \ApiAlarmIntegration\Module::getPlaces($apiUrl) as $place)
+                        @if (is_object($place))
+                            <option value="{{ $place->id }}">{{ $place->name }}</option>
+                        @endif
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
