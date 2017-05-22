@@ -26,17 +26,13 @@ class Disturbance
             disturbances.places = ' . json_encode(get_field('disturbances_places', 'option')) . ';
             disturbances.more_info = \'' . __('Show more information', 'api-alarm-integration') . '\';
             disturbances.less_info = \'' . __('Show less information', 'api-alarm-integration') . '\';
-            disturbances.output_big = \'' . $outputBigSelector . '\';
+            disturbances.output_small_active = \'' . in_array('small', get_field('disturbances_output_automatically', 'options')) . '\';
+            disturbances.output_big_active = \'' . in_array('big', get_field('disturbances_output_automatically', 'options')) . '\';
             disturbances.output_small = \'' . $outputSmallSelector . '\';
+            disturbances.output_big = \'' . $outputBigSelector . '\';
             ';
 
-            if (in_array('small', get_field('disturbances_output_automatically', 'options'))) {
-                echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-small-disturbances.min.js');
-            }
-
-            if (in_array('big', get_field('disturbances_output_automatically', 'options'))) {
-                echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-big-disturbances.min.js');
-            }
+            echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-combined-disturbances.min.js');
 
             echo '</script>';
         }, 100);
