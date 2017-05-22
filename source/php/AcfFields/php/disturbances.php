@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_58d24fce7d85a',
     'title' => __('Disturbances', 'event-manager'),
     'fields' => array(
@@ -52,24 +52,6 @@
             'multiple' => 1,
             'allow_null' => 0,
             'choices' => array(
-                33 => __('Älmhult', 'event-manager'),
-                23 => __('Ängelholm', 'event-manager'),
-                31 => __('Åstorp', 'event-manager'),
-                26 => __('Båstad', 'event-manager'),
-                24 => __('Bjuv', 'event-manager'),
-                30 => __('Eslöv', 'event-manager'),
-                21 => __('Helsingborg', 'event-manager'),
-                29 => __('Höganäs', 'event-manager'),
-                35 => __('Kävlinge', 'event-manager'),
-                27 => __('Klippan', 'event-manager'),
-                34 => __('Laholm', 'event-manager'),
-                25 => __('Landskrona', 'event-manager'),
-                32 => __('Markaryd', 'event-manager'),
-                36 => __('Örkeljunga', 'event-manager'),
-                28 => __('Örkelljunga', 'event-manager'),
-                38 => __('Söder om TP Örkelljunga', 'event-manager'),
-                37 => __('Strövelstorp', 'event-manager'),
-                22 => __('Svalöv', 'event-manager'),
             ),
             'default_value' => array(
             ),
@@ -83,7 +65,15 @@
             'type' => 'select',
             'instructions' => __('You will first need to set your api url and save this page before places will be filled with alternatives. Leave blank to get disturbances from all places.', 'event-manager'),
             'required' => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_58d2501c0f51d',
+                        'operator' => '==',
+                        'value' => '1',
+                    ),
+                ),
+            ),
             'wrapper' => array(
                 'width' => '50',
                 'class' => '',
@@ -142,6 +132,11 @@
                         'operator' => '==',
                         'value' => 'big',
                     ),
+                    1 => array(
+                        'field' => 'field_58d2501c0f51d',
+                        'operator' => '==',
+                        'value' => '1',
+                    ),
                 ),
             ),
             'wrapper' => array(
@@ -168,6 +163,11 @@
                         'field' => 'field_58d250a30f51e',
                         'operator' => '==',
                         'value' => 'small',
+                    ),
+                    1 => array(
+                        'field' => 'field_58d2501c0f51d',
+                        'operator' => '==',
+                        'value' => '1',
                     ),
                 ),
             ),
@@ -196,4 +196,4 @@
     'active' => 1,
     'description' => '',
 ));
-}
+}

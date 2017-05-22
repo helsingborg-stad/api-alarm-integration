@@ -49,24 +49,6 @@
             "multiple": 1,
             "allow_null": 0,
             "choices": {
-                "33": "\u00c4lmhult",
-                "23": "\u00c4ngelholm",
-                "31": "\u00c5storp",
-                "26": "B\u00e5stad",
-                "24": "Bjuv",
-                "30": "Esl\u00f6v",
-                "21": "Helsingborg",
-                "29": "H\u00f6gan\u00e4s",
-                "35": "K\u00e4vlinge",
-                "27": "Klippan",
-                "34": "Laholm",
-                "25": "Landskrona",
-                "32": "Markaryd",
-                "36": "\u00d6rkeljunga",
-                "28": "\u00d6rkelljunga",
-                "38": "S\u00f6der om TP \u00d6rkelljunga",
-                "37": "Str\u00f6velstorp",
-                "22": "Sval\u00f6v"
             },
             "default_value": [],
             "ui": 1,
@@ -79,7 +61,15 @@
             "type": "select",
             "instructions": "You will first need to set your api url and save this page before places will be filled with alternatives. Leave blank to get disturbances from all places.",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_58d2501c0f51d",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "50",
                 "class": "",
@@ -136,6 +126,11 @@
                         "field": "field_58d250a30f51e",
                         "operator": "==",
                         "value": "big"
+                    },
+                    {
+                        "field": "field_58d2501c0f51d",
+                        "operator": "==",
+                        "value": "1"
                     }
                 ]
             ],
@@ -163,6 +158,11 @@
                         "field": "field_58d250a30f51e",
                         "operator": "==",
                         "value": "small"
+                    },
+                    {
+                        "field": "field_58d2501c0f51d",
+                        "operator": "==",
+                        "value": "1"
                     }
                 ]
             ],
@@ -191,4 +191,3 @@
     "active": 1,
     "description": ""
 }]
-
