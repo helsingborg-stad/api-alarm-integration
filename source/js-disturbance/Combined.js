@@ -22,7 +22,6 @@ window.addEventListener('load', function () {
     }
 
     $.getJSON(requestUrl, data, function (response) {
-
         if (disturbances.output_small_active) {
             $.each(response.small, function (index, item) {
                 if ($('#disturbance-' + item.ID).length > 0) {
