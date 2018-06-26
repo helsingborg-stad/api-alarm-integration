@@ -7,10 +7,12 @@ class App
     public function __construct()
     {
         add_action('plugins_loaded', function () {
-            modularity_register_module(
-                APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
-                'Module' // The class' file and class name (should be the same) withot .php extension
-            );
+            if (function_exists('modularity_register_module')) {
+                modularity_register_module(
+                    APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
+                    'Module' // The class' file and class name (should be the same) withot .php extension
+                );
+            }
         });
 
         add_action('widgets_init', array($this, 'registerWidget'));
