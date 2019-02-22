@@ -4,7 +4,9 @@ ApiAlarmIntegration = ApiAlarmIntegration || {};
 ApiAlarmIntegration.FetchAlarms = (function ($) {
 
     function FetchAlarms() {
-        $(document).on('ready', function () {
+
+        document.addEventListener("DOMContentLoaded", function() {
+
             $('[data-api-alarm-integration="load"]').each(function (index, element) {
                 this.init(element);
                 $(element).removeAttr('data-api-alarm-integration');
@@ -47,6 +49,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
                 window.location.hash = '';
                 window.location.hash = hash;
             });
+            
         }.bind(this));
     }
 
@@ -173,7 +176,6 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
     return new FetchAlarms();
 
 })(jQuery);
-
 Object.byString = function(o, s) {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
