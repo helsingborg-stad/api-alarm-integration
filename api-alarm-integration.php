@@ -21,12 +21,20 @@ if (! defined('WPINC')) {
 define('APIALARMINTEGRATION_PATH', plugin_dir_path(__FILE__));
 define('APIALARMINTEGRATION_URL', plugins_url('', __FILE__));
 define('APIALARMINTEGRATION_TEMPLATE_PATH', APIALARMINTEGRATION_PATH . 'templates/');
+define('APIALARMINTEGRATION_MODULE_VIEW_PATH', APIALARMINTEGRATION_PATH . 'templates/');
 
 load_plugin_textdomain('api-alarm-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
 require_once APIALARMINTEGRATION_PATH . 'vendor/autoload.php';
 require_once APIALARMINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once APIALARMINTEGRATION_PATH . 'Public.php';
+
+add_filter( '/Modularity/externalViewPath', function($arr) 
+    {
+        $arr['mod-alarms'] = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        return $arr;
+    }, 10, 3
+);
 
 // Instantiate and register the autoloader
 $loader = new ApiAlarmIntegration\Vendor\Psr4ClassLoader();
