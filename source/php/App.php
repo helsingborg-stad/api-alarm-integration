@@ -2,6 +2,8 @@
 
 namespace ApiAlarmIntegration;
 
+use ApiAlarmIntegration\Helper\CacheBust;
+
 class App
 {
     public function __construct()
@@ -43,7 +45,7 @@ class App
      */
     public static function enqueueAlarmScripts()
     {
-        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/js/api-alarm-integration.min.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/'. CacheBust::name('js/api-alarm-integration.js'), array('jquery'), '1.0.0', true);
         wp_localize_script('api-alarm-integration', 'ApiAlarmIntegrationLang', array(
             'show_filters' => __('Show filters', 'api-alarm-integration'),
             'hide_filters' => __('Hide filters', 'api-alarm-integration')
