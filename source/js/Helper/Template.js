@@ -1,7 +1,4 @@
-ApiAlarmIntegration = ApiAlarmIntegration || {};
-ApiAlarmIntegration.Helper = ApiAlarmIntegration.Helper || {};
-
-ApiAlarmIntegration.Helper.Template = (function () {
+export default (function () {
 
     var _templates = [];
 
