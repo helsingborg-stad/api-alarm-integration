@@ -98,18 +98,6 @@
                             'data-invalid-message' => "You need to add a valid date!",
                             'data-alarm-filter' => 'date-from',
                             'id' => 'data-alarm-filter-date-from'
-                        ],
-                        'required' => true,
-                        'datepicker' => [
-                            'title'                 => 'Välj ett datum',
-                            'minDate'               => "6/29/1997",
-                            'maxDate'               => "tomorrow",
-                            'required'              => true,
-                            'showResetButton'       => true,
-                            'showDaysOutOfMonth'    => true,
-                            'showClearButton'       => true,
-                            'hideOnBlur'            => true,
-                            'hideOnSelect'          => false,
                         ]
                     ])
                     @endfield
@@ -144,18 +132,6 @@
                             'data-invalid-message' => "You need to add a valid date!",
                             'data-alarm-filter' => 'date-to',
                             'id' => 'data-alarm-filter-date-to'
-                        ],
-                        'required' => true,
-                        'datepicker' => [
-                            'title'                 => 'Välj ett datum',
-                            'minDate'               => "6/29/1997",
-                            'maxDate'               => "tomorrow",
-                            'required'              => true,
-                            'showResetButton'       => true,
-                            'showDaysOutOfMonth'    => true,
-                            'showClearButton'       => true,
-                            'hideOnBlur'            => true,
-                            'hideOnSelect'          => false,
                         ]
                     ])
                     @endfield
