@@ -1,4 +1,8 @@
-ApiAlarmIntegration = ApiAlarmIntegration || {};
+import Template from '../Helper/Template';
+
+let ApiAlarmIntegration = {};
+ApiAlarmIntegration.Helper = {};
+ApiAlarmIntegration.Helper.Template = Template;
 ApiAlarmIntegration.FetchAlarms = (function ($) {
 
     function FetchAlarms() {
