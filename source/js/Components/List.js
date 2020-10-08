@@ -6,7 +6,7 @@ ApiAlarmIntegration.Helper.Template = Template;
 export default (function ($) {
 
     function FetchAlarms() {
-
+        const self = this;
         document.addEventListener("DOMContentLoaded", function () {
 
             $('[data-api-alarm-integration="load"]').each(function (index, element) {
@@ -16,6 +16,7 @@ export default (function ($) {
 
             $(document).on('click', '[data-action="api-alarm-integration-load-more"]', function (e) {
                 this.loadMore(e.target);
+                self.selectActiveItem();
             }.bind(this));
 
             // Toggle filters
@@ -38,11 +39,13 @@ export default (function ($) {
                     $(this).find('span').text(ApiAlarmIntegrationLang.show_filters);
                     $filters.addClass('open');
                 }
+                self.selectActiveItem();
             });
 
             $(document).on('click', '[data-alarm-filter="search"]', function (e) {
                 let element = $(e.target).parents('.box-content').parent().find('.accordion');
                 this.loadAlarms(element, true);
+                self.selectActiveItem();
             }.bind(this));
 
             $(document).on('alarms:loaded', function (e) {
@@ -50,26 +53,32 @@ export default (function ($) {
                 let hash = window.location.hash;
                 window.location.hash = '';
                 window.location.hash = hash;
-
-                // Arrow icon - change state
-                for (const openItem of document.querySelectorAll('.modularity-mod-alarms .arrow-trigger')) {
-                    openItem.addEventListener("click", function () {
-                        let thisItem = this.querySelector('i');
-                        if (thisItem.classList.contains('keyboard_arrow_down')) {
-                            thisItem.innerHTML = 'keyboard_arrow_up';
-                            thisItem.classList.remove('keyboard_arrow_down');
-                            thisItem.classList.add('keyboard_arrow_up');
-                        } else {
-                            thisItem.innerHTML = 'keyboard_arrow_down';
-                            thisItem.classList.remove('keyboard_arrow_up');
-                            thisItem.classList.add('keyboard_arrow_down');
-                        }
-                    });
-                }
+                self.selectActiveItem();
             });
 
 
         }.bind(this));
+    }
+
+    /**
+     * Accordion arrow cion
+     * Change on state
+     */
+    FetchAlarms.prototype.selectActiveItem= function () {
+        for (const openItem of document.querySelectorAll('.modularity-mod-alarms .arrow-trigger')) {
+            openItem.addEventListener("click", function () {
+                let thisItem = this.querySelector('i');
+                if (thisItem.classList.contains('keyboard_arrow_down')) {
+                    thisItem.innerHTML = 'keyboard_arrow_up';
+                    thisItem.classList.remove('keyboard_arrow_down');
+                    thisItem.classList.add('keyboard_arrow_up');
+                } else {
+                    thisItem.innerHTML = 'keyboard_arrow_down';
+                    thisItem.classList.remove('keyboard_arrow_up');
+                    thisItem.classList.add('keyboard_arrow_down');
+                }
+            });
+        }
     }
 
     /**
