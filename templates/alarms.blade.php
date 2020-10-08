@@ -60,14 +60,29 @@
 
                 <label for="data-alarm-filter-place"><?php _e('Place', 'api-alarm-integration'); ?></label>
 
-                <select data-alarm-filter="place" id="data-alarm-filter-place">
+                <select id="data-alarm-filter-place" data-alarm-filter="place">
+                    @php $selectArr[''] = __('All', 'api-alarm-integration'); @endphp
                     <option value=""><?php _e('All', 'api-alarm-integration'); ?></option>
                     @foreach ((array) \ApiAlarmIntegration\Module::getPlaces($options['api_url']) as $place)
                         @if (is_object($place))
                             <option value="{{ $place->id }}">{{ $place->name }}</option>
+                            @php $selectArr[$place->id] = $place->name; @endphp
                         @endif
                     @endforeach
-                </select>  
+                </select>
+
+            {{--
+
+            @select([
+                'label' => __('Place', 'api-alarm-integration'),
+                'required' => true,
+                'attributeList' => ['data-alarm-filter' => 'place'],
+                'options' => $selectArr
+            ])
+            @endselect
+
+            --}}
+
                 @endgrid
 
                 @grid([
@@ -177,19 +192,24 @@
     </div>
 
     <div class="box-content no-padding">
-        <ul class="accordion accordion-list accordion-list-small alarms-container" data-api-alarm-integration="load" data-alamrs-per-page="{{ $options['alarms_per_page'] }}" data-alamrs-current-page="0" data-alarm-api="{{ trailingslashit($options['api_url']) }}">
+        <ul class="accordion accordion-list accordion-list-small alarms-container" data-api-alarm-integration="load"
+            data-alamrs-per-page="{{ $options['alarms_per_page'] }}" data-alamrs-current-page="0"
+            data-alarm-api="{{ trailingslashit($options['api_url']) }}">
             <li style="padding:20px 0;" data-template="api-alarm-integration-loading" data-api-alarms-load-more>
                
             </li>
             <li class="accordion-section no-padding arrow-trigger" data-template="api-alarm-integration-row" js-toggle-trigger='{# id #}' aria-pressed="false">
                 @icon([
-                    'icon' => 'keyboard_arrow_up',
+                    'icon' => 'keyboard_arrow_down',
                     'size' => 'md',
                     'attributeList' => [],
-
+                    'classList' => ['keyboard_arrow_down']
                 ])
                 @endicon
-                <label class="accordion-toggle block-level" for="alarm-{# id #}"><span class="link-item link">{## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}</span><time class="date pull-right text-sm text-dark-gray">{# date #}</time></label>
+                <label class="accordion-toggle block-level" for="alarm-{# id #}">
+                    <span class="link-item link">{## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}</span>
+                    <time class="date pull-right text-sm text-dark-gray">{# date #}</time>
+                </label>
                 <div class="accordion-content u-display--none" js-toggle-item='{# id #}' js-toggle-class="u-display--none" >
                     <table>
                         <tr>

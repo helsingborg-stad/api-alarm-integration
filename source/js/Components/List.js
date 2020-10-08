@@ -3,11 +3,11 @@ import Template from '../Helper/Template';
 let ApiAlarmIntegration = {};
 ApiAlarmIntegration.Helper = {};
 ApiAlarmIntegration.Helper.Template = Template;
-ApiAlarmIntegration.FetchAlarms = (function ($) {
+export default (function ($) {
 
     function FetchAlarms() {
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
 
             $('[data-api-alarm-integration="load"]').each(function (index, element) {
                 this.init(element);
@@ -20,7 +20,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
 
             // Toggle filters
             $(document).on('click', '[data-action="api-alarm-integration-toggle-filters"]', function (e) {
-                var $filters = $(this).siblings('.filters');
+                let $filters = $(this).siblings('.filters');
 
                 if ($filters.hasClass('hidden')) {
                     $filters.removeClass('hidden').hide();
@@ -41,17 +41,34 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
             });
 
             $(document).on('click', '[data-alarm-filter="search"]', function (e) {
-                var element = $(e.target).parents('.box-content').parent().find('.accordion');
+                let element = $(e.target).parents('.box-content').parent().find('.accordion');
                 this.loadAlarms(element, true);
             }.bind(this));
 
             $(document).on('alarms:loaded', function (e) {
-                var $alarmslist = $(e.target);
-                var hash = window.location.hash;
+                let $alarmslist = $(e.target);
+                let hash = window.location.hash;
                 window.location.hash = '';
                 window.location.hash = hash;
+
+                // Arrow icon - change state
+                for (const openItem of document.querySelectorAll('.modularity-mod-alarms .arrow-trigger')) {
+                    openItem.addEventListener("click", function () {
+                        let thisItem = this.querySelector('i');
+                        if (thisItem.classList.contains('keyboard_arrow_down')) {
+                            thisItem.innerHTML = 'keyboard_arrow_up';
+                            thisItem.classList.remove('keyboard_arrow_down');
+                            thisItem.classList.add('keyboard_arrow_up');
+                        } else {
+                            thisItem.innerHTML = 'keyboard_arrow_down';
+                            thisItem.classList.remove('keyboard_arrow_up');
+                            thisItem.classList.add('keyboard_arrow_down');
+                        }
+                    });
+                }
             });
-            
+
+
         }.bind(this));
     }
 
@@ -60,17 +77,17 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @param  {object} element
      * @return {void}
      */
-    FetchAlarms.prototype.init = function(element) {
+    FetchAlarms.prototype.init = function (element) {
         this.loadAlarms(element);
     };
 
-    FetchAlarms.prototype.getFilters = function(element) {
-        var textFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="text"]').val();
-        var placeFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="place"]').val();
-        var dateFromFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-from"]').val();
-        var dateToFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-to"]').val();
+    FetchAlarms.prototype.getFilters = function (element) {
+        let textFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="text"]').val();
+        let placeFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="place"]').val();
+        let dateFromFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-from"]').val();
+        let dateToFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-to"]').val();
 
-        var filters = {};
+        let filters = {};
 
         if (textFilter.length > 0) {
             filters.search = textFilter;
@@ -99,25 +116,25 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @param  {int}    currentPage
      * @return {void}
      */
-    FetchAlarms.prototype.loadAlarms = function(element, isSearch) {
+    FetchAlarms.prototype.loadAlarms = function (element, isSearch) {
         if (typeof isSearch === 'undefined') {
             isSearch = false;
         }
 
-        var apiUrl = $(element).attr('data-alarm-api');
-        var perPage = $(element).attr('data-alamrs-per-page');
-        var currentPage = $(element).attr('data-alamrs-current-page');
+        let apiUrl = $(element).attr('data-alarm-api');
+        let perPage = $(element).attr('data-alamrs-per-page');
+        let currentPage = $(element).attr('data-alamrs-current-page');
 
-        var requestUrl = apiUrl + 'wp/v2/alarm';
-        var data = {
+        let requestUrl = apiUrl + 'wp/v2/alarm';
+        let data = {
             per_page: perPage,
             page: parseInt(currentPage) + 1
         };
 
         // Get filters and put them in data object
-        var filters = this.getFilters(element);
+        let filters = this.getFilters(element);
 
-        for (var attrname in filters) {
+        for (let attrname in filters) {
             data[attrname] = filters[attrname];
         }
 
@@ -125,7 +142,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
             $(element).empty();
         }
 
-        var loading = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-loading');
+        let loading = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-loading');
         $(element).append(loading);
 
         $.getJSON(requestUrl, data, function (response) {
@@ -137,7 +154,7 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
             $(element).find('[data-api-alarms-load-more]').remove();
 
             // Append load more button
-            var button = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-load-more');
+            let button = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-load-more');
             $(element).append(button);
             $(element).trigger('alarms:loaded');
         }.bind(this));
@@ -148,11 +165,11 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @param  {elemetn} element Clicked button
      * @return {void}
      */
-    FetchAlarms.prototype.loadMore = function(element) {
-        var baseElement = $(element).parents('.alarms-container');
-        var apiUrl = baseElement.attr('data-alarm-api');
-        var perPage = baseElement.attr('data-alamrs-per-page');
-        var currentPage = baseElement.attr('data-alamrs-current-page') + 1;
+    FetchAlarms.prototype.loadMore = function (element) {
+        let baseElement = $(element).parents('.alarms-container');
+        let apiUrl = baseElement.attr('data-alarm-api');
+        let perPage = baseElement.attr('data-alamrs-per-page');
+        let currentPage = baseElement.attr('data-alamrs-current-page') + 1;
 
         // Update current page
         baseElement.attr('data-alamrs-current-page', currentPage);
@@ -167,11 +184,11 @@ ApiAlarmIntegration.FetchAlarms = (function ($) {
      * @param {element} element
      * @param {object}  item
      */
-    FetchAlarms.prototype.addAlarmToList = function(element, item) {
+    FetchAlarms.prototype.addAlarmToList = function (element, item) {
         item.date = item.date.replace("T", " ").substring(0, item.date.length - 3);
 
         // Append alarm
-        var alarm = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-row', item);
+        let alarm = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-row', item);
         $(element).append(alarm);
     };
 

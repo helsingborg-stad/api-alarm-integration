@@ -1,0 +1,47 @@
+.modularity-mod-alarms {
+  padding: 0px;
+
+  .accordion-content {
+    padding-bottom: 20px;
+  }
+
+  .alarms-container {
+    opacity: 0;
+    list-style: none;
+
+    li i, li span {
+      cursor: pointer;
+    }
+
+    li time {
+      float: right;
+    }
+
+    i {
+      position: relative;
+      top: 6px;
+    }
+
+    .accordion-content {
+      overflow-x: auto;
+    }
+
+    table {
+      background: #ededed;
+      margin-left: 13px;
+    }
+  }
+
+  .show-container {
+    opacity: 1;
+  }
+
+  .filters {
+    padding-bottom: 20px;
+  }
+
+}
+
+
+
+

@@ -36,6 +36,17 @@ class Module extends \Modularity\Module
     }
 
     /**
+     * Include CSS
+     * @return void
+     */
+    public function style() {
+        if (!$this->hasModule()) {
+            return;
+        }
+        \ApiAlarmIntegration\App::enqueueStyle();
+    }
+
+    /**
      * Include scripts
      * @return void
      */

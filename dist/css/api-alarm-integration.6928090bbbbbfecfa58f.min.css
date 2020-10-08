@@ -1,0 +1,26 @@
+.modularity-mod-alarms {
+  padding: 0px; }
+  .modularity-mod-alarms .accordion-content {
+    padding-bottom: 20px; }
+  .modularity-mod-alarms .alarms-container {
+    opacity: 0;
+    list-style: none; }
+    .modularity-mod-alarms .alarms-container li i, .modularity-mod-alarms .alarms-container li span {
+      cursor: pointer; }
+    .modularity-mod-alarms .alarms-container li time {
+      float: right; }
+    .modularity-mod-alarms .alarms-container i {
+      position: relative;
+      top: 6px; }
+    .modularity-mod-alarms .alarms-container .accordion-content {
+      overflow-x: auto; }
+    .modularity-mod-alarms .alarms-container table {
+      background: #ededed;
+      margin-left: 13px; }
+  .modularity-mod-alarms .show-container {
+    opacity: 1; }
+  .modularity-mod-alarms .filters {
+    padding-bottom: 20px; }
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zb3VyY2Uvc2Fzcy9hcGktYWxhcm0taW50ZWdyYXRpb24uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQVk7RUFEZDtJQUlJLG9CQUFvQjtFQUp4QjtJQVFJLFVBQVU7SUFDVixnQkFBZ0I7SUFUcEI7TUFZTSxlQUFlO0lBWnJCO01BZ0JNLFlBQVk7SUFoQmxCO01Bb0JNLGtCQUFrQjtNQUNsQixRQUFRO0lBckJkO01BeUJNLGdCQUFnQjtJQXpCdEI7TUE2Qk0sbUJBQW1CO01BQ25CLGlCQUFpQjtFQTlCdkI7SUFtQ0ksVUFBVTtFQW5DZDtJQXVDSSxvQkFBb0IiLCJmaWxlIjoiY3NzL2FwaS1hbGFybS1pbnRlZ3JhdGlvbi42OTI4MDkwYmJiYmJmZWNmYTU4Zi5taW4uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZHVsYXJpdHktbW9kLWFsYXJtcyB7XG4gIHBhZGRpbmc6IDBweDtcblxuICAuYWNjb3JkaW9uLWNvbnRlbnQge1xuICAgIHBhZGRpbmctYm90dG9tOiAyMHB4O1xuICB9XG5cbiAgLmFsYXJtcy1jb250YWluZXIge1xuICAgIG9wYWNpdHk6IDA7XG4gICAgbGlzdC1zdHlsZTogbm9uZTtcblxuICAgIGxpIGksIGxpIHNwYW4ge1xuICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIH1cblxuICAgIGxpIHRpbWUge1xuICAgICAgZmxvYXQ6IHJpZ2h0O1xuICAgIH1cblxuICAgIGkge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgdG9wOiA2cHg7XG4gICAgfVxuXG4gICAgLmFjY29yZGlvbi1jb250ZW50IHtcbiAgICAgIG92ZXJmbG93LXg6IGF1dG87XG4gICAgfVxuXG4gICAgdGFibGUge1xuICAgICAgYmFja2dyb3VuZDogI2VkZWRlZDtcbiAgICAgIG1hcmdpbi1sZWZ0OiAxM3B4O1xuICAgIH1cbiAgfVxuXG4gIC5zaG93LWNvbnRhaW5lciB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxuXG4gIC5maWx0ZXJzIHtcbiAgICBwYWRkaW5nLWJvdHRvbTogMjBweDtcbiAgfVxuXG59XG5cblxuXG5cbiJdLCJzb3VyY2VSb290IjoiIn0=*/
