@@ -192,25 +192,24 @@
     </div>
 
     <div class="box-content no-padding">
-        <ul class="accordion accordion-list accordion-list-small alarms-container" data-api-alarm-integration="load"
-            data-alamrs-per-page="{{ $options['alarms_per_page'] }}" data-alamrs-current-page="0"
-            data-alarm-api="{{ trailingslashit($options['api_url']) }}">
-            <li style="padding:20px 0;" data-template="api-alarm-integration-loading" data-api-alarms-load-more>
-               
-            </li>
-            <li class="accordion-section no-padding arrow-trigger" data-template="api-alarm-integration-row" js-toggle-trigger='{# id #}' aria-pressed="false">
-                @icon([
-                    'icon' => 'keyboard_arrow_down',
-                    'size' => 'md',
-                    'attributeList' => [],
-                    'classList' => ['keyboard_arrow_down']
-                ])
-                @endicon
-                <label class="accordion-toggle block-level" for="alarm-{# id #}">
-                    <span class="link-item link">{## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}</span>
-                    <time class="date pull-right text-sm text-dark-gray">{# date #}</time>
-                </label>
-                <div class="accordion-content u-display--none" js-toggle-item='{# id #}' js-toggle-class="u-display--none" >
+
+        <div id="5f843daf7ee5d" class="c-accordion alarms-container" data-api-alarm-integration="load"
+             data-alamrs-per-page="{{ $options['alarms_per_page'] }}" data-alamrs-current-page="0"
+             data-alarm-api="{{ trailingslashit($options['api_url']) }}" js-expand-container="" data-uid="5f843daf7ee74">
+
+            <div data-template="api-alarm-integration-loading" data-api-alarms-load-more>
+
+            </div>
+
+            <div class="c-accordion__section" data-template="api-alarm-integration-row">
+                <button class="c-accordion__button" data-js-toggle-trigger='mod-larm-content-{# id #}'>
+                    <span class="c-accordion__button-wrapper" tabindex="-1">
+                        <time class="date pull-right text-sm text-dark-gray">{# date #}</time>
+                        <span class="link-item link"> {## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}</span>
+                        <i id="" class="c-icon c-accordion__icon c-icon--color- c-icon--size-md material-icons keyboard_arrow_down" data-uid="{# id #}">keyboard_arrow_down</i> <!-- No icon defined -->
+                    </span>
+                </button>
+                <div class="accordion-content u-display--none" id="mod-larm-content-{# id #}" js-toggle-class="u-display--none">
                     <table>
                         <tr>
                             <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td>
@@ -231,18 +230,20 @@
                         </tr>
                     </table>
                 </div>
-            </li>
-            <li data-template="api-alarm-integration-load-more" style="padding:10px;" data-api-alarms-load-more>
-                @button([
-                    'text' => translate('Show more alarms', 'api-alarm-integration'),
-                    'color' => 'primary',
-                    'style' => 'filled',
-                    'attributeList' => ['data-action' => 'api-alarm-integration-load-more']
-                
-                ])
-                @endbutton
-                
-            </li>
-        </ul>
+                <div data-template="api-alarm-integration-load-more" style="padding:10px;" data-api-alarms-load-more>
+                    @button([
+                        'text' => translate('Show more alarms', 'api-alarm-integration'),
+                        'color' => 'primary',
+                        'style' => 'filled',
+                        'attributeList' => ['data-action' => 'api-alarm-integration-load-more']
+
+                    ])
+                    @endbutton
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>

@@ -31,11 +31,11 @@ export default (function ($) {
                 $filters.slideToggle();
 
                 if ($filters.hasClass('open')) {
-                    $(this).find('i.pricon').removeClass('pricon-caret-down').addClass('pricon-caret-up');
+
                     $(this).find('span').text(ApiAlarmIntegrationLang.hide_filters);
                     $filters.removeClass('open');
                 } else {
-                    $(this).find('i.pricon').removeClass('pricon-caret-up').addClass('pricon-caret-down');
+
                     $(this).find('span').text(ApiAlarmIntegrationLang.show_filters);
                     $filters.addClass('open');
                 }
@@ -65,17 +65,23 @@ export default (function ($) {
      * Change on state
      */
     FetchAlarms.prototype.selectActiveItem= function () {
-        for (const openItem of document.querySelectorAll('.modularity-mod-alarms .arrow-trigger')) {
+        for (const openItem of document.querySelectorAll(
+            '.modularity-mod-alarms .c-accordion__section .c-accordion__button')
+            ) {
             openItem.addEventListener("click", function () {
+                let contentID = this.getAttribute('data-js-toggle-trigger');
                 let thisItem = this.querySelector('i');
+
                 if (thisItem.classList.contains('keyboard_arrow_down')) {
                     thisItem.innerHTML = 'keyboard_arrow_up';
                     thisItem.classList.remove('keyboard_arrow_down');
                     thisItem.classList.add('keyboard_arrow_up');
+                    document.getElementById(contentID).classList.remove('u-display--none');
                 } else {
                     thisItem.innerHTML = 'keyboard_arrow_down';
                     thisItem.classList.remove('keyboard_arrow_up');
                     thisItem.classList.add('keyboard_arrow_down');
+                    document.getElementById(contentID).classList.add('u-display--none');
                 }
             });
         }
