@@ -176,7 +176,7 @@ export default (function ($) {
             let button = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-load-more');
             $('#alarm-data-container').append(button);
             $('#alarm-data-container').trigger('alarms:loaded');
-            
+
         }.bind(this));
     };
 
