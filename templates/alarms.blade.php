@@ -30,11 +30,11 @@
 
                     @field([
                         'type' => 'text',
+                        'id' => 'data-alarm-filter-text',
                         'attributeList' => [
                             'type' => 'text',
                             'name' => 'text',
-                            'data-alarm-filter' => "text",
-                            'id' => 'data-alarm-filter-text'
+                            'data-alarm-filter' => "text"
                         ],
                         'label' => translate('Search', 'api-alarm-integration')
                     ])
@@ -106,13 +106,13 @@
                     @field([
                         'type' => 'datepicker',
                         'value' => '',
+                        'id' => 'data-alarm-filter-date-from',
                         'label' => translate('Date from', 'api-alarm-integration'),
                         'attributeList' => [
                             'type' => 'text',
                             'name' => 'text',
                             'data-invalid-message' => "You need to add a valid date!",
-                            'data-alarm-filter' => 'date-from',
-                            'id' => 'data-alarm-filter-date-from'
+                            'data-alarm-filter' => 'date-from'
                         ]
                     ])
                     @endfield
@@ -141,12 +141,12 @@
                         'type' => 'datepicker',
                         'value' => '',
                         'label' => translate('Date to', 'api-alarm-integration'),
+                        'id' => 'data-alarm-filter-date-to',
                         'attributeList' => [
                             'type' => 'text',
                             'name' => 'text',
                             'data-invalid-message' => "You need to add a valid date!",
-                            'data-alarm-filter' => 'date-to',
-                            'id' => 'data-alarm-filter-date-to'
+                            'data-alarm-filter' => 'date-to'
                         ]
                     ])
                     @endfield
@@ -193,13 +193,23 @@
 
     <div class="box-content no-padding">
 
-        <div id="5f843daf7ee5d" class="c-accordion alarms-container" data-api-alarm-integration="load"
-             data-alamrs-per-page="{{ $options['alarms_per_page'] }}" data-alamrs-current-page="0"
-             data-alarm-api="{{ trailingslashit($options['api_url']) }}" js-expand-container="" data-uid="5f843daf7ee74">
+        <div data-template="api-alarm-integration-loading" data-api-alarms-load-more>
+            @loader([
+                'size' => 'sm',
+                'color' => 'primary',
+                'shape' => 'linear'
+            ])
+            @endloader
+        </div>
 
-            <div data-template="api-alarm-integration-loading" data-api-alarms-load-more>
-
-            </div>
+        <div id="alarm-data-container"
+             class="c-accordion alarms-container"
+             data-api-alarm-integration="load"
+             data-alamrs-per-page="{{ $options['alarms_per_page'] }}"
+             data-alamrs-current-page="0"
+             data-alarm-api="{{ trailingslashit($options['api_url']) }}"
+             js-expand-container=""
+             data-uid="5f843daf7ee74">
 
             <div class="c-accordion__section" data-template="api-alarm-integration-row">
                 <button class="c-accordion__button" data-js-toggle-trigger='mod-larm-content-{# id #}'>

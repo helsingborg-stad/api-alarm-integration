@@ -10,7 +10,7 @@ export default (function ($) {
         document.addEventListener("DOMContentLoaded", function () {
 
             $('[data-api-alarm-integration="load"]').each(function (index, element) {
-                this.init(element);
+                this.init();
                 $(element).removeAttr('data-api-alarm-integration');
             }.bind(this));
 
@@ -92,17 +92,21 @@ export default (function ($) {
      * @param  {object} element
      * @return {void}
      */
-    FetchAlarms.prototype.init = function (element) {
-        this.loadAlarms(element);
+    FetchAlarms.prototype.init = function () {
+        this.loadAlarms();
     };
 
-    FetchAlarms.prototype.getFilters = function (element) {
-        let textFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="text"]').val();
-        let placeFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="place"]').val();
-        let dateFromFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-from"]').val();
-        let dateToFilter = $(element).parents('.box-content').parent().find('[data-alarm-filter="date-to"]').val();
+    /**
+     * Filtrering
+     * @returns {{}}
+     */
+    FetchAlarms.prototype.getFilters = function () {
 
-        let filters = {};
+       let textFilter = $('#input_data-alarm-filter-text').val();
+       let placeFilter = $('#data-alarm-filter-place').val();
+       let dateFromFilter = $('#data-alarm-filter-date-from').val();
+       let dateToFilter = $('#data-alarm-filter-date-to').val();
+       let filters = {};
 
         if (textFilter.length > 0) {
             filters.search = textFilter;
@@ -125,20 +129,19 @@ export default (function ($) {
 
     /**
      * Load alarms
-     * @param  {object} element
      * @param  {string} apiUrl
      * @param  {int}    perPage
      * @param  {int}    currentPage
      * @return {void}
      */
-    FetchAlarms.prototype.loadAlarms = function (element, isSearch) {
+    FetchAlarms.prototype.loadAlarms = function (isSearch) {
         if (typeof isSearch === 'undefined') {
             isSearch = false;
         }
 
-        let apiUrl = $(element).attr('data-alarm-api');
-        let perPage = $(element).attr('data-alamrs-per-page');
-        let currentPage = $(element).attr('data-alamrs-current-page');
+        let apiUrl = $('#alarm-data-container').attr('data-alarm-api');
+        let perPage = $('#alarm-data-container').attr('data-alamrs-per-page');
+        let currentPage = $('#alarm-data-container').attr('data-alamrs-current-page');
 
         let requestUrl = apiUrl + 'wp/v2/alarm';
         let data = {
@@ -147,31 +150,31 @@ export default (function ($) {
         };
 
         // Get filters and put them in data object
-        let filters = this.getFilters(element);
+        let filters = this.getFilters($('#alarm-data-container'));
 
         for (let attrname in filters) {
             data[attrname] = filters[attrname];
         }
 
         if (isSearch) {
-            $(element).empty();
+            $('#alarm-data-container').empty();
         }
 
         let loading = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-loading');
-        $(element).append(loading);
+        $('#alarm-data-container').append(loading);
 
         $.getJSON(requestUrl, data, function (response) {
             $.each(response, function (index, item) {
-                $(element).find('[data-alarms-loading]').remove();
-                this.addAlarmToList(element, item);
+                $('#alarm-data-container').find('[data-alarms-loading]').remove();
+                this.addAlarmToList($('#alarm-data-container'), item);
             }.bind(this));
 
-            $(element).find('[data-api-alarms-load-more]').remove();
+            $('#alarm-data-container').find('[data-api-alarms-load-more]').remove();
 
             // Append load more button
             let button = ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-load-more');
-            $(element).append(button);
-            $(element).trigger('alarms:loaded');
+            $('#alarm-data-container').append(button);
+            $('#alarm-data-container').trigger('alarms:loaded');
         }.bind(this));
     };
 
