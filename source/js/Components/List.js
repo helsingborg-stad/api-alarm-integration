@@ -50,9 +50,10 @@ export default (function ($) {
 
             $(document).on('alarms:loaded', function (e) {
                 let $alarmslist = $(e.target);
-                let hash = window.location.hash;
-                window.location.hash = '';
-                window.location.hash = hash;
+                //TODO: Evaluate the need for this seemingly redundant piece of code
+                // let hash = window.location.hash;
+                // window.location.hash = '';
+                // window.location.hash = hash;
                 self.selectActiveItem();
             });
 
