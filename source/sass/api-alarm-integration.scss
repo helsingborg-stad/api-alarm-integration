@@ -1,41 +1,34 @@
 .modularity-mod-alarms {
-  padding: 0px;
-
-  .accordion-content {
-    padding-bottom: 20px;
-  }
-
-  .box-title {
-    margin-bottom:16px;
-  }
-
-  .alarms-container {
-    opacity: 0;
-    list-style: none;
-
-    .accordion-content {
-      overflow-x: auto;
+    .modularity-mod-alarms__content {
+        padding: 24px 16px;
+        background: #fcfcfc;
+        overflow-x: auto;
+        display: none;
     }
 
-    table {
-      background: #ededed;
-      margin-left: 13px;
+    .modularity-mod-alarms__container {
+        opacity: 0;
+        list-style: none;
+        margin: 0 -16px;
+
+        time {
+            margin-right: 16px;
+        }
+
+        &[is-loaded] {
+            opacity: 1;
+        }
     }
-    time {
-      margin-right: 14px;
+
+    .modularity-mod-alarms__section {
+        &[is-expanded] {
+            .modularity-mod-alarms__content {
+                display: block;
+            }
+
+            .c-accordion__icon {
+                transform: rotate(180deg)
+            }
+        }
     }
-  }
-
-  .show-container {
-    opacity: 1;
-  }
-
-  .filters {
-    padding-bottom: 20px;
-  }
-
 }
-
-
-
-
