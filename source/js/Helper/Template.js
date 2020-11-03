@@ -1,3 +1,5 @@
+import ObjectByString from './Object';
+
 export default (function () {
 
     let _templates = [];
@@ -23,9 +25,6 @@ export default (function () {
 
             return $3;
         });
-
-        // Showing container when data is loaded.
-        document.querySelector('.alarms-container').classList.add('show-container');
 
         // Return the new html
         return template;
