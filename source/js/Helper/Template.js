@@ -1,6 +1,8 @@
+import ObjectByString from './Object';
+
 export default (function () {
 
-    var _templates = [];
+    let _templates = [];
 
     function Template() {
         this.getTemplates();
@@ -8,7 +10,7 @@ export default (function () {
 
     Template.prototype.render = function(key, data) {
         // Get template html
-        var template = _templates[key];
+        let template = _templates[key];
 
         // Replace template strings
         template = template.replace(/{#\s*([\w\.\[\]]+)\s*#}/g, function($1, $2) {
@@ -33,12 +35,12 @@ export default (function () {
      * @return {void}
      */
     Template.prototype.getTemplates = function() {
-        var templateElements = document.querySelectorAll('[data-template]');
+        let templateElements = document.querySelectorAll('[data-template]');
 
-        for (var i = 0; i < templateElements.length; i++) {
-            var el = templateElements[i];
-            var key = el.getAttribute('data-template');
-            var html = el.outerHTML.replace(/data-template="([^\"]*)"/ig, '');
+        for (let i = 0; i < templateElements.length; i++) {
+            let el = templateElements[i];
+            let key = el.getAttribute('data-template');
+            let html = el.outerHTML.replace(/data-template="([^\"]*)"/ig, '');
 
             _templates[key] = html;
             el.parentElement.removeChild(el);

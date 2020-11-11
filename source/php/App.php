@@ -40,7 +40,7 @@ class App
     }
 
     /**
-     * Enqueues widget/module assets
+     * Enqueues widget/module assets Scripts
      * @return void
      */
     public static function enqueueAlarmScripts()
@@ -50,5 +50,15 @@ class App
             'show_filters' => __('Show filters', 'api-alarm-integration'),
             'hide_filters' => __('Hide filters', 'api-alarm-integration')
         ));
+    }
+
+    /**
+     * Enqueues widget/module assets CSS
+     * @return void
+     */
+    public static function enqueueStyle()
+    {
+        wp_register_style('api-alarm-integration-css', APIALARMINTEGRATION_URL . '/dist/'. CacheBust::name('css/api-alarm-integration.css'), null, '1.0.0');
+        wp_enqueue_style('api-alarm-integration-css');
     }
 }

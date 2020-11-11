@@ -1,0 +1,39 @@
+.modularity-mod-alarms {
+    .modularity-mod-alarms__content {
+        padding: 24px 16px;
+        background: #fcfcfc;
+        overflow-x: auto;
+        display: none;
+    }
+
+    .modularity-mod-alarms__container {
+        opacity: 0;
+        list-style: none;
+        margin: 0 -16px;
+
+        time {
+            margin-right: 16px;
+        }
+
+        &[is-loaded] {
+            opacity: 1;
+        }
+    }
+
+    .modularity-mod-alarms__section {
+        &[is-expanded] {
+            .modularity-mod-alarms__content {
+                display: block;
+            }
+
+            .c-accordion__icon {
+                transform: rotate(180deg)
+            }
+        }
+    }
+}
+
+.modularity-mod-notices {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
