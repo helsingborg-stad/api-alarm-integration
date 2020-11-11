@@ -1,21 +1,13 @@
 class NoticeModule {
     constructor() {
-        // this.requestUrl = disturbances.apiUrl + 'wp/v2/disturbances';
+
         this.requestUrl = 'https://api.helsingborg.se/alarm/json/wp/v2/disturbances';
-
-        this.data = {}
-
-        if (disturbances.places.join(',').length > 0) {
-            // this.data.place = disturbances.places.join(',');
-        }
-
-        this.getNotices()
-
-        console.log(disturbances)
-
+        this.data = {};
+        this.getNotices();
     }
 
     getNotices() {
+
         let dataQuery = this.serialize(this.data);
 
         async function postData(url = '') {
@@ -25,18 +17,17 @@ class NoticeModule {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 redirect: 'follow',
-                referrerPolicy: 'no-referrer', 
+                referrerPolicy: 'no-referrer',
             });
 
-            if(response.status !== 200) {
+            if (response.status !== 200) {
                 return false;
             }
-            
+
             return response.json();
         }
-        
+
         postData(`${this.requestUrl}?${dataQuery}`).then((response) => {
-            console.log(response)
 
             if (disturbances.output_small_active) {
                 response.small.forEach(item => {
@@ -59,23 +50,22 @@ class NoticeModule {
                     }
 
                     this.getTemplate(item, true)
-                    
+
                     document.querySelector(disturbances.output_big).insertAdjacentHTML('afterbegin', this.getTemplate(item, true));
                 });
             }
-        })
-        .catch((e) => {
+        }).catch((e) => {
             console.log(e)
             console.log('API Alarm Integration plugin: Request failed!');
         });
     }
 
     serialize(obj) {
-        var str = [];
-        for (var p in obj)
-          if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-          }
+        let str = [];
+        for (let param in obj)
+            if (obj.hasOwnProperty(param)) {
+                str.push(encodeURIComponent(param) + "=" + encodeURIComponent(obj[param]));
+            }
         return str.join("&");
     }
 
