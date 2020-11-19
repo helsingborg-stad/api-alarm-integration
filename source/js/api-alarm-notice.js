@@ -72,7 +72,7 @@ class NoticeModule {
     getTemplate(item, big = false,) {
         let size = big ? 'warning' : 'info';
 
-        return '\<div id="disturbance-' + item.ID + '" class="modularity-mod-notices c-notice c-notice--' + size + ' u-margin--0">\
+        return '\<div id="disturbance-' + item.ID + '" class="modularity-mod-notices c-notice c-notice--' + size + ' u-margin--0" style="border-radius: 0 !important;; box-shadow: none !important;">\
         <span class="c-notice__icon">\<i id="" class="c-icon c-icon--color- c-icon--size-md material-icons" data-uid="5fa0039575fdc">forum\</i>\</span>\<span class="c-notice__message--sm"><strong>' + item.post_title + '\</strong></span></br>' + item.post_content + '\</div>';
     }
 }
