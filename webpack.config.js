@@ -22,6 +22,7 @@ module.exports = {
      */
     entry: {
         'js/api-alarm-integration': './source/js/api-alarm-integration.js',
+        'js/api-alarm-index': './source/js/api-alarm-index.js',
         'css/api-alarm-integration': './source/sass/api-alarm-integration.scss',
     },
     /**
