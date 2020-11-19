@@ -3,12 +3,21 @@ class NoticeModule {
 
         this.requestUrl = 'https://api.helsingborg.se/alarm/json/wp/v2/disturbances';
         this.data = {};
+
+        if (disturbances.places.join(',').length > 0) {
+            this.data.place = disturbances.places.join(',');
+        }
+        
         this.getNotices();
     }
 
     getNotices() {
 
         let dataQuery = this.serialize(this.data);
+
+        console.log(dataQuery);
+
+        console.log(disturbances);
 
         async function postData(url = '') {
             const response = await fetch(url, {
