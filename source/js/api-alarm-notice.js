@@ -15,10 +15,6 @@ class NoticeModule {
 
         let dataQuery = this.serialize(this.data);
 
-        console.log(dataQuery);
-
-        console.log(disturbances);
-
         async function postData(url = '') {
             const response = await fetch(url, {
                 cache: 'no-cache',
@@ -41,7 +37,6 @@ class NoticeModule {
             if (disturbances.output_small_active) {
                 response.small.forEach(item => {
                     if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
-                        console.log('Already exists')
                         return;
                     }
 
@@ -54,7 +49,6 @@ class NoticeModule {
             if (disturbances.output_big_active) {
                 response.big.forEach(item => {
                     if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
-                        console.log('Already exists')
                         return;
                     }
 
