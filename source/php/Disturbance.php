@@ -2,6 +2,8 @@
 
 namespace ApiAlarmIntegration;
 
+use ApiAlarmIntegration\Helper\CacheBust;
+
 class Disturbance
 {
     public function __construct()
@@ -32,7 +34,7 @@ class Disturbance
             disturbances.output_big = \'' . $outputBigSelector . '\';
             ';
 
-            echo file_get_contents(APIALARMINTEGRATION_PATH . 'dist/js/api-alarm-integration-combined-disturbances.min.js');
+            echo file_get_contents(APIALARMINTEGRATION_PATH . '/dist/'. CacheBust::name('js/api-alarm-index.js'));
 
             echo '</script>';
         }, 100);

@@ -3,6 +3,11 @@ class NoticeModule {
 
         this.requestUrl = 'https://api.helsingborg.se/alarm/json/wp/v2/disturbances';
         this.data = {};
+
+        if (disturbances.places.join(',').length > 0) {
+            this.data.place = disturbances.places.join(',');
+        }
+        
         this.getNotices();
     }
 
@@ -32,7 +37,6 @@ class NoticeModule {
             if (disturbances.output_small_active) {
                 response.small.forEach(item => {
                     if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
-                        console.log('Already exists')
                         return;
                     }
 
@@ -45,7 +49,6 @@ class NoticeModule {
             if (disturbances.output_big_active) {
                 response.big.forEach(item => {
                     if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
-                        console.log('Already exists')
                         return;
                     }
 
@@ -72,7 +75,7 @@ class NoticeModule {
     getTemplate(item, big = false,) {
         let size = big ? 'warning' : 'info';
 
-        return '\<div id="disturbance-' + item.ID + '" class="modularity-mod-notices c-notice c-notice--' + size + ' u-margin--0">\
+        return '\<div id="disturbance-' + item.ID + '" class="modularity-mod-notices c-notice c-notice--' + size + ' u-margin--0" style="border-radius: 0 !important;; box-shadow: none !important;">\
         <span class="c-notice__icon">\<i id="" class="c-icon c-icon--color- c-icon--size-md material-icons" data-uid="5fa0039575fdc">forum\</i>\</span>\<span class="c-notice__message--sm"><strong>' + item.post_title + '\</strong></span></br>' + item.post_content + '\</div>';
     }
 }
