@@ -47,8 +47,6 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-object-fit-images": "^1.1.2",
-    "rev-del": "^1.0.5",
-    "run-sequence": "^2.2.1",
     "sass": "^1.32.5",
     "sass-loader": "^7.1.0",
     "webpack": "^4.46.0",
