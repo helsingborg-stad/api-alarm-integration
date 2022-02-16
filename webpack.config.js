@@ -12,7 +12,6 @@ const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction } = getIfUtils(process.env.NODE_ENV);
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     mode: ifProduction('production', 'development'),
@@ -192,9 +191,6 @@ module.exports = {
                 ],
             },
         }))
-
-        //new BundleAnalyzerPlugin()
-
     ]).filter(Boolean),
     devtool: 'source-map',
     stats: {children: false}
