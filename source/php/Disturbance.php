@@ -18,11 +18,18 @@ class Disturbance
 
             echo '<script defer>';
 
-            $outputBigSelector = get_field('output_selector_big_disturbance', 'option') ? get_field('output_selector_big_disturbance', 'option') : 'body';
-            $outputSmallSelector = get_field('output_selector_small_disturbance', 'option') ? get_field('output_selector_small_disturbance', 'option') : 'body';
+            $outputBigSelector      = get_field('output_selector_big_disturbance', 'option') ? get_field('output_selector_big_disturbance', 'option') : 'body';
+            $outputSmallSelector    = get_field('output_selector_small_disturbance', 'option') ? get_field('output_selector_small_disturbance', 'option') : 'body';
+
+            $disturbanceMarkup = (object) [
+                'small' => disturbance_render_blade_view('js.small', ['title' => '{DISTURBANCE_TITLE}', 'text' => '{DISTURBANCE_TEXT}']),
+                'big'   => disturbance_render_blade_view('js.big', ['title' => '{DISTURBANCE_TITLE}', 'text' => '{DISTURBANCE_TEXT}'])
+            ];
 
             echo '
             var disturbances = {};
+            disturbances.htmlSmall = \'' . $disturbanceMarkup->small . '\';
+            disturbances.htmlBig = \'' . $disturbanceMarkup->big . '\';
             disturbances.inited = false;
             disturbances.apiUrl = \'' . trailingslashit(get_field('disturbances_api_url', 'option')) . '\';
             disturbances.places = ' . json_encode(get_field('disturbances_places', 'option')) . ';
