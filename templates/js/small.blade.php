@@ -6,7 +6,7 @@
         'size' => 'sm'
     ],
     'icon' => [
-        'name' => 'report',
+        'name' => 'forum',
         'size' => 'md',
         'color' => 'white'
     ],
