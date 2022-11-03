@@ -1,7 +1,8 @@
 @card([
     'heading' => $hideTitle ? $post_title : '',
     'classList' => [
-        $classes
+        $classes,
+        'c-card--panel'
     ],
     'id' => 'mod-alarm',
     'attributeList' => [
@@ -23,24 +24,22 @@
     @endif
 
     <div class="c-card__body">
-        <div class="box-content">
-            <div class="filters o-grid">
-                <div class="o-grid-12">
-
-                    @field([
-                        'type' => 'text',
-                        'size' => 'md',
-                        'id' => 'data-alarm-filter-text',
-                        'attributeList' => [
-                            'type' => 'text',
-                            'name' => 'text',
-                            'data-alarm-filter' => "text"
-                        ],
-                        'label' => translate('Search', 'api-alarm-integration')
-                    ])
-                    @endfield
-                </div>
-                
+        <div class="filters o-grid o-grid--form u-margin__bottom--4">
+            <div class="o-grid-12">
+                @field([
+                    'type' => 'search',
+                    'name' => 'text',
+                    'size' => 'md',
+                    'id' => 'data-alarm-filter-text',
+                    'attributeList' => [
+                        'data-alarm-filter' => "text"
+                    ],
+                    'label' => translate('Search', 'api-alarm-integration')
+                ])
+                @endfield
+            </div>
+            
+            @if($places)
                 <div class="o-grid-12">
                     @select([
                         'id' => 'data-alarm-filter-place',
@@ -49,7 +48,7 @@
                         'attributeList' => ['data-alarm-filter' => 'place'],
                         'options' => '',
                     ])
-                        @foreach ((array) \ApiAlarmIntegration\Module::getPlaces(trailingslashit($options['api_url'])) as $place)
+                        @foreach ($places as $place)
                             @if (is_object($place))
                                 <option value="{{ $place->id }}">{{ $place->name }}</option>
                                 @php $selectArr[$place->id] = $place->name; @endphp
@@ -57,134 +56,162 @@
                         @endforeach
                     @endselect
                 </div>
+            @endif
 
-               
-                <div class="o-grid-12 o-grid-6@md">
+            <div class="o-grid-12 o-grid-6@md"> 
+                @field([
+                    'type' => 'date',
+                    'name' => 'date_from',
+                    'value' => '',
+                    'id' => 'data-alarm-filter-date-from',
+                    'label' => translate('Date from', 'api-alarm-integration'),
+                    'attributeList' => [
+                        'data-invalid-message' => "You need to add a valid date!",
+                        'data-alarm-filter' => 'date-from'
+                    ]
+                ])
+                @endfield
+            </div>
 
-                    @field([
-                        'type' => 'datepicker',
-                        'value' => '',
-                        'id' => 'data-alarm-filter-date-from',
-                        'label' => translate('Date from', 'api-alarm-integration'),
-                        'attributeList' => [
-                            'type' => 'text',
-                            'name' => 'text',
-                            'data-invalid-message' => "You need to add a valid date!",
-                            'data-alarm-filter' => 'date-from'
-                        ]
-                    ])
-                    @endfield
-                </div>
+            <div class="o-grid-12 o-grid-6@md">
+                @field([
+                    'type' => 'date',
+                    'name' => 'date_to',
+                    'value' => '',
+                    'label' => translate('Date to', 'api-alarm-integration'),
+                    'id' => 'data-alarm-filter-date-to',
+                    'attributeList' => [
+                        'data-invalid-message' => "You need to add a valid date!",
+                        'data-alarm-filter' => 'date-to'
+                    ]
+                ])
+                @endfield
+            </div>
 
-                <div class="o-grid-12 o-grid-6@md">
-
-                    @field([
-                        'type' => 'datepicker',
-                        'value' => '',
-                        'label' => translate('Date to', 'api-alarm-integration'),
-                        'id' => 'data-alarm-filter-date-to',
-                        'attributeList' => [
-                            'type' => 'text',
-                            'name' => 'text',
-                            'data-invalid-message' => "You need to add a valid date!",
-                            'data-alarm-filter' => 'date-to'
-                        ]
-                    ])
-                    @endfield
-                </div>
-
-                <div class="o-grid-12">
-                    @button([
-                        'text' => translate('Search', 'api-alarm-integration'),
-                        'color' => 'primary',
-                        'style' => 'filled',
-                        'attributeList' => ['data-alarm-filter-search' => '']
-                    
-                    ])
-                    @endbutton
-                </div>
+            <div class="o-grid-12">
+                @button([
+                    'text' => translate('Search', 'api-alarm-integration'),
+                    'color' => 'primary',
+                    'style' => 'filled',
+                    'attributeList' => ['data-alarm-filter-search' => '']
+                ])
+                @endbutton
             </div>
         </div>
 
-        <div class="box-content no-padding">
+        {{-- Loader --}}
+        <div data-template="api-alarm-integration-loader" data-api-alarms-loader>
+            @loader([
+                'size' => 'sm',
+                'color' => 'primary',
+                'shape' => 'linear'
+            ])
+            @endloader
+        </div>
 
-            <div data-template="api-alarm-integration-loader" data-api-alarms-loader>
-                @loader([
-                    'size' => 'sm',
-                    'color' => 'primary',
-                    'shape' => 'linear'
-                ])
-                @endloader
-            </div>
-
-            <div id="alarm-data-container"
-                class="c-accordion modularity-mod-alarms__container"
-                data-api-alarms-container=""
-                data-api-alarm-integration="load"
-                js-expand-container=""
-                data-uid="5f843daf7ee74">
-
-                <div class="c-accordion__section modularity-mod-alarms__section" data-template="api-alarm-integration-row" data-api-alarms-row>
-                    <button class="c-accordion__button">
-                        <span class="c-accordion__button-wrapper" tabindex="-1">
-                            <time class="date pull-right text-sm text-dark-gray">{# date #}</time>
-                            <span class="link-item link"> {## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}</span>
-                            <i id="" class="c-icon c-accordion__icon c-icon--color- c-icon--size-md material-icons keyboard_arrow_down" data-uid="{# id #}">keyboard_arrow_down</i> <!-- No icon defined -->
+        {{-- List --}}
+        @accordion([
+            'id' => 'alarm-data-container',
+            'classList' => [
+                'modularity-mod-alarms__container'
+            ],
+            'attributeList' => [
+                'data-api-alarms-container' => '',
+                'data-api-alarm-integration' => 'load',
+                'js-expand-container' => '',
+                '' => '',
+                '' => '',
+            ]
+        ])
+            <div class="c-accordion__section modularity-mod-alarms__section" data-template="api-alarm-integration-row" data-api-alarms-row>
+                <button class="c-accordion__button">
+                    <span class="c-accordion__button-wrapper" tabindex="-1">
+                        @date(['timestamp' => '{# date #}'])
+                        @enddate
+                        <span class="link-item link">
+                            {## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}
                         </span>
-                    </button>
-                    <div class="modularity-mod-alarms__content" data-api-alarms-row-content id="mod-larm-content-{# id #}">
-                        <table>
-                            <tr>
-                                <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td>
-                                <td>{# date #}</td>
-                            </tr>
-                            <tr>
-                                <td><strong><?php _e('Incident', 'api-alarm-integration'); ?>:</strong></td>
-                                <td>{# title.rendered #}</td>
-                                <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td>
-                                <td>{# type #}</td>
-                            </tr>
-                            <tr>
-                                <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td>
-                                <td>{# address #}, {# place[0].name #}</td>
 
-                                <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td>
-                                <td> {# station.title #}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                        @icon(['icon' => 'keyboard_arrow_down', 'size' => 'md', 'classList' => ['c-accordion__icon']])
+                        @endicon
+                    </span>
+                </button>
+                <div class="modularity-mod-alarms__content" data-api-alarms-row-content id="mod-larm-content-{# id #}">
+                    <table>
+                        <tr>
+                            <td><strong><?php _e('Time', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# date #}</td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('Incident', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# title.rendered #}</td>
+                            <td><strong><?php _e('Level', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# type #}</td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('Address', 'api-alarm-integration'); ?>:</strong></td>
+                            <td>{# address #}, {# place[0].name #}</td>
 
-                @typography([
-                    "element"       => "h4",
-                    "attributeList" => [
-                        "data-template"     => "api-alarm-integration-error"
-                    ]
-                ])
-                    @php _e('Failed to get alarms, please try again later!', 'api-alarm-integration') @endphp
-                @endtypography
-
-                @typography([
-                    "id"            => 'mod-alarm-no-result',
-                    "element"       => "h4",
-                    "attributeList" => [
-                        "data-template"     => "api-alarm-integration-no-results"
-                    ]
-                ])
-                    @php _e('No results', 'api-alarm-integration') @endphp
-                @endtypography
-                
-                <div data-template="api-alarm-integration-load-more" style="padding:10px;" data-api-alarms-load-more>
-                    @button([
-                        'text' => translate('Show more alarms', 'api-alarm-integration'),
-                        'color' => 'primary',
-                        'style' => 'filled',
-                        'attributeList' => ['data-action' => 'api-alarm-integration-load-more']
-    
-                    ])
-                    @endbutton
+                            <td><strong><?php _e('Station', 'api-alarm-integration'); ?>:</strong></td>
+                            <td> {# station.title #}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
+        @endaccordion
+
+        {{-- Communication error message --}}
+        @notice([
+            'type' => 'warning',
+            'message' => [
+                'text' => $lang->communicationError,
+                'size' => 'sm'
+            ],
+            'icon' => [
+                'name' => 'report',
+                'size' => 'md',
+                'color' => 'white'
+            ],
+            'attributeList' => [
+                "data-template"     => "api-alarm-integration-error"
+            ]
+        ])
+        @endnotice
+
+        {{-- No results --}}
+        @notice([
+            'type' => 'info',
+            'message' => [
+                'text' => $lang->noResults,
+                'size' => 'sm'
+            ],
+            'icon' => [
+                'name' => 'report',
+                'size' => 'md',
+                'color' => 'white'
+            ],
+            'attributeList' => [
+                "data-template"     => "api-alarm-integration-no-results"
+            ]
+        ])
+        @endnotice
+
+        {{-- Load more button --}}
+        <div class="u-display--flex" data-template="api-alarm-integration-load-more" data-api-alarms-load-more>
+            @button([
+                'text' => $lang->loadMore,
+                'color' => 'default',
+                'style' => 'filled',
+                'attributeList' => [
+                    'data-action' => 'api-alarm-integration-load-more'
+                ],
+                'classList' => [
+                    'u-margin__x--auto',
+                    'u-margin__top--2',
+                    'u-margin__bottom--4'
+                ]
+            ])
+            @endbutton
         </div>
     </div>
 @endcard

@@ -89,7 +89,7 @@ class AlarmModule {
                     this.noMoreLoadMore()
                 }
 
-                this.AlarmList.querySelector('[data-api-alarms-container').setAttribute('is-loaded', '')
+                this.AlarmList.querySelector('[data-api-alarms-container]').setAttribute('is-loaded', '')
                 this.AlarmList.querySelector('[data-api-alarms-loader]').remove()
             }
         })
@@ -100,15 +100,15 @@ class AlarmModule {
 
     getFilters() {
         let filters = {
-            'search'      : this.AlarmList.querySelector('#input_data-alarm-filter-text').value || '',
-            'place'       : this.AlarmList.querySelector('[data-alarm-filter="place"]').value || '',
-            'date_from'   : this.AlarmList.querySelector('#data-alarm-filter-date-from').querySelector('input').value|| '',
-            'date_to'     : this.AlarmList.querySelector('#data-alarm-filter-date-to').querySelector('input').value || ''
+            'search'      : this.getInputValue(this.AlarmList.querySelector('#input_data-alarm-filter-text')),
+            'place'       : this.getInputValue(this.AlarmList.querySelector('[data-alarm-filter="place"]')),
+            'date_from'   : this.getInputValue(this.AlarmList.querySelector('#data-alarm-filter-date-from').querySelector('input')),
+            'date_to'     : this.getInputValue(this.AlarmList.querySelector('#data-alarm-filter-date-to').querySelector('input'))
         };
 
         //TODO: Handle dates in a more reliable way
-        filters.date_to = filters.date_to.split('/').reverse().join('-')
-        filters.date_from = filters.date_from.split('/').reverse().join('-')
+        filters.date_to     = filters.date_to.split('/').reverse().join('-')
+        filters.date_from   = filters.date_from.split('/').reverse().join('-')
 
         for (let key in filters) {
             filters[key].length <= 0 ? delete filters[key] : '';
@@ -116,6 +116,13 @@ class AlarmModule {
 
         return filters;
     };
+
+    getInputValue(element) {
+        if(element !== null) {
+            return element.value;
+        }
+        return '';
+    }
 
     addAlarmToList (item) {
         item.date = item.date.replace("T", " ").substring(0, item.date.length - 3);

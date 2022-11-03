@@ -29,8 +29,28 @@ class Module extends \Modularity\Module
 
     public function data() : array
     {
-        $data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('c-card','c-card--panel','c-card--default'), $this->post_type, $this->args));
+        //$data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('c-card','c-card--panel','c-card--default'), $this->post_type, $this->args));
         $data['options'] = get_fields($this->ID);
+
+        if (
+            !self::isApiError(
+                $places = \ApiAlarmIntegration\Module::getPlaces(
+                    trailingslashit(
+                        $data['options']['api_url']
+                    )
+                )
+            )
+        ) {
+            $data['places'] = $places;
+        } else {
+            $data['places'] = false;
+        }
+
+        $data['lang'] = (object) [
+            'noResults' => __("No results found on your query."),
+            'communicationError' => __("Failed to get data, please try again later!", 'api-alarm-integration'),
+            'loadMore' => __("Load more", 'api-alarm-integration')
+        ];
 
         return $data;
     }
@@ -81,5 +101,13 @@ class Module extends \Modularity\Module
         wp_cache_set('ApiAlarmIntegrationPlaces', $places, null, 60*60*3);
 
         return $places;
+    }
+
+    public static function isApiError($response)
+    {
+        if (is_object($response) && in_array($response->code, ['rest_no_route'])) {
+            return true;
+        }
+        return false;
     }
 }
