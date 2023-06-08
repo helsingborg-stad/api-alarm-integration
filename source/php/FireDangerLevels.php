@@ -24,14 +24,9 @@ class FireDangerLevels extends \Modularity\Module
 
     public function data(): array
     {
-        $options = $this->getFields();
-        $this->apiUrl = $options['api_url'];
-
+        $this->apiUrl = $this->getFields()['api_url'];
         $apiDateTimeChanged = $this->getDateTimeChanged();
-        $timeFormat = get_option('time_format');
-        $dateFormat = get_option('date_format');
-        $dateTimeFormat = "{$dateFormat} {$timeFormat}";
-        $dateTimeChanged = wp_date($dateTimeFormat, $apiDateTimeChanged);
+        $dateTimeChanged = $this->formatApiDateTime($apiDateTimeChanged);
 
         $data['refreshInterval'] = MINUTE_IN_SECONDS * 15;
         $data['notices'] = $this->getNoticesData();
@@ -40,6 +35,14 @@ class FireDangerLevels extends \Modularity\Module
         $data['ID'] = $this->ID;
 
         return $data;
+    }
+
+    private function formatApiDateTime($apiDateTime)
+    {
+        $timeFormat = get_option('time_format');
+        $dateFormat = get_option('date_format');
+        $dateTimeFormat = "{$dateFormat} {$timeFormat}";
+        return wp_date($dateTimeFormat, $apiDateTime);
     }
 
     private function getNoticesData()
@@ -56,7 +59,7 @@ class FireDangerLevels extends \Modularity\Module
         }, $data['places'] ?? []);
     }
 
-    private function getDateTimeChanged()
+    private function getDateTimeChanged(): string
     {
         $data = $this->getDataFromApi();
         return $data['dateTimeChanged'];
@@ -71,42 +74,34 @@ class FireDangerLevels extends \Modularity\Module
         return $data;
     }
 
-    private function getNoticeTypeFromLevel($level)
+    private function getNoticeTypeFromLevel($level): string
     {
-        switch ($level) {
-            case '4':
-            case '5':
-                return 'danger';
-            case '5E': 
-                return 'danger-dark';
-            default:
-                return 'success';
-        }
+        return [
+            '4' => 'danger',
+            '5' => 'danger',
+            '5E' => 'danger-dark',
+        ][$level] ?? 'success';
     }
 
-    private function getIconNameFromLevel($level)
+    private function getIconNameFromLevel($level): string
     {
-        switch ($level) {
-            case '4':
-            case '5':
-            case '5E':
-                return 'error';
-            default:
-                return 'check_circle';
-        }
+        return [
+            '4' => 'error',
+            '5' => 'error',
+            '5E' => 'error',
+        ][$level] ?? 'check_circle';
     }
 
-    private function getNoticeTextFromLevel($level)
+    private function getNoticeTextFromLevel($level): string
     {
-        $prefix = "$level -";
-        switch ($level) {
-            case '4':
-            case '5':
-            case '5E':
-                return sprintf(__('%s Eldningsförbud', 'api-alarm-integration'), $prefix);
-            default:
-                return sprintf(__('%s Ingen varning', 'api-alarm-integration'), $prefix);
-        }
+        $prefix = "$level - ";
+        $text = [
+            '4' => _x('Fire ban', 'fire danger level', 'api-alarm-integration'),
+            '5' => __('Fire ban', 'fire danger level', 'api-alarm-integration'),
+            '5E' => __('Fire ban', 'fire danger level', 'api-alarm-integration'),
+        ][$level] ?? __('No risk', 'fire danger level', 'api-alarm-integration');
+
+        return "$prefix $text";
     }
 
     /**
