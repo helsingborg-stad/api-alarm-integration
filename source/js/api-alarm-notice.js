@@ -1,7 +1,7 @@
 class NoticeModule {
     constructor() {
 
-        this.requestUrl = 'https://api.helsingborg.se/alarm/json/wp/v2/disturbances';
+        this.requestUrl = disturbances.apiUrl ?? null;
         this.data = {};
 
         if (disturbances.places.join(',').length > 0) {
