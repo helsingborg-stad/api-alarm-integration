@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiAlarmIntegration;
+namespace ApiAlarmIntegration\Module\FireDangerLevels;
 
 class FireDangerLevels extends \Modularity\Module
 {
@@ -47,16 +47,20 @@ class FireDangerLevels extends \Modularity\Module
 
     private function getNoticesData()
     {
-        $data = $this->getDataFromApi();
-
-        return array_map(function ($fdl) {
-            return [
-                'title' => $fdl['place'],
-                'text' => $this->getNoticeTextFromLevel($fdl['level']),
-                'type' => $this->getNoticeTypeFromLevel($fdl['level']),
-                'iconName' => $this->getIconNameFromLevel($fdl['level']),
-            ];
-        }, $data['places'] ?? []);
+        try {
+            $data = $this->getDataFromApi();
+            return array_map(function ($fdl) {
+                return [
+                    'title' => $fdl['place'],
+                    'text' => $this->getNoticeTextFromLevel($fdl['level']),
+                    'type' => $this->getNoticeTypeFromLevel($fdl['level']),
+                    'iconName' => $this->getIconNameFromLevel($fdl['level']),
+                ];
+            }, $data['places'] ?? []);
+        } catch (\Throwable $error) {
+            error_log("Could not get fire danger levels from Alarm API.");
+            return [];
+        }
     }
 
     private function getDateTimeChanged(): string
@@ -95,11 +99,14 @@ class FireDangerLevels extends \Modularity\Module
     private function getNoticeTextFromLevel($level): string
     {
         $prefix = "$level - ";
+        $fireBanText = _x('Fire ban', 'fire danger level', 'api-alarm-integration');
+        $noRiskText = _x('No risk', 'fire danger level', 'api-alarm-integration');
+
         $text = [
-            '4' => _x('Fire ban', 'fire danger level', 'api-alarm-integration'),
-            '5' => __('Fire ban', 'fire danger level', 'api-alarm-integration'),
-            '5E' => __('Fire ban', 'fire danger level', 'api-alarm-integration'),
-        ][$level] ?? __('No risk', 'fire danger level', 'api-alarm-integration');
+            '4' => $fireBanText,
+            '5' => $fireBanText,
+            '5E' => $fireBanText,
+        ][$level] ?? $noRiskText;
 
         return "$prefix $text";
     }

@@ -1,194 +1,89 @@
-#, fuzzy
+# Copyright (C) 2023 Kristoffer Svanmark
+# This file is distributed under the MIT.
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: API Alarm Integration\n"
-"POT-Creation-Date: 2017-03-22 15:03+0100\n"
-"PO-Revision-Date: 2017-03-22 15:03+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: API Alarm Integration 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/api-alarm-integration\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-WPHeader: api-alarm-integration.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"POT-Creation-Date: 2023-06-21T10:17:52+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: api-alarm-integration\n"
 
-#: source/php/AcfFields/php/alarm-module.php:6
-msgid "Alarm options"
+#. Plugin Name of the plugin
+msgid "API Alarm Integration"
 msgstr ""
 
-#: source/php/AcfFields/php/alarm-module.php:12
-msgid "Rest API url"
+#. Plugin URI of the plugin
+msgid "https://github.com/helsingborg-stad/api-alarm-integration"
 msgstr ""
 
-#: source/php/AcfFields/php/alarm-module.php:15
-msgid "Example: http://myalarmapi.tld/json"
+#. Description of the plugin
+msgid "Shows alarms from API Alarm Manager"
 msgstr ""
 
-#: source/php/AcfFields/php/alarm-module.php:33
-msgid "Alarms per page"
+#. Author of the plugin
+msgid "Kristoffer Svanmark"
 msgstr ""
 
-#: source/php/AcfFields/php/alarm-widget.php:6
-msgid "Alarm widget"
+#. Author URI of the plugin
+msgid "https://github.com/helsingborg-stad"
 msgstr ""
 
-#: source/php/AcfFields/php/alarm-widget.php:15
-msgid "Titel"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:6 source/php/Disturbance.php:55
-msgid "Disturbances"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:10
-msgid "Enable disturbance messages"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:15
-msgid "Activate"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:31
-msgid "Api url"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:34
-msgid "The base url to the api alarm manager"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:55
-msgid "Älmhult"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:56
-msgid "Ängelholm"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:57
-msgid "Åstorp"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:58
-msgid "Båstad"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:59
-msgid "Bjuv"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:60
-msgid "Eslöv"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:61
-msgid "Helsingborg"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:62
-msgid "Höganäs"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:63
-msgid "Kävlinge"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:64
-msgid "Klippan"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:65
-msgid "Laholm"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:66
-msgid "Landskrona"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:67
-msgid "Markaryd"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:68
-msgid "Örkeljunga"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:69
-msgid "Örkelljunga"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:70
-msgid "Söder om TP Örkelljunga"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:71
-msgid "Strövelstorp"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:72
-msgid "Svalöv"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:81
-msgid "Filter places"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:84
-msgid ""
-"You will first need to set your api url and save this page before places "
-"will be filled with alternatives. Leave blank to get disturbances from all "
-"places."
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:96
-msgid "Big disturbances"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:97
-msgid "Small disturbances"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:106
-msgid "Output automatically"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:133
-msgid "Output selector for big disturbance"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:136
-msgid "CSS Selector for where to output big disturbances. Defaults to body."
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:160
-msgid "Output selector for small disturbance"
-msgstr ""
-
-#: source/php/AcfFields/php/disturbances.php:163
-msgid "CSS Selector for where to output small disturbances. Defaults to body."
-msgstr ""
-
-#: source/php/App.php:40 templates/alarm-list.php:38
+#: source/php/App.php:55
+#: templates/alarm-list.php:40
 msgid "Show filters"
 msgstr ""
 
-#: source/php/App.php:41
+#: source/php/App.php:56
 msgid "Hide filters"
 msgstr ""
 
-#: source/php/Disturbance.php:27
+#: source/php/Disturbance.php:36
 msgid "Show more information"
 msgstr ""
 
-#: source/php/Disturbance.php:28
+#: source/php/Disturbance.php:37
 msgid "Show less information"
+msgstr ""
+
+#: source/php/Disturbance.php:60
+msgid "Disturbances"
+msgstr ""
+
+#: source/php/Module.php:51
+msgid "Failed to get data, please try again later!"
+msgstr ""
+
+#: source/php/Module.php:52
+msgid "Load more"
+msgstr ""
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:20
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:21
+msgid "Fire Danger Levels"
+msgstr ""
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:22
+msgid "Outputs a list of fire danger levels from Alarm API"
+msgstr ""
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:33
+msgid "Updated at %s"
+msgstr ""
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:98
+msgctxt "fire danger level"
+msgid "Fire ban"
+msgstr ""
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:99
+msgctxt "fire danger level"
+msgid "No risk"
 msgstr ""
 
 #: source/php/Widget.php:13
@@ -199,7 +94,8 @@ msgstr ""
 msgid "Text search"
 msgstr ""
 
-#: templates/alarm-list.php:10 templates/alarm-list.php:34
+#: templates/alarm-list.php:10
+#: templates/alarm-list.php:36
 msgid "Search"
 msgstr ""
 
@@ -211,63 +107,44 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/alarm-list.php:24
+#: templates/alarm-list.php:26
 msgid "Date from"
 msgstr ""
 
-#: templates/alarm-list.php:28
+#: templates/alarm-list.php:30
 msgid "Date to"
 msgstr ""
 
-#: templates/alarm-list.php:57
+#: templates/alarm-list.php:59
+#: templates/alarms.blade.php:142
+#: templates/alarms.blade.php:144
 msgid "Time"
 msgstr ""
 
-#: templates/alarm-list.php:60
+#: templates/alarm-list.php:62
+#: templates/alarms.blade.php:146
+#: templates/alarms.blade.php:148
 msgid "Incident"
 msgstr ""
 
-#: templates/alarm-list.php:61
+#: templates/alarm-list.php:63
+#: templates/alarms.blade.php:148
+#: templates/alarms.blade.php:150
 msgid "Level"
 msgstr ""
 
-#: templates/alarm-list.php:64
+#: templates/alarm-list.php:66
+#: templates/alarms.blade.php:152
+#: templates/alarms.blade.php:154
 msgid "Address"
 msgstr ""
 
-#: templates/alarm-list.php:65
+#: templates/alarm-list.php:67
+#: templates/alarms.blade.php:155
+#: templates/alarms.blade.php:157
 msgid "Station"
 msgstr ""
 
-#: templates/alarm-list.php:76
+#: templates/alarm-list.php:72
 msgid "Show more alarms"
-msgstr ""
-
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:347
-msgid "Export with AcfExportManager"
-msgstr ""
-
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:384
-#, php-format
-msgid "Exported %d fieldgroup(s)."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "API Alarm Integration"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/helsingborg-stad/api-alarm-integration"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Shows alarms from API Alarm Manager"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Kristoffer Svanmark"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://github.com/helsingborg-stad"
 msgstr ""
