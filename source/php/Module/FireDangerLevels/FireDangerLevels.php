@@ -47,16 +47,20 @@ class FireDangerLevels extends \Modularity\Module
 
     private function getNoticesData()
     {
-        $data = $this->getDataFromApi();
-
-        return array_map(function ($fdl) {
-            return [
-                'title' => $fdl['place'],
-                'text' => $this->getNoticeTextFromLevel($fdl['level']),
-                'type' => $this->getNoticeTypeFromLevel($fdl['level']),
-                'iconName' => $this->getIconNameFromLevel($fdl['level']),
-            ];
-        }, $data['places'] ?? []);
+        try {
+            $data = $this->getDataFromApi();
+            return array_map(function ($fdl) {
+                return [
+                    'title' => $fdl['place'],
+                    'text' => $this->getNoticeTextFromLevel($fdl['level']),
+                    'type' => $this->getNoticeTypeFromLevel($fdl['level']),
+                    'iconName' => $this->getIconNameFromLevel($fdl['level']),
+                ];
+            }, $data['places'] ?? []);
+        } catch (\Throwable $error) {
+            error_log("Could not get fire danger levels from Alarm API.");
+            return [];
+        }
     }
 
     private function getDateTimeChanged(): string
