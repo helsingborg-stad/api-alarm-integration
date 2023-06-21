@@ -15,7 +15,7 @@ class App
                     'Module' // The class' file and class name (should be the same) withot .php extension
                 );
                 modularity_register_module(
-                    APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
+                    APIALARMINTEGRATION_PATH . 'source/php/Module/FireDangerLevels', // The directory path of the module
                     'FireDangerLevels' // The class' file and class name (should be the same) withot .php extension
                 );
             }
@@ -32,7 +32,7 @@ class App
     public function addModule()
     {
         new \ApiAlarmIntegration\Module();
-        new \ApiAlarmIntegration\FireDangerLevels();
+        new \ApiAlarmIntegration\Module\FireDangerLevels\FireDangerLevels();
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiAlarmIntegration;
+namespace ApiAlarmIntegration\Module\FireDangerLevels;
 
 class FireDangerLevels extends \Modularity\Module
 {
