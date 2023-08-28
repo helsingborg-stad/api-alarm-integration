@@ -25,9 +25,11 @@ define('APIALARMINTEGRATION_MODULE_VIEW_PATH', APIALARMINTEGRATION_PATH . 'templ
 
 load_plugin_textdomain('api-alarm-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once APIALARMINTEGRATION_PATH . 'vendor/autoload.php';
 require_once APIALARMINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once APIALARMINTEGRATION_PATH . 'Public.php';
+if (file_exists(APIALARMINTEGRATION_PATH . 'vendor/autoload.php')) {
+    require_once APIALARMINTEGRATION_PATH . 'vendor/autoload.php';
+}
 
 add_filter( '/Modularity/externalViewPath', function($arr) 
     {
