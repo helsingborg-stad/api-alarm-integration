@@ -25,11 +25,10 @@ define('APIALARMINTEGRATION_MODULE_VIEW_PATH', APIALARMINTEGRATION_PATH . 'templ
 
 load_plugin_textdomain('api-alarm-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once APIALARMINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
-require_once APIALARMINTEGRATION_PATH . 'Public.php';
 if (file_exists(APIALARMINTEGRATION_PATH . 'vendor/autoload.php')) {
     require_once APIALARMINTEGRATION_PATH . 'vendor/autoload.php';
 }
+require_once APIALARMINTEGRATION_PATH . 'Public.php';
 
 add_filter( '/Modularity/externalViewPath', function($arr) 
     {
@@ -38,12 +37,6 @@ add_filter( '/Modularity/externalViewPath', function($arr)
         return $arr;
     }, 10, 3
 );
-
-// Instantiate and register the autoloader
-$loader = new ApiAlarmIntegration\Vendor\Psr4ClassLoader();
-$loader->addPrefix('ApiAlarmIntegration', APIALARMINTEGRATION_PATH);
-$loader->addPrefix('ApiAlarmIntegration', APIALARMINTEGRATION_PATH . 'source/php/');
-$loader->register();
 
 // Acf auto import and export
 $acfExportManager = new \AcfExportManager\AcfExportManager();
