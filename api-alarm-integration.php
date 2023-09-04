@@ -39,15 +39,17 @@ add_filter( '/Modularity/externalViewPath', function($arr)
 );
 
 // Acf auto import and export
-$acfExportManager = new \AcfExportManager\AcfExportManager();
-$acfExportManager->setTextdomain('event-manager');
-$acfExportManager->setExportFolder(APIALARMINTEGRATION_PATH . 'source/php/AcfFields/');
-$acfExportManager->autoExport(array(
-    'alarm-module' => 'group_58cfe8b6985c1',
-    'alarm-widget' => 'group_58d1432296838',
-    'disturbances' => 'group_58d24fce7d85a'
-));
-$acfExportManager->import();
+add_action('plugins_loaded', function () {
+    $acfExportManager = new \AcfExportManager\AcfExportManager();
+    $acfExportManager->setTextdomain('event-manager');
+    $acfExportManager->setExportFolder(APIALARMINTEGRATION_PATH . 'source/php/AcfFields/');
+    $acfExportManager->autoExport(array(
+        'alarm-module' => 'group_58cfe8b6985c1',
+        'alarm-widget' => 'group_58d1432296838',
+        'disturbances' => 'group_58d24fce7d85a'
+    ));
+    $acfExportManager->import();
+});
 
 // Start application
 new ApiAlarmIntegration\App();
