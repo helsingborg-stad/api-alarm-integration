@@ -19,7 +19,8 @@
     },
     "autoload": {
         "psr-4": {
-          "ApiAlarmIntegration\\": "source/php/"
+            "ApiAlarmIntegration\\": "source/php/"
         }
-    }
+    },
+    "version": "2.0.0"
 }

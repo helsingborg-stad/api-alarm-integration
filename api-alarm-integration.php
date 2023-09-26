@@ -4,7 +4,7 @@
  * Plugin Name:       API Alarm Integration
  * Plugin URI:        https://github.com/helsingborg-stad/api-alarm-integration
  * Description:       Shows alarms from API Alarm Manager
- * Version:           1.0.0
+ * Version: 2.0.0
  * Author:            Kristoffer Svanmark
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
