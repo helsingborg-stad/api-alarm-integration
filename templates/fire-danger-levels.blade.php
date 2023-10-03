@@ -13,7 +13,7 @@
         <div class="o-grid o-grid--half-gutter">
             @foreach($notices as $notice)
 
-            <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg">
+            <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg o-grid-4@xl">
                 @notice([
                     'type' => $notice['type'],
                     'message' => [
