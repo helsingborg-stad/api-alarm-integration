@@ -2,20 +2,17 @@
 
 // Public functions
 
-
-use ComponentLibrary\Init as ComponentLibraryInit;
+use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 
 if (!function_exists('disturbance_render_blade_view')) {
     function disturbance_render_blade_view($view, $data = [], $compress = true)
     {
-        $init = new ComponentLibraryInit([
+        $bladeEngine = GlobalBladeService::getInstance([
             APIALARMINTEGRATION_MODULE_VIEW_PATH,
         ]);
 
-        $bladeEngine = $init->getEngine();
-
         try {
-            $markup = $bladeEngine->make(
+            $markup = $bladeEngine->makeView(
                 $view,
                 array_merge(
                     $data,
