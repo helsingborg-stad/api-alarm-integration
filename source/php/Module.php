@@ -29,8 +29,7 @@ class Module extends \Modularity\Module
 
     public function data() : array
     {
-        //$data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('c-card','c-card--panel','c-card--default'), $this->post_type, $this->args));
-        $data['options'] = get_fields($this->ID);
+        $data['options'] = $this->getFields();
 
         if (
             !self::isApiError(
@@ -60,9 +59,6 @@ class Module extends \Modularity\Module
      * @return void
      */
     public function style() {
-        if (!$this->hasModule()) {
-            return;
-        }
         \ApiAlarmIntegration\App::enqueueStyle();
     }
 
@@ -72,10 +68,6 @@ class Module extends \Modularity\Module
      */
     public function script()
     {
-        if (!$this->hasModule()) {
-            return;
-        }
-
         \ApiAlarmIntegration\App::enqueueAlarmScripts();
     }
 

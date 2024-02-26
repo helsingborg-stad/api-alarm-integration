@@ -1,7 +1,6 @@
 @card([
     'heading' => $hideTitle ? $post_title : '',
     'classList' => [
-        $classes,
         'c-card--panel'
     ],
     'id' => 'mod-alarm',
