@@ -1,4 +1,4 @@
-<div class="<?php echo implode(' ', $classes); ?>">
+<div>
     <?php if ($title) : ?>
         <h4 class="box-title"><?php echo apply_filters('the_title', $title); ?></h4>
     <?php endif; ?>
