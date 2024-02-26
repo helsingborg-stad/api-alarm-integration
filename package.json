@@ -1,6 +1,6 @@
 {
     "name": "api-alarm-integration",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "description": "Shows alarms from API Alarm Manager",
     "main": "",
     "scripts": {
