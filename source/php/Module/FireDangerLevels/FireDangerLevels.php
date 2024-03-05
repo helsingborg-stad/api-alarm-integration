@@ -9,6 +9,7 @@ class FireDangerLevels extends \Modularity\Module
     public $supports = array();
     public $plugin = array();
     public $cacheTtl = MINUTE_IN_SECONDS * 1;
+    public $refreshInterval = MINUTE_IN_SECONDS * 15;
     public $hideTitle  = false;
     public $isDeprecated = false;
     private $apiUrl = null;
@@ -28,11 +29,11 @@ class FireDangerLevels extends \Modularity\Module
         $apiDateTimeChanged = $this->getDateTimeChanged();
         $dateTimeChanged = $this->formatApiDateTime($apiDateTimeChanged);
 
-        $data['refreshInterval'] = MINUTE_IN_SECONDS * 15;
-        $data['notices'] = $this->getNoticesData();
-        $data['dateTimeChangedLabel'] = sprintf(__('Updated at %s', 'api-alarm-integration'), $dateTimeChanged);
-        $data['isAjaxRequest'] = wp_doing_ajax() || defined('REST_REQUEST');
-        $data['ID'] = $this->ID;
+        $data['refreshInterval']        = $this->refreshInterval ?? 0;
+        $data['notices']                = $this->getNoticesData();
+        $data['dateTimeChangedLabel']   = sprintf(__('Updated at %s', 'api-alarm-integration'), $dateTimeChanged);
+        $data['isAjaxRequest']          = wp_doing_ajax() || defined('REST_REQUEST');
+        $data['ID']                     = $this->ID;
 
         return $data;
     }
