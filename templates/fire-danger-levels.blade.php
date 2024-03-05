@@ -16,10 +16,10 @@
             <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg o-grid-4@xl">
                 @notice([
                     'type' => $notice['type'],
-                    'message' => [
-                    'title' => $notice['title'],
-                    'text' => $notice['text'],
-                    'size' => 'sm',
+                    'message' => (object) [
+                        'title' => $notice['title'],
+                        'text' => $notice['text'],
+                        'size' => 'sm',
                     ],
                     'classList' => [!$isAjaxRequest ? 'u-preloader' : ''],
                     'attributeList' => ['aria-hidden' => $isAjaxRequest ? 'false' : 'true'],
