@@ -1,6 +1,6 @@
 @if (!empty($notices))
     <div data-module-refresh-interval="{!! $refreshInterval !!}" data-module-id="{!! $ID !!}">
-        @if (!$hideTitle && !empty($postTitle))
+        @if (isset($hideTitle) && !$hideTitle && !empty($postTitle))
         @typography([
             'id' => 'mod-fire-danger-levels-' . $ID . '-label',
             'element' => 'h2',
