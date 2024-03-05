@@ -125,8 +125,9 @@
             <div class="c-accordion__section modularity-mod-alarms__section" data-template="api-alarm-integration-row" data-api-alarms-row>
                 <button class="c-accordion__button">
                     <span class="c-accordion__button-wrapper" tabindex="-1">
-                        @date(['timestamp' => '{# date #}'])
-                        @enddate
+                        <time>
+                            {# date #}
+                        </time>
                         <span class="link-item link">
                             {## if (typeof data.place[0] != 'undefined') ##}{# place[0].name #}: {## endif ##}{# title.rendered #}
                         </span>
