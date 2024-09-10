@@ -1,5 +1,5 @@
 {
-    "name": "api-alarm-integration",
+    "name": "@helsingborg-stad/api-alarm-integration",
     "version": "4.0.5",
     "description": "Shows alarms from API Alarm Manager",
     "main": "",
@@ -12,6 +12,9 @@
     "browserslist": [
         "> 1%",
         "not dead"
+    ],
+    "files": [
+        "dist/"
     ],
     "devDependencies": {
         "@babel/core": "^7.17.2",
@@ -66,12 +69,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate.git"
+        "url": "https://github.com/helsingborg-stad/api-alarm-integration.git"
     },
     "author": "Kristoffer Svanmark",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate/issues"
+        "url": "https://github.com/helsingborg-stad/api-alarm-integration/issues"
     },
-    "homepage": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate"
+    "homepage": "https://github.com/helsingborg-stad/api-alarm-integration"
 }
