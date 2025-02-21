@@ -16,7 +16,7 @@ class Disturbance
                 return;
             }
 
-            echo '<script defer>';
+            echo '<script>';
 
             $outputBigSelector      = get_field('output_selector_big_disturbance', 'option') ? get_field('output_selector_big_disturbance', 'option') : 'body';
             $outputSmallSelector    = get_field('output_selector_small_disturbance', 'option') ? get_field('output_selector_small_disturbance', 'option') : 'body';
