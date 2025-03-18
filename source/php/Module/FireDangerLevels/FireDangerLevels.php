@@ -98,18 +98,16 @@ class FireDangerLevels extends \Modularity\Module
     private function getNoticeTypeFromLevel($level): string
     {
         return [
-            '4' => 'danger',
-            '5' => 'danger',
-            '5E' => 'danger-dark',
+            '2' => 'warning',
+            '3' => 'danger',
         ][$level] ?? 'success';
     }
 
     private function getIconNameFromLevel($level): string
     {
         return [
-            '4' => 'error',
-            '5' => 'error',
-            '5E' => 'error',
+            '2' => 'info',
+            '3' => 'error',
         ][$level] ?? 'check_circle';
     }
 
@@ -120,9 +118,8 @@ class FireDangerLevels extends \Modularity\Module
         $noRiskText = _x('No risk', 'fire danger level', 'api-alarm-integration');
 
         $text = [
-            '4' => $fireBanText,
-            '5' => $fireBanText,
-            '5E' => $fireBanText,
+            '2' => $fireBanText,
+            '3' => $fireBanText
         ][$level] ?? $noRiskText;
 
         return "$prefix $text";
