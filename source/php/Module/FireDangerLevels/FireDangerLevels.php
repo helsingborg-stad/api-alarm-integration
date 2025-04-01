@@ -98,8 +98,8 @@ class FireDangerLevels extends \Modularity\Module
     private function getNoticeTypeFromLevel($level): string
     {
         return [
-            '2' => 'warning',
-            '3' => 'danger',
+            '2' => 'danger',
+            '3' => 'danger-dark',
         ][$level] ?? 'success';
     }
 
@@ -113,7 +113,7 @@ class FireDangerLevels extends \Modularity\Module
 
     private function getNoticeTextFromLevel($level): string
     {
-        $prefix = "$level - ";
+        $prefix = ""; //"$level - ";
         $fireBanText = _x('Fire ban', 'fire danger level', 'api-alarm-integration');
         $noRiskText = _x('No risk', 'fire danger level', 'api-alarm-integration');
 
