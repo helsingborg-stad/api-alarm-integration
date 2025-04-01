@@ -113,16 +113,16 @@ class FireDangerLevels extends \Modularity\Module
 
     private function getNoticeTextFromLevel($level): string
     {
-        $prefix = ""; //"$level - ";
         $fireBanText = _x('Fire ban', 'fire danger level', 'api-alarm-integration');
-        $noRiskText = _x('No risk', 'fire danger level', 'api-alarm-integration');
+        $fireBanTextStrict = _x('Strict fire ban', 'fire danger level', 'api-alarm-integration');
+        $noRiskText = _x('No fire ban', 'fire danger level', 'api-alarm-integration');
 
         $text = [
             '2' => $fireBanText,
-            '3' => $fireBanText
+            '3' => $fireBanTextStrict
         ][$level] ?? $noRiskText;
 
-        return "$prefix $text";
+        return $text;
     }
 
     /**
