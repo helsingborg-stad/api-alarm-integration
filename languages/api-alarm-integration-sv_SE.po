@@ -2,29 +2,111 @@ msgid ""
 msgstr ""
 "Project-Id-Version: API Alarm Integration\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-01 10:54+0200\n"
+"PO-Revision-Date: 2025-04-01 11:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2017-03-22 15:03+0100\n"
-"PO-Revision-Date: 2017-03-22 15:07+0100\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: api-alarm-integration.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: source/php/Disturbance.php:60
+#: source/php/AcfFields/php/alarm-module.php:6
+msgid "Alarm options"
+msgstr "Larminställningar"
+
+#: source/php/AcfFields/php/alarm-module.php:12
+msgid "Rest API url"
+msgstr "Webbadress för REST Api"
+
+#: source/php/AcfFields/php/alarm-module.php:15
+msgid "Example: http://myalarmapi.tld/json"
+msgstr "Exempel: http://myalarmapi.tld/json"
+
+#: source/php/AcfFields/php/alarm-module.php:33
+msgid "Alarms per page"
+msgstr "Larm per sida"
+
+#: source/php/AcfFields/php/alarm-widget.php:6
+msgid "Alarm widget"
+msgstr "Larmwidget"
+
+#: source/php/AcfFields/php/alarm-widget.php:15
+msgid "Titel"
+msgstr "Titel"
+
+#: source/php/AcfFields/php/disturbances.php:6 source/php/Disturbance.php:60
 msgid "Disturbances"
 msgstr "Störningar"
 
-#: source/php/App.php:55
-#: templates/alarm-list.php:40
+#: source/php/AcfFields/php/disturbances.php:10
+msgid "Enable disturbance messages"
+msgstr "Aktivera störningsmeddelande"
+
+#: source/php/AcfFields/php/disturbances.php:15
+msgid "Activate"
+msgstr "Aktivera"
+
+#: source/php/AcfFields/php/disturbances.php:31
+msgid "Api url"
+msgstr "Api url"
+
+#: source/php/AcfFields/php/disturbances.php:34
+msgid "The base url to the api alarm manager"
+msgstr "Basurl:en till apa alarm manager"
+
+#: source/php/AcfFields/php/disturbances.php:63
+msgid "Filter places"
+msgstr "Filtrera på plats"
+
+#: source/php/AcfFields/php/disturbances.php:66
+msgid ""
+"You will first need to set your api url and save this page before places "
+"will be filled with alternatives. Leave blank to get disturbances from all "
+"places."
+msgstr ""
+"Du måste först ange din API-URL och spara denna sida innan platser fylls "
+"med alternativ. Lämna tomt för att få störningar från alla platser."
+
+#: source/php/AcfFields/php/disturbances.php:86
+msgid "Big disturbances"
+msgstr "Storstörningar"
+
+#: source/php/AcfFields/php/disturbances.php:87
+msgid "Small disturbances"
+msgstr "Lillstörningar"
+
+#: source/php/AcfFields/php/disturbances.php:96
+msgid "Output automatically"
+msgstr "Mata ut automatiskt"
+
+#: source/php/AcfFields/php/disturbances.php:123
+msgid "Output selector for big disturbance"
+msgstr "Välj utmaningsankare för storstörning"
+
+#: source/php/AcfFields/php/disturbances.php:126
+msgid "CSS Selector for where to output big disturbances. Defaults to body."
+msgstr "CSS-väljare för var storstörningar ska visas. Standardvärde är body."
+
+#: source/php/AcfFields/php/disturbances.php:155
+msgid "Output selector for small disturbance"
+msgstr "Välj utmaningsankare för lillstörning"
+
+#: source/php/AcfFields/php/disturbances.php:158
+msgid "CSS Selector for where to output small disturbances. Defaults to body."
+msgstr "CSS-väljare för var lillstörningar ska visas. Standardvärde är body."
+
+#: source/php/App.php:55 templates/alarm-list.php:40
 msgid "Show filters"
 msgstr "Visa filter"
 
@@ -40,6 +122,47 @@ msgstr "Visa mer information"
 msgid "Show less information"
 msgstr "Visa mindre information"
 
+#: source/php/Module.php:49
+msgid "No results found on your query."
+msgstr "Inga resultat hittades på din sökfråga."
+
+#: source/php/Module.php:50
+msgid "Failed to get data, please try again later!"
+msgstr "Kunde inte hämta data, vänligen försök igen senare. "
+
+#: source/php/Module.php:51
+msgid "Load more"
+msgstr "Ladda fler"
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:21
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:22
+msgid "Fire Danger Levels"
+msgstr "Brandrisknivåer"
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:23
+msgid "Outputs a list of fire danger levels from Alarm API"
+msgstr "Matar ut en lista av brandrisknivåer från Alarm API:et"
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:34
+#, php-format
+msgid "Updated at %s"
+msgstr "Uppdaterad: %s"
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:116
+msgctxt "fire danger level"
+msgid "Fire ban"
+msgstr "Eldningsförbud"
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:117
+msgctxt "fire danger level"
+msgid "Strict fire ban"
+msgstr "Skärpt eldningsförbud"
+
+#: source/php/Module/FireDangerLevels/FireDangerLevels.php:118
+msgctxt "fire danger level"
+msgid "No fire ban"
+msgstr "Inget eldningsförbud"
+
 #: source/php/Widget.php:13
 msgid "Displays a list with alarms"
 msgstr "Visar en lista med alla alarm"
@@ -48,8 +171,7 @@ msgstr "Visar en lista med alla alarm"
 msgid "Text search"
 msgstr "Testsök"
 
-#: templates/alarm-list.php:10
-#: templates/alarm-list.php:36
+#: templates/alarm-list.php:10 templates/alarm-list.php:36
 msgid "Search"
 msgstr "Sök"
 
@@ -69,33 +191,23 @@ msgstr "Datum från"
 msgid "Date to"
 msgstr "Datum till"
 
-#: templates/alarm-list.php:59
-#: templates/alarms.blade.php:142
-#: templates/alarms.blade.php:144
+#: templates/alarm-list.php:59 templates/alarms.blade.php:142
 msgid "Time"
 msgstr "Tid"
 
-#: templates/alarm-list.php:62
-#: templates/alarms.blade.php:146
-#: templates/alarms.blade.php:148
+#: templates/alarm-list.php:62 templates/alarms.blade.php:146
 msgid "Incident"
 msgstr "Händelse"
 
-#: templates/alarm-list.php:63
-#: templates/alarms.blade.php:148
-#: templates/alarms.blade.php:150
+#: templates/alarm-list.php:63 templates/alarms.blade.php:148
 msgid "Level"
 msgstr "Nivå"
 
-#: templates/alarm-list.php:66
-#: templates/alarms.blade.php:152
-#: templates/alarms.blade.php:154
+#: templates/alarm-list.php:66 templates/alarms.blade.php:152
 msgid "Address"
 msgstr "Adress"
 
-#: templates/alarm-list.php:67
-#: templates/alarms.blade.php:155
-#: templates/alarms.blade.php:157
+#: templates/alarm-list.php:67 templates/alarms.blade.php:155
 msgid "Station"
 msgstr "Station"
 
@@ -103,53 +215,26 @@ msgstr "Station"
 msgid "Show more alarms"
 msgstr "Visa fler alarm"
 
-#. Plugin Name of the plugin
+#. Plugin Name of the plugin/theme
 msgid "API Alarm Integration"
-msgstr ""
+msgstr "Larmintregration"
 
-#. Plugin URI of the plugin
+#. Plugin URI of the plugin/theme
 msgid "https://github.com/helsingborg-stad/api-alarm-integration"
 msgstr ""
 
-#. Description of the plugin
+#. Description of the plugin/theme
 msgid "Shows alarms from API Alarm Manager"
 msgstr ""
 
-#. Author of the plugin
+#. Author of the plugin/theme
 msgid "Kristoffer Svanmark"
 msgstr ""
 
-#. Author URI of the plugin
+#. Author URI of the plugin/theme
 msgid "https://github.com/helsingborg-stad"
 msgstr ""
 
-#: source/php/Module.php:51
-msgid "Failed to get data, please try again later!"
-msgstr ""
-
-#: source/php/Module.php:52
-msgid "Load more"
-msgstr ""
-
-#: source/php/Module/FireDangerLevels/FireDangerLevels.php:20
-#: source/php/Module/FireDangerLevels/FireDangerLevels.php:21
-msgid "Fire Danger Levels"
-msgstr "Brandrisknivåer"
-
-#: source/php/Module/FireDangerLevels/FireDangerLevels.php:22
-msgid "Outputs a list of fire danger levels from Alarm API"
-msgstr "Matar ut en lista av brandrisknivåer från Alarm API:et"
-
-#: source/php/Module/FireDangerLevels/FireDangerLevels.php:33
-msgid "Updated at %s"
-msgstr "Uppdaterad: %s"
-
-#: source/php/Module/FireDangerLevels/FireDangerLevels.php:98
-msgctxt "fire danger level"
-msgid "Fire ban"
-msgstr "Eldningsförbud"
-
-#: source/php/Module/FireDangerLevels/FireDangerLevels.php:99
-msgctxt "fire danger level"
-msgid "No risk"
-msgstr "Ingen varning"
+#~ msgctxt "fire danger level"
+#~ msgid "No risk"
+#~ msgstr "Ingen varning"
