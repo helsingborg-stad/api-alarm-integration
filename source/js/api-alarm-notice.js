@@ -33,31 +33,36 @@ class NoticeModule {
         }
 
         postData(`${this.requestUrl}?${dataQuery}`).then((response) => {
-
             if (disturbances.output_small_active) {
-                response.small.forEach(item => {
+                response.disturbances.small.forEach(item => {
                     if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
                         return;
                     }
-
-                    this.getTemplate(item)
-
-                    document.querySelector(disturbances.output_small).insertAdjacentHTML('afterbegin', this.getTemplate(item));
+                    document.querySelector(disturbances.output_small).insertAdjacentHTML('afterbegin', 
+                        this.getTemplate(item));
                 });
             }
 
             if (disturbances.output_big_active) {
-                response.big.forEach(item => {
+                response.disturbances.big.forEach(item => {
                     if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
                         return;
                     }
-
-                    this.getTemplate(item, true)
-
-                    document.querySelector(disturbances.output_big).insertAdjacentHTML('afterbegin', this.getTemplate(item, true));
+                    document.querySelector(disturbances.output_big).insertAdjacentHTML('afterbegin', 
+                        this.getTemplate(item, true));
                 });
             }
-        }).catch((e) => {
+            if (disturbances.output_firedangerlevel_active) {
+                const strict = response.firedangerlevel.places.filter(
+                    (item) => item.level === '2');
+                    
+                strict.forEach(item => {
+                    document.querySelector(disturbances.output_firelevel).insertAdjacentHTML('afterbegin', 
+                        this.getFirelevelTemplate(item));    
+                });
+    
+            }
+    }).catch((e) => {
             console.log(e)
             console.log('API Alarm Integration plugin: Request failed!');
         });
@@ -72,6 +77,12 @@ class NoticeModule {
         return str.join("&");
     }
 
+    getFirelevelTemplate(item) {
+        let disturbanceViewMarkup = disturbances.htmlFirelevel.replace("{DISTURBANCE_TITLE}", item.place ?? '');
+        disturbanceViewMarkup = disturbanceViewMarkup.replace("{DISTURBANCE_TEXT}", ''  ?? '');
+
+        return disturbanceViewMarkup;
+    }
     getTemplate(item, big = false) {
         let disturbanceViewMarkup = ''; 
         if(big) {
