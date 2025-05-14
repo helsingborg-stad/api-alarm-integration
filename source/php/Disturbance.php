@@ -54,30 +54,31 @@ class Disturbance
                 ];
                 // phpcs:disable
                 echo '
-            var disturbances = {};
-            disturbances.htmlSmall = \'' . $disturbanceMarkup->small . '\';
-            disturbances.htmlBig = \'' . $disturbanceMarkup->big . '\';
-            disturbances.htmlFirelevel = \'' . $disturbanceMarkup->firelevel . '\';
-            disturbances.inited = false;
-            disturbances.apiUrl = \'' . trailingslashit(get_field('disturbances_api_url', 'option')) . '\';
-            disturbances.places = ' . json_encode(get_field('disturbances_places', 'option')) . ';
-            disturbances.more_info = \'' . __('Show more information', 'api-alarm-integration') . '\';
-            disturbances.less_info = \'' . __('Show less information', 'api-alarm-integration') . '\';
-            disturbances.output_small_active = \'' . in_array('small', get_field(
+            const settings = {
+                htmlSmall: \'' . $disturbanceMarkup->small . '\',
+                htmlBig: \'' . $disturbanceMarkup->big . '\',
+                htmlFirelevel: \'' . $disturbanceMarkup->firelevel . '\',
+                inited: false,
+                apiUrl: \'' . trailingslashit(get_field('disturbances_api_url', 'option')) . '\',
+                places: ' . json_encode(get_field('disturbances_places', 'option')) . ',
+                more_info: \'' . __('Show more information', 'api-alarm-integration') . '\',
+                less_info: \'' . __('Show less information', 'api-alarm-integration') . '\',
+                output_small_active: \'' . in_array('small', get_field(
                     'disturbances_output_automatically',
                     'options'
-                )) . '\';
-            disturbances.output_big_active = \'' . in_array('big', get_field(
+                )) . '\',
+                output_big_active: \'' . in_array('big', get_field(
                     'disturbances_output_automatically',
                     'options'
-                )) . '\';
-            disturbances.output_firedangerlevel_active = \'' . in_array('firelevel', get_field(
+                )) . '\',
+                output_firedangerlevel_active: \'' . in_array('firelevel', get_field(
                     'disturbances_output_automatically',
                     'options'
-                )) . '\';
-            disturbances.output_small = \'' . $outputSmallSelector . '\';
-            disturbances.output_big = \'' . $outputBigSelector . '\';
-            disturbances.output_firelevel = \'' . $outputFirelevelSelector . '\';
+                )) . '\',
+                output_small: \'' . $outputSmallSelector . '\',
+                output_big: \'' . $outputBigSelector . '\',
+                output_firelevel: \'' . $outputFirelevelSelector . '\'
+            };
             ';
 
                 echo file_get_contents(APIALARMINTEGRATION_PATH . '/dist/' .

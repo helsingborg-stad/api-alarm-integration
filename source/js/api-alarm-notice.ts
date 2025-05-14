@@ -1,101 +1,71 @@
-class NoticeModule {
-    constructor() {
+import { ApiResponse, DisturbanceSettings, Services } from "./types";
 
-        this.requestUrl = disturbances.apiUrl ?? null;
-        this.data = {};
+export const NoticeModule = (settings: Partial<DisturbanceSettings>) => {
 
-        if (disturbances.places.join(',').length > 0) {
-            this.data.place = disturbances.places.join(',');
-        }
+    const php = {
+        htmlSmall: '',
+        htmlBig: '',
+        htmlFirelevel: '',
+        inited: false,
+        apiUrl: '',
+        places: [],
+        more_info: '',
+        less_info: '',
+        output_small_active: false,
+        output_big_active: false,
+        output_firedangerlevel_active: false,
+        output_small: '',
+        output_big: '',
+        output_firelevel: '',
+        ...settings
+    };
+
+    return {
+        render: ({ http, template, transform}: Services) => 
+            http.fetch<ApiResponse | ApiResponse['disturbances']>(php.apiUrl,{
+                place: php.places.join(',')
+            }).then((response) => {
+                // Upgrade response
+                const data = transform.map(response);
+
+                // Render Small
+                if (php.output_small_active) {
+                    data.disturbances.small.forEach(item => {
+                        if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
+                            return;
+                        }
+                        document.querySelector(php.output_small)?.insertAdjacentHTML('afterbegin', 
+                            template.getSmallTemplate(php.htmlSmall, item));
+                    });
+                }
+                // Render Big
+                if (php.output_big_active) {
+                    data.disturbances.big.forEach(item => {
+                        if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
+                            return;
+                        }
+                        document.querySelector(php.output_big)?.insertAdjacentHTML('afterbegin', 
+                            template.getBigTemplate(php.htmlBig, item));
+                    });
+                }
+                // Render Firedanger
+                if (php.output_firedangerlevel_active) {
+                    const strict = data.firedangerlevel.places.filter(
+                        (item) => item.level === '2');
+                        
+                    strict.forEach(item => {
+                        document.querySelector(php.output_firelevel)?.insertAdjacentHTML('afterbegin', 
+                            template.getFirelevelTemplate(php.htmlFirelevel, item)); 
+                    });
         
-        this.getNotices();
-    }
-
-    getNotices() {
-
-        let dataQuery = this.serialize(this.data);
-
-        async function postData(url = '') {
-            const response = await fetch(url, {
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                redirect: 'follow',
-                referrerPolicy: 'no-referrer',
-            });
-
-            if (response.status !== 200) {
-                return false;
-            }
-
-            return response.json();
+                }
+        }).catch((e) => {
+                console.log(e)
+                console.log('API Alarm Integration plugin: Request failed!');
+            })
         }
-
-        postData(`${this.requestUrl}?${dataQuery}`).then((response) => {
-            if (disturbances.output_small_active) {
-                response.disturbances.small.forEach(item => {
-                    if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
-                        return;
-                    }
-                    document.querySelector(disturbances.output_small).insertAdjacentHTML('afterbegin', 
-                        this.getTemplate(item));
-                });
-            }
-
-            if (disturbances.output_big_active) {
-                response.disturbances.big.forEach(item => {
-                    if (document.querySelectorAll('#disturbance-' + item.ID).length > 0) {
-                        return;
-                    }
-                    document.querySelector(disturbances.output_big).insertAdjacentHTML('afterbegin', 
-                        this.getTemplate(item, true));
-                });
-            }
-            if (disturbances.output_firedangerlevel_active) {
-                const strict = response.firedangerlevel.places.filter(
-                    (item) => item.level === '2');
-                    
-                strict.forEach(item => {
-                    document.querySelector(disturbances.output_firelevel).insertAdjacentHTML('afterbegin', 
-                        this.getFirelevelTemplate(item));    
-                });
     
-            }
-    }).catch((e) => {
-            console.log(e)
-            console.log('API Alarm Integration plugin: Request failed!');
-        });
     }
 
-    serialize(obj) {
-        let str = [];
-        for (let param in obj)
-            if (obj.hasOwnProperty(param)) {
-                str.push(encodeURIComponent(param) + "=" + encodeURIComponent(obj[param]));
-            }
-        return str.join("&");
-    }
-
-    getFirelevelTemplate(item) {
-        let disturbanceViewMarkup = disturbances.htmlFirelevel.replace("{DISTURBANCE_TITLE}", item.place ?? '');
-        disturbanceViewMarkup = disturbanceViewMarkup.replace("{DISTURBANCE_TEXT}", ''  ?? '');
-
-        return disturbanceViewMarkup;
-    }
-    getTemplate(item, big = false) {
-        let disturbanceViewMarkup = ''; 
-        if(big) {
-            disturbanceViewMarkup = disturbances.htmlBig;
-        } else {
-            disturbanceViewMarkup = disturbances.htmlSmall; 
-        }
-
-        disturbanceViewMarkup = disturbanceViewMarkup.replace("{DISTURBANCE_TITLE}", item.post_title ?? '');
-        disturbanceViewMarkup = disturbanceViewMarkup.replace("{DISTURBANCE_TEXT}", item.post_content  ?? '');
-
-        return disturbanceViewMarkup;
-   }
-}
 
 export default NoticeModule

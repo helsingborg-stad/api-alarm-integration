@@ -4,7 +4,7 @@
   "description": "Shows alarms from API Alarm Manager",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "watch": "cross-env NODE_ENV=development webpack --watch",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build": "cross-env NODE_ENV=production webpack"
@@ -23,6 +23,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.12.10",
+    "@types/jest": "^29.5.14",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "browser-sync": "^2.27.7",
@@ -80,6 +81,7 @@
   "homepage": "https://github.com/helsingborg-stad/api-alarm-integration",
   "dependencies": {
     "@babel/preset-typescript": "^7.27.1",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2"
   }
 }
