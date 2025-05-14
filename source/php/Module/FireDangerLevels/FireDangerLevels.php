@@ -73,7 +73,7 @@ class FireDangerLevels extends \Modularity\Module
     private function getDataFromApi()
     {
         $response = wp_remote_get(
-           $this->appendCacheBustQueryParam(
+            $this->appendCacheBustQueryParam(
                 $this->apiUrl,
                 $this->cacheTtl
             )
@@ -84,13 +84,16 @@ class FireDangerLevels extends \Modularity\Module
         return $data;
     }
 
-    private function getCacheBustKey($url, $ttl = 5) {
+    private function getCacheBustKey($url, $ttl = 5)
+    {
         return md5($url . ceil(time() / $ttl));
     }
 
-    private function appendCacheBustQueryParam($url, $ttl = 5) {
+    private function appendCacheBustQueryParam($url, $ttl = 5)
+    {
         return add_query_arg(
-            'cache_bust', $this->getCacheBustKey($url, $ttl),
+            'cache_bust',
+            $this->getCacheBustKey($url, $ttl),
             $url
         );
     }
