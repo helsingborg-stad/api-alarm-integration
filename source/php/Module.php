@@ -27,7 +27,7 @@ class Module extends \Modularity\Module
      * template()        Return the view template (blade) the module should use when displayed
      */
 
-    public function data() : array
+    public function data(): array
     {
         $data['options'] = $this->getFields();
 
@@ -58,7 +58,8 @@ class Module extends \Modularity\Module
      * Include CSS
      * @return void
      */
-    public function style() {
+    public function style()
+    {
         \ApiAlarmIntegration\App::enqueueStyle();
     }
 
@@ -83,14 +84,17 @@ class Module extends \Modularity\Module
         if ($places = wp_cache_get('ApiAlarmIntegrationPlaces')) {
             return $places;
         }
+        $baseUrl = parse_url($apiUrl);
+        $port = $baseUrl['port'] ? ':' . $baseUrl['port'] : '';
+        $baseUrl = $baseUrl['scheme'] . '://' . $baseUrl['host'] . $port . '/json/';
 
         //Get fresh fish
-        $request = wp_remote_get($apiUrl . 'wp/v2/place?per_page=100');
+        $request = wp_remote_get($baseUrl . 'wp/v2/place?per_page=100');
         $places = wp_remote_retrieve_body($request);
         $places = json_decode($places);
 
         //Cache result for 3 hours
-        wp_cache_set('ApiAlarmIntegrationPlaces', $places, null, 60*60*3);
+        wp_cache_set('ApiAlarmIntegrationPlaces', $places, null, 60 * 60 * 3);
 
         return $places;
     }
