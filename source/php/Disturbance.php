@@ -116,20 +116,23 @@ class Disturbance
      */
     public function addPlaces($field)
     {
-        $apiUrl = trailingslashit(get_field('disturbances_api_url', 'option'));
+        if (is_admin()) {
+            $placesApiUrl       = trailingslashit(get_field('places_api_url', 'option'));
+            $disturbancesApiUrl = trailingslashit(get_field('disturbances_api_url', 'option'));
 
-        if (!$apiUrl) {
-            return $field;
-        }
+            if (!$disturbancesApiUrl) {
+                return $field;
+            }
 
-        $places = \ApiAlarmIntegration\Module::getPlaces($apiUrl);
+            $url    = \ApiAlarmIntegration\Module::getPlacesUrl($placesApiUrl, $disturbancesApiUrl);
+            $places = \ApiAlarmIntegration\Module::getPlaces($url);
 
-        if (is_array($places) && !empty($places)) {
-            foreach ($places as $place) {
-                $field['choices'][$place->id] = $place->name;
+            if (is_array($places) && !empty($places)) {
+                foreach ($places as $place) {
+                    $field['choices'][$place->id] = $place->name;
+                }
             }
         }
-
         return $field;
     }
 }
