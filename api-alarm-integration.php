@@ -32,8 +32,9 @@ require_once APIALARMINTEGRATION_PATH . 'Public.php';
 
 add_filter( '/Modularity/externalViewPath', function($arr) 
     {
-        $arr['mod-fire-danger-leve'] = APIALARMINTEGRATION_MODULE_VIEW_PATH;
-        $arr['mod-alarms'] = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        $arr['mod-fire-danger-leve']    = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        $arr['mod-alarms']              = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        $arr['mod-alarm-list']          = APIALARMINTEGRATION_MODULE_VIEW_PATH;
         return $arr;
     }, 10, 3
 );
