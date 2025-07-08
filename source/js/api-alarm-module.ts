@@ -1,20 +1,38 @@
 import Template from './Helper/Template';
 
-let ApiAlarmIntegration = {};
+interface ApiAlarmIntegrationType {
+    Helper?: {
+        Template?: typeof Template;
+        [key: string]: any;
+    };
+    [key: string]: any;
+}
+let ApiAlarmIntegration: ApiAlarmIntegrationType = {};
 ApiAlarmIntegration.Helper = {};
 ApiAlarmIntegration.Helper.Template = Template;
 
 class AlarmModule {
+
+    //DEclare variables
+    AlarmList;
+    perPage;
+    requestUrl;
+    Templates;
+
+    /**
+     * Constructor for the AlarmModule class
+     * @param {HTMLElement} alarmList - The HTML element that contains the alarm list
+     */
     constructor(alarmList) {
         this.AlarmList  = alarmList;
         this.perPage    = alarmList.getAttribute('data-alarms-per-page');
         this.requestUrl = alarmList.getAttribute('data-alarm-api') + 'wp/v2/alarm';
 
         this.Templates = {
-            loader:     ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-loader'),
-            loadMore:   ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-load-more'),
-            error:      ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-error'),
-            noResults:  ApiAlarmIntegration.Helper.Template.render('api-alarm-integration-no-results')
+            loader:     ApiAlarmIntegration.Helper?.Template?.render('api-alarm-integration-loader'),
+            loadMore:   ApiAlarmIntegration.Helper?.Template?.render('api-alarm-integration-load-more'),
+            error:      ApiAlarmIntegration.Helper?.Template?.render('api-alarm-integration-error'),
+            noResults:  ApiAlarmIntegration.Helper?.Template?.render('api-alarm-integration-no-results')
         }
 
         this.loadAlarms();
@@ -99,19 +117,31 @@ class AlarmModule {
     }
 
     getFilters() {
-        let filters = {
-            'search'      : this.getInputValue(this.AlarmList.querySelector('#input_data-alarm-filter-text')),
-            'place'       : this.getInputValue(this.AlarmList.querySelector('[data-alarm-filter="place"]')),
-            'date_from'   : this.getInputValue(this.AlarmList.querySelector('#data-alarm-filter-date-from').querySelector('input')),
-            'date_to'     : this.getInputValue(this.AlarmList.querySelector('#data-alarm-filter-date-to').querySelector('input'))
+        let filters: { [key: string]: any } = {
+            'search': this.getInputValue(this.AlarmList.querySelector('#input_data-alarm-filter-text')),
+            'place': this.getInputValue(this.AlarmList.querySelector('[data-alarm-filter="place"]')),
+            'date_from': this.getInputValue(this.AlarmList.querySelector('#data-alarm-filter-date-from')?.querySelector('input')),
+            'date_to': this.getInputValue(this.AlarmList.querySelector('#data-alarm-filter-date-to')?.querySelector('input'))
         };
 
-        //TODO: Handle dates in a more reliable way
-        filters.date_to     = filters.date_to.split('/').reverse().join('-')
-        filters.date_from   = filters.date_from.split('/').reverse().join('-')
+        // Safely format dates if they exist and are in the expected format
+        if (typeof filters.date_from === 'string' && filters.date_from.includes('/')) {
+            filters.date_from = filters.date_from.split('/').reverse().join('-');
+        } else {
+            delete filters.date_from;
+        }
 
+        if (typeof filters.date_to === 'string' && filters.date_to.includes('/')) {
+            filters.date_to = filters.date_to.split('/').reverse().join('-');
+        } else {
+            delete filters.date_to;
+        }
+
+        // Remove empty string filters
         for (let key in filters) {
-            filters[key].length <= 0 ? delete filters[key] : '';
+            if (typeof filters[key] === 'string' && filters[key].trim() === '' || filters[key] === null || filters[key] === undefined) {
+                delete filters[key];
+            }
         }
 
         return filters;
