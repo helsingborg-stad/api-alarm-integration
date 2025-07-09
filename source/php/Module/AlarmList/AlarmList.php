@@ -96,7 +96,7 @@ class AlarmList extends \Modularity\Module
                     'level_numeric' => $this->convertExtendToNumeric($item['extend'] ?? '', $fields),
                     'level_color'   => $this->convertExtendToColor($item['extend'] ?? '', $fields),
                     'level_label'   => $this->getExtendLabel($item['extend'] ?? ''),
-                    'streetname'    => $this->formatAdress($item['address'] ?? __("Unknown adress", 'api-alarm-integration')),
+                    'streetname'    => $this->formatAdress($item['address'] ?? __("Unknown address", 'api-alarm-integration')),
                     'city'          => $item['place'][0]['name'] ?? '',
                     'location_geo'  => (object) [
                         'lat' => $item['coordinate_x'] ?? '',
