@@ -53,7 +53,8 @@ add_action('plugins_loaded', function () {
     $acfExportManager->autoExport(array(
         'alarm-module' => 'group_58cfe8b6985c1',
         'alarm-widget' => 'group_58d1432296838',
-        'disturbances' => 'group_58d24fce7d85a'
+        'disturbances' => 'group_58d24fce7d85a',
+        'alarm-list'   => 'group_686e3d0e359d8',
     ));
     $acfExportManager->import();
 });
