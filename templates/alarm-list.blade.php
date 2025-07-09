@@ -133,12 +133,12 @@
                                 </span>
                                 @endtypography
 
-                                @if($item->level_numeric)
+                                @if($item->level && $item->level_numeric)
                                     @element([
                                         'classList' => ['u-display--inline-flex', 'u-gap-0', 'u-align-items--end', 'u-flex-direction--row', !$isAjaxRequest ? 'u-preloader' : ''],
                                         'attributeList' => [
-                                            'aria-label' => $item->level,
-                                            'data-tooltip' => __('Alarm Severity', 'api-alarm-integration') . ': ' . $item->level
+                                            'aria-label' => $item->level_label,
+                                            'data-tooltip' => $item->level_label
                                         ]
                                     ])
                                         @for ($i = 0; $i < $item->level_numeric; $i++)

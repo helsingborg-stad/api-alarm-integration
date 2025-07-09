@@ -41,6 +41,9 @@ class AlarmList extends \Modularity\Module
         $data['ID']                     = $this->ID ?? null;
 
         $data['communicationError']     = is_wp_error($data['alarm']) ? $data['alarm'] : false;
+
+
+
         return $data;
     }
 
@@ -92,6 +95,7 @@ class AlarmList extends \Modularity\Module
                     'level'         => $item['extend'] ?? '',
                     'level_numeric' => $this->convertExtendToNumeric($item['extend'] ?? '', $fields),
                     'level_color'   => $this->convertExtendToColor($item['extend'] ?? '', $fields),
+                    'level_label'   => $this->getExtendLabel($item['extend'] ?? ''),
                     'streetname'    => $this->formatAdress($item['address'] ?? __("Unknown adress", 'api-alarm-integration')),
                     'city'          => $item['place'][0]['name'] ?? '',
                     'location_geo'  => (object) [
@@ -107,6 +111,20 @@ class AlarmList extends \Modularity\Module
             error_log("Could not get alarms from Alarm API: " . $error->getMessage());
             return [];
         }
+    }
+
+    /**
+     * Returns a formatted label for the extend level.
+     *
+     * @param string $extend The extend level.
+     * @return string The formatted label.
+     */
+    private function getExtendLabel($extend)
+    {
+        if($extend === null || $extend === '') {
+            return __('No priority', 'api-alarm-integration');
+        }
+        return __('Priority', 'api-alarm-integration') . ": " . $extend; 
     }
 
     /**
