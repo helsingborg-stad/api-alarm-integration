@@ -47,7 +47,7 @@
                     'u-justify-content--space-between', 
                     'u-gap-4', 
                     'u-margin__bottom--1',
-                    ($loop->first ?: 'u-margin__top--4'), 
+                    $loop->first ? '' : 'u-margin__top--4',
                 ]])
                     @if($item->date_day !== $previousDate)
                         @php $previousDate = $item->date_day; @endphp
