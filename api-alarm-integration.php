@@ -39,6 +39,12 @@ add_filter( '/Modularity/externalViewPath', function($arr)
     }, 10, 3
 );
 
+/** Icon fill **/
+add_filter('Municipio/Admin/Acf/PrefillIconChoice', function (array $items) {
+    $items[] = 'icon';
+    return $items;
+});
+
 // Acf auto import and export
 add_action('plugins_loaded', function () {
     $acfExportManager = new \AcfExportManager\AcfExportManager();

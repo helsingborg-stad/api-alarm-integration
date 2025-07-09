@@ -9,7 +9,7 @@ class AlarmList extends \Modularity\Module
     public $supports = array();
     public $plugin = array();
     public $cacheTtl = MINUTE_IN_SECONDS * 1;
-    public $refreshInterval = MINUTE_IN_SECONDS * 15;
+    public $refreshInterval = 15;
     public $hideTitle  = false;
     public $isDeprecated = false;
     private $apiUrl = null;
@@ -25,21 +25,39 @@ class AlarmList extends \Modularity\Module
 
     public function data(): array
     {
-        $this->apiUrl = 'https://alarm.helsingborg.io/json/wp/v2/alarm/?per_page=100&page=1';
-        $apiDateTimeChanged = $this->getDateTimeChanged();
-        $dateTimeChanged = $this->formatApiDateTime($apiDateTimeChanged);
+        //Get module config
+        $fields = $this->getFields();
+
+        //Get remote resource
+        if($fields && isset($fields['mod_alarm_api_url']) && !empty($fields['mod_alarm_api_url'])) {
+            $this->apiUrl = $fields['mod_alarm_api_url'];
+        }
 
         $data['refreshInterval']        = $this->refreshInterval ?? 0;
-        $data['alarm']                  = $this->getData();
+        $data['alarm']                  = $this->getData($fields);
 
-
-        $data['dateTimeChangedLabel']   = sprintf(__('Updated at %s', 'api-alarm-integration'), $dateTimeChanged);
-        $data['isAjaxRequest']          = wp_doing_ajax() || defined('REST_REQUEST');
+        $data['dateTimeChangedLabel']   = sprintf(__('Last updated at %s', 'api-alarm-integration'), $this->getDateTimeChanged() ?: '--:--');
+        $data['isAjaxRequest']          = $this->isAjaxRequest();
         $data['ID']                     = $this->ID ?? null;
 
+        $data['communicationError']     = is_wp_error($data['alarm']) ? $data['alarm'] : false;
         return $data;
     }
 
+    /*
+     * Return true if the request is an AJAX request.
+     */
+    private function isAjaxRequest()
+    {
+        return wp_doing_ajax() || defined('REST_REQUEST');
+    }
+
+    /**
+     * Formats the API date and time to the WordPress date and time format.
+     *
+     * @param int $apiDateTime The API date and time in Unix timestamp format.
+     * @return string The formatted date and time.
+     */
     private function formatApiDateTime($apiDateTime)
     {
         $timeFormat = get_option('time_format');
@@ -48,23 +66,34 @@ class AlarmList extends \Modularity\Module
         return wp_date($dateTimeFormat, $apiDateTime);
     }
 
-    private function getData()
+    /**
+     * Fetches data from the API and decodes it from JSON.
+     *
+     * @return array The decoded data from the API.
+     */
+    private function getData($fields)
     {
         try {
             $data = $this->getDataFromApi();
 
-            $alarm = array_map(function ($item) {
+            if(is_wp_error($data)) {
+                return $data;
+            }
+
+            $alarm = array_map(function ($item) use ($fields) {
                 return (object) [
                     'title'         => $item['title']['rendered'] ?? '',
-                    'icon'          => $this->getIcon($item['title']['rendered'] ?? ''),
-                    'place'         => $item['place']['name'] ?? '',
-                    'time'          => $this->formatIncidentTime($item['date'] ?? ''),
-                    'date'          => $this->formatIncidentDate($item['date'] ?? ''),
-                    'date_time'     => $this->formatIncidentDateTime($item['date'] ?? ''),
+                    'icon'          => $this->getIcon($item['title']['rendered'] ?? '', $fields['mod_alarm_icons_map'] ?? []),
+                    'time'          => $this->formatIncidentTime($item['date_gmt'] ?? ''),
+                    'date'          => $this->formatIncidentDate($item['date_gmt'] ?? ''),
+                    'date_time'     => $this->formatIncidentDateTime($item['date_gmt'] ?? ''),
+                    'date_day'      => $this->formatIncidentDay($item['date_gmt'] ?? ''),
                     'unit'          => $item['station']['title'] ?? '',
                     'level'         => $item['extend'] ?? '',
-                    'streetname'    => $item['address'] ?? 'Okänd adress',
-                    'city'          => $item['place']['name'] ?? '',
+                    'level_numeric' => $this->convertExtendToNumeric($item['extend'] ?? '', $fields),
+                    'level_color'   => $this->convertExtendToColor($item['extend'] ?? '', $fields),
+                    'streetname'    => $this->formatAdress($item['address'] ?? __("Unknown adress", 'api-alarm-integration')),
+                    'city'          => $item['place'][0]['name'] ?? '',
                     'location_geo'  => (object) [
                         'lat' => $item['coordinate_x'] ?? '',
                         'lng' => $item['coordinate_y'] ?? ''
@@ -72,46 +101,136 @@ class AlarmList extends \Modularity\Module
                 ];
             }, $data ?? []);
 
-
             return $this->consolidateAlarmData($alarm);
 
         } catch (\Throwable $error) {
-            error_log("Could not get fire danger levels from Alarm API.");
+            error_log("Could not get alarms from Alarm API: " . $error->getMessage());
             return [];
         }
     }
 
-    private function consolidateAlarmData($alarm)
+    /**
+     * Formats the incident day for display.
+     *
+     * @param string $incidentTime The incident time in ISO 8601 format.
+     * @return string The formatted day.
+     */
+    private function formatIncidentDay($incidentTime)
     {
-        $consolidatedMap = [];
+        if (date('Y-m-d', strtotime($incidentTime)) == date('Y-m-d')) {
+            return __('Today', 'api-alarm-integration');
+        }
+        if (wp_date('Y-m-d', strtotime($incidentTime)) === wp_date('Y-m-d', strtotime('-1 day'))) {
+            return __('Yesterday', 'api-alarm-integration');
+        }
+        return wp_date('l j/n', strtotime($incidentTime));
+    }
 
-        foreach ($alarm as $item) {
-            $key = metaphone($item->title . $item->streetname) . $item->date;
+    /**
+     * Converts the extend level to a numeric value.
+     *
+     * @param string $extend The extend level.
+     * @return int|null The numeric value or null if not found.
+     */
+    private function convertExtendToNumeric($extend, $fields)
+    {
+        $severityMap = [
+            ($fields['mod_alarm_severity_keyword_level_1'] ?: __("Low", 'api-alarm-integration'))     => 1,
+            ($fields['mod_alarm_severity_keyword_level_2'] ?: __("Medium", 'api-alarm-integration'))  => 2,
+            ($fields['mod_alarm_severity_keyword_level_3'] ?: __("High", 'api-alarm-integration'))    => 3,
+        ];
 
-            if (!isset($consolidatedMap[$key])) {
-                // Initialize group and add current item as the first in moredetails
-                $item->moredetails = [$item];
-                $consolidatedMap[$key] = $item;
-            } else {
-                // Add to existing group
-                $consolidatedMap[$key]->moredetails[] = $item;
+        foreach ($severityMap as $keyword => $level) {
+            if (stripos($extend, $keyword) !== false) {
+                return $level;
             }
         }
 
+        return 1;
+    }
+
+    /**
+     * Converts the extend level to a color string.
+     *
+     * @param string $level The extend level.
+     * @return string The color string.
+     */
+    private function convertExtendToColor($level, $fields)
+    {
+        $level = $this->convertExtendToNumeric($level, $fields);
+        switch ($level) {
+            case 2:
+                return 'warning';
+            case 3:
+                return 'danger';
+            default:
+                return $fields['mod_alarm_severity_level_1_color'] ? 'primary' : 'info';
+        }
+    }
+
+    /**
+     * Formats the address by removing single characters and extra spaces.
+     *
+     * @param string $address The address to format.
+     * @return string The formatted address.
+     */
+    private function formatAdress($address)
+    {
+        $address = preg_replace('/(?<=\s|^)[\p{L}]{1}(?=\s|$)/u', '', $address);
+        $address = str_replace('-', '', $address);
+        return trim($address);
+    }
+
+    /**
+     * Consolidates alarm data by grouping items that sound the same.
+     *
+     * @param array $alarm The array of alarm items to consolidate.
+     * @return array The consolidated array of alarm items.
+     */
+    private function consolidateAlarmData($alarm)
+    {
+        $consolidatedMap = [];
+        foreach ($alarm as $item) {
+            $key = metaphone($item->title . $item->streetname) . $item->date;
+            if (!isset($consolidatedMap[$key])) {
+                $item->moredetails      = [$item];
+                $consolidatedMap[$key]  = $item;
+            } else {
+                $consolidatedMap[$key]->moredetails[] = $item;
+            }
+        }
         return array_values($consolidatedMap);
     }
 
+    /**
+     * Formats the incident time.
+     *
+     * @param string $incidentTime The incident time in ISO 8601 format.
+     * @return string The formatted time.
+     */
     private function formatIncidentTime($incidentTime)
     {
         $timeFormat = get_option('time_format');
         return wp_date($timeFormat, strtotime($incidentTime));
     }
 
+    /**
+     * Formats the incident date.
+     *
+     * @param string $incidentTime The incident time in ISO 8601 format.
+     * @return string The formatted date in Ymd format.
+     */
     private function formatIncidentDate($incidentTime)
     {
         return wp_date("Ymd", strtotime($incidentTime));
     }
 
+    /**
+     * Formats the incident date and time.
+     *
+     * @param string $incidentDateTime The incident date and time in ISO 8601 format.
+     * @return string The formatted date and time.
+     */
     private function formatIncidentDateTime($incidentDateTime)
     {
         $timeFormat = get_option('time_format');
@@ -120,39 +239,41 @@ class AlarmList extends \Modularity\Module
         return wp_date($dateTimeFormat, strtotime($incidentDateTime));
     }
 
-    private function getIcon($title) {
-        $iconMap = [
-            'automatlarm'  => 'detector',
-            'brand'        => 'emergency_heat',
-            'rök'          => 'detector_smoke',
-            'trafikolycka' => 'car_crash',
-            'lyfthjälp'    => 'exercise',
-            'räddning'     => 'support',
-            'drunkning'    => 'pool',
-            'ambulans'     => 'e911_emergency',
-            'övrigt'       => 'miscellaneous',
-            'gaslarm'      => 'detector_co',
-            'gas'          => 'detector_co',
-            'drivmedel'    => 'local_gas_station',
-            'hinder'       => 'alt_route',
-            
-        ];
+    /**
+     * Returns an icon based on the title of the alarm.
+     *
+     * @param string $title The title of the alarm.
+     * @param array $icons The icon map array with keyword/icon pairs.
+     * @return string The icon name.
+     */
+    private function getIcon($title, array $icons) {
+        foreach ($icons as $item) {
+            if (!isset($item['keyword'], $item['icon'])) {
+                continue;
+            }
 
-        foreach ($iconMap as $keyword => $icon) {
-            if (stripos($title, $keyword) !== false) {
-                return $icon;
+            if (stripos($title, $item['keyword']) !== false) {
+                return $item['icon'];
             }
         }
-
         return 'info';
     }
 
+    /**
+     * Gets the date and time when the data was last changed.
+     *
+     * @return string The formatted date and time.
+     */
     private function getDateTimeChanged(): string
     {
-        $data = $this->getDataFromApi();
-        return $data['dateTimeChanged'] ?? '';
+        return wp_date('H:i:s', time());
     }
 
+    /**
+     * Fetches data from the API and decodes it from JSON.
+     *
+     * @return array The decoded data from the API.
+     */
     private function getDataFromApi()
     {
         $response = wp_remote_get(
@@ -161,17 +282,54 @@ class AlarmList extends \Modularity\Module
                 $this->cacheTtl
             )
         );
+
+        if (is_wp_error($response)) {
+            return new \WP_Error(
+                'api_alarm_integration_error',
+                __('Could not connect to the source', 'api-alarm-integration'),
+                [
+                    'status' => 500,
+                    'details' => __('Please try again at a later time.', 'api-alarm-integration')
+                ]
+            );
+        }
+
+        if (wp_remote_retrieve_response_code($response) !== 200) {
+            return new \WP_Error(
+                'api_alarm_integration_error',
+                __('Unexpected answer from the resource', 'api-alarm-integration'),
+                [
+                    'status' => 500,
+                    'details' => __('Please try again at a later time.', 'api-alarm-integration')
+                ]
+            );
+        }
+
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
 
         return $data;
     }
 
+    /**
+     * Generates a cache busting key based on the URL and TTL.
+     *
+     * @param string $url The URL to generate the key for.
+     * @param int $ttl The time-to-live in seconds.
+     * @return string The generated cache busting key.
+     */
     private function getCacheBustKey($url, $ttl = 5)
     {
         return md5($url . ceil(time() / $ttl));
     }
 
+    /**
+     * Appends a cache busting query parameter to the URL.
+     *
+     * @param string $url The URL to append the query parameter to.
+     * @param int $ttl The time-to-live in seconds.
+     * @return string The URL with the cache busting query parameter appended.
+     */
     private function appendCacheBustQueryParam($url, $ttl = 5)
     {
         return add_query_arg(
@@ -179,36 +337,6 @@ class AlarmList extends \Modularity\Module
             $this->getCacheBustKey($url, $ttl),
             $url
         );
-    }
-
-    private function getNoticeTypeFromLevel($level): string
-    {
-        return [
-            '2' => 'danger',
-            '3' => 'danger-dark',
-        ][$level] ?? 'success';
-    }
-
-    private function getIconNameFromLevel($level): string
-    {
-        return [
-            '2' => 'info',
-            '3' => 'error',
-        ][$level] ?? 'check_circle';
-    }
-
-    private function getNoticeTextFromLevel($level): string
-    {
-        $fireBanText = _x('Fire ban', 'fire danger level', 'api-alarm-integration');
-        $fireBanTextStrict = _x('Strict fire ban', 'fire danger level', 'api-alarm-integration');
-        $noRiskText = _x('No fire ban', 'fire danger level', 'api-alarm-integration');
-
-        $text = [
-            '2' => $fireBanText,
-            '3' => $fireBanTextStrict
-        ][$level] ?? $noRiskText;
-
-        return $text;
     }
 
     /**
