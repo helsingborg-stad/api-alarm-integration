@@ -20,7 +20,7 @@ class AlarmList extends \Modularity\Module
     {
         $this->nameSingular = __('Alarm List', 'api-alarm-integration');
         $this->namePlural = __('Alarm Lists', 'api-alarm-integration');
-        $this->description = __('Outputs a alarm list from the api', 'api-alarm-integration');
+        $this->description = __('Outputs an alarm list from the API', 'api-alarm-integration');
     }
 
     public function data(): array
