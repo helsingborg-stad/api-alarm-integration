@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/api-alarm-integration",
-    "version": "4.1.1",
+    "version": "4.1.3",
     "description": "Shows alarms from API Alarm Manager",
     "main": "",
     "scripts": {
