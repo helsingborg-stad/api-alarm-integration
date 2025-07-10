@@ -133,7 +133,7 @@ class AlarmList extends \Modularity\Module
      */
     private function formatIncidentDay($incidentTime)
     {
-        if (date('Y-m-d', strtotime($incidentTime)) == date('Y-m-d')) {
+        if (wp_date('Y-m-d', strtotime($incidentTime)) == wp_date('Y-m-d')) {
             return __('Today', 'api-alarm-integration');
         }
         if (wp_date('Y-m-d', strtotime($incidentTime)) === wp_date('Y-m-d', strtotime('-1 day'))) {
