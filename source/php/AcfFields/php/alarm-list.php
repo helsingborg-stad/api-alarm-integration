@@ -1,9 +1,7 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_686e3d0e359d8',
     'title' => __('Alarm Module Configuration', 'event-manager'),
     'fields' => array(
@@ -28,7 +26,7 @@ if (function_exists('acf_add_local_field_group')) {
             'key' => 'field_686e605f992b9',
             'label' => __('Icons', 'event-manager'),
             'name' => 'mod_alarm_icons_map',
-            'instructions' => __('An icon can be mapped to keywords in the title of the incident. If multiple matches is found, the first one will be used (be less specific towards the end).', 'event-manager'),
+            'aria-label' => '',
             'type' => 'repeater',
             'instructions' => __('An icon can be mappeed to keywords in the title of the incident. If multiple matches is found, the first one will be used (be less specific towards the end).', 'event-manager'),
             'required' => 0,
@@ -190,55 +188,6 @@ if (function_exists('acf_add_local_field_group')) {
             0 => array(
                 'param' => 'block',
                 'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        2 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        3 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        4 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        5 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        6 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        7 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
-        8 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
                 'value' => 'acf/alarm-list',
             ),
         ),
@@ -260,5 +209,4 @@ if (function_exists('acf_add_local_field_group')) {
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-
-}
+}
