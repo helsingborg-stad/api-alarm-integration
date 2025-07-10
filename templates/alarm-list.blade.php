@@ -143,7 +143,7 @@
                                     ])
                                         @for ($i = 0; $i < $item->level_numeric; $i++)
                                             @icon([
-                                                'icon' => 'person',
+                                                'icon' => 'contacts_product',
                                                 'size' => 'sm',
                                                 'classList' => [
                                                     'u-color__text--light'
