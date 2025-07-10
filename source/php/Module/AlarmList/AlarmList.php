@@ -268,7 +268,7 @@ class AlarmList extends \Modularity\Module
                 continue;
             }
 
-            if (stripos($title, $item['keyword']) !== false) {
+            if (stripos($title, trim($item['keyword'])) !== false) {
                 return $item['icon'];
             }
         }
