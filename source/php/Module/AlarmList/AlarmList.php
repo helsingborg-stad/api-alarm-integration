@@ -42,8 +42,6 @@ class AlarmList extends \Modularity\Module
 
         $data['communicationError']     = is_wp_error($data['alarm']) ? $data['alarm'] : false;
 
-
-
         return $data;
     }
 
