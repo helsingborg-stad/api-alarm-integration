@@ -32,11 +32,18 @@ require_once APIALARMINTEGRATION_PATH . 'Public.php';
 
 add_filter( '/Modularity/externalViewPath', function($arr) 
     {
-        $arr['mod-fire-danger-leve'] = APIALARMINTEGRATION_MODULE_VIEW_PATH;
-        $arr['mod-alarms'] = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        $arr['mod-fire-danger-leve']    = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        $arr['mod-alarms']              = APIALARMINTEGRATION_MODULE_VIEW_PATH;
+        $arr['mod-alarm-list']          = APIALARMINTEGRATION_MODULE_VIEW_PATH;
         return $arr;
     }, 10, 3
 );
+
+/** Icon fill **/
+add_filter('Municipio/Admin/Acf/PrefillIconChoice', function (array $items) {
+    $items[] = 'icon';
+    return $items;
+});
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {
@@ -46,7 +53,8 @@ add_action('plugins_loaded', function () {
     $acfExportManager->autoExport(array(
         'alarm-module' => 'group_58cfe8b6985c1',
         'alarm-widget' => 'group_58d1432296838',
-        'disturbances' => 'group_58d24fce7d85a'
+        'disturbances' => 'group_58d24fce7d85a',
+        'alarm-list'   => 'group_686e3d0e359d8',
     ));
     $acfExportManager->import();
 });
