@@ -35,9 +35,7 @@ class Module extends \Modularity\Module
         if (
             !self::isApiError(
                 $places = \ApiAlarmIntegration\Module::getPlaces(
-                    trailingslashit(
-                        $data['options']['api_url']
-                    )
+                    $data['options']['api_url']
                 )
             )
         ) {

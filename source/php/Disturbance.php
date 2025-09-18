@@ -117,8 +117,8 @@ class Disturbance
     public function addPlaces($field)
     {
         if (is_admin()) {
-            $placesApiUrl       = trailingslashit(get_field('places_api_url', 'option'));
-            $disturbancesApiUrl = trailingslashit(get_field('disturbances_api_url', 'option'));
+            $placesApiUrl       = get_field('places_api_url', 'option');
+            $disturbancesApiUrl = get_field('disturbances_api_url', 'option');
 
             if (!$disturbancesApiUrl) {
                 return $field;
