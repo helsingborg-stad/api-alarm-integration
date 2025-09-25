@@ -51,7 +51,7 @@ export const NoticeModule = (settings: Partial<DisturbanceSettings>) => {
                 // Render Firedanger
                 if (php.output_firedangerlevel_active) {
                     const strict = data.firedangerlevel.places.filter(
-                        (item) => item.level === '2');
+                        (item) => item.level === '3');
                         
                     strict.forEach(item => {
                         document.querySelector(php.output_firelevel)?.insertAdjacentHTML('afterbegin', 
