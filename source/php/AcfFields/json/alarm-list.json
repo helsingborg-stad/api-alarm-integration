@@ -68,7 +68,7 @@
                     "label": "Icon",
                     "name": "icon",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "icon",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -205,4 +205,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+
