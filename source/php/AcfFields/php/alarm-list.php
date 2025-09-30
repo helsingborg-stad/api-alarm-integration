@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_686e3d0e359d8',
     'title' => __('Alarm Module Configuration', 'event-manager'),
     'fields' => array(
@@ -71,7 +73,7 @@
                     'label' => __('Icon', 'event-manager'),
                     'name' => 'icon',
                     'aria-label' => '',
-                    'type' => 'select',
+                    'type' => 'icon',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -209,4 +211,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}
