@@ -69,7 +69,7 @@
                             "variant" => "meta",
                             "classList" => [
                                 !$isAjaxRequest ? 'u-preloader' : '',
-                                'u-color__text--light',
+                                'u-color__text--dark',
                             ],
                             'attributeList' => ['aria-hidden' => $isAjaxRequest ? 'false' : 'true']
                         ])
@@ -125,7 +125,7 @@
                                         'u-align-items--center', 
                                         'u-justify-content--end', 
                                         'u-gap-1', 
-                                        'u-color__text--light',
+                                        'u-color__text--dark',
                                     ]
                                 ])
                                 <span class="{{ !$isAjaxRequest ? 'u-preloader' : '' }}">
@@ -146,7 +146,7 @@
                                                 'icon' => 'contacts_product',
                                                 'size' => 'sm',
                                                 'classList' => [
-                                                    'u-color__text--light'
+                                                    'u-color__text--dark'
                                                 ]
                                             ])
                                             @endicon
