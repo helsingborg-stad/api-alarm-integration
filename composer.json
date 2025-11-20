@@ -58,6 +58,5 @@
         "psr-4": {
             "ApiAlarmIntegration\\": "source/php/"
         }
-    },
-    "version": "5.0.2"
+    }
 }
