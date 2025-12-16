@@ -1,43 +1,44 @@
-[{
-    "key": "group_58d1432296838",
-    "title": "Alarm widget",
-    "fields": [
-        {
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "key": "field_58d1432574c5d",
-            "label": "Titel",
-            "name": "title",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "widget",
-                "operator": "==",
-                "value": "api-alarm-widget"
-            }
-        ]
-    ],
-    "menu_order": -10,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": 1,
-    "description": ""
-}]
-
+[
+	{
+		"key": "group_58d1432296838",
+		"title": "Alarm widget",
+		"fields": [
+			{
+				"default_value": "",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"key": "field_58d1432574c5d",
+				"label": "Titel",
+				"name": "title",
+				"type": "text",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				}
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "widget",
+					"operator": "==",
+					"value": "api-alarm-widget"
+				}
+			]
+		],
+		"menu_order": -10,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": 1,
+		"description": ""
+	}
+]
