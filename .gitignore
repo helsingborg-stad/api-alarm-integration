@@ -43,6 +43,11 @@ Thumbs.db
 *.tar
 *.zip
 
+/assets/
+
+phpunit-log.xml
+phpunit-testdox.txt
+
 # -------------------------
 # BEGIN Whitelisted Files
 # -------------------------
@@ -50,6 +55,7 @@ Thumbs.db
 # track these files, if they exist
 !.gitignore
 !.editorconfig
+!.vscode
 
 dist
 dist/
