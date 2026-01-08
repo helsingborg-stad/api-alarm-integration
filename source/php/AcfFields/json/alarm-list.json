@@ -1,208 +1,207 @@
-[{
-    "key": "group_686e3d0e359d8",
-    "title": "Alarm Module Configuration",
-    "fields": [
-        {
-            "key": "field_686e3d0f9bb14",
-            "label": "Api Url",
-            "name": "mod_alarm_api_url",
-            "aria-label": "",
-            "type": "url",
-            "instructions": "The full URL containing the data to be displayed. Eg: https:\/\/domain.com\/json\/wp\/v2\/alarm\/?per_page=100&page=1",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": ""
-        },
-        {
-            "key": "field_686e605f992b9",
-            "label": "Icons",
-            "name": "mod_alarm_icons_map",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "An icon can be mappeed to keywords in the title of the incident. If multiple matches is found, the first one will be used (be less specific towards the end).",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "acfe_repeater_stylised_button": 0,
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Add icon",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_686e60af992ba",
-                    "label": "keyword",
-                    "name": "keyword",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_686e605f992b9"
-                },
-                {
-                    "key": "field_686e60bb992bb",
-                    "label": "Icon",
-                    "name": "icon",
-                    "aria-label": "",
-                    "type": "icon",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": [],
-                    "default_value": false,
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
-                    "allow_null": 0,
-                    "ui": 1,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "parent_repeater": "field_686e605f992b9"
-                }
-            ]
-        },
-        {
-            "key": "field_686e663ac51ef",
-            "label": "Severity Level Keyword (Level 1 - Low)",
-            "name": "mod_alarm_severity_keyword_level_1",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Low",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_686e6679c51f0",
-            "label": "Severity Level Keyword (Level 2 - Medium)",
-            "name": "mod_alarm_severity_keyword_level_2",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Medium",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_686e66a0c51f1",
-            "label": "Severity Level Keyword (Level 3 - High)",
-            "name": "mod_alarm_severity_keyword_level_3",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "High",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_686e6de514f86",
-            "label": "Color for low level",
-            "name": "mod_alarm_severity_level_1_color",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "ui_on_text": "Primary",
-            "ui_off_text": "Info",
-            "ui": 1
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "mod-alarm-list"
-            }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "acf\/alarm-list"
-            }
-        ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "left",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
-}]
-
+[
+	{
+		"key": "group_686e3d0e359d8",
+		"title": "Alarm Module Configuration",
+		"fields": [
+			{
+				"key": "field_686e3d0f9bb14",
+				"label": "Api Url",
+				"name": "mod_alarm_api_url",
+				"aria-label": "",
+				"type": "url",
+				"instructions": "The full URL containing the data to be displayed. Eg: https:\/\/domain.com\/json\/wp\/v2\/alarm\/?per_page=100&page=1",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"placeholder": ""
+			},
+			{
+				"key": "field_686e605f992b9",
+				"label": "Icons",
+				"name": "mod_alarm_icons_map",
+				"aria-label": "",
+				"type": "repeater",
+				"instructions": "An icon can be mappeed to keywords in the title of the incident. If multiple matches is found, the first one will be used (be less specific towards the end).",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"acfe_repeater_stylised_button": 0,
+				"layout": "table",
+				"pagination": 0,
+				"min": 0,
+				"max": 0,
+				"collapsed": "",
+				"button_label": "Add icon",
+				"rows_per_page": 20,
+				"sub_fields": [
+					{
+						"key": "field_686e60af992ba",
+						"label": "keyword",
+						"name": "keyword",
+						"aria-label": "",
+						"type": "text",
+						"instructions": "",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": "",
+						"parent_repeater": "field_686e605f992b9"
+					},
+					{
+						"key": "field_686e60bb992bb",
+						"label": "Icon",
+						"name": "icon",
+						"aria-label": "",
+						"type": "icon",
+						"instructions": "",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"choices": [],
+						"default_value": false,
+						"return_format": "value",
+						"multiple": 0,
+						"allow_custom": 0,
+						"search_placeholder": "",
+						"allow_null": 0,
+						"ui": 1,
+						"ajax": 0,
+						"placeholder": "",
+						"parent_repeater": "field_686e605f992b9"
+					}
+				]
+			},
+			{
+				"key": "field_686e663ac51ef",
+				"label": "Severity Level Keyword (Level 1 - Low)",
+				"name": "mod_alarm_severity_keyword_level_1",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "33",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "Low",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_686e6679c51f0",
+				"label": "Severity Level Keyword (Level 2 - Medium)",
+				"name": "mod_alarm_severity_keyword_level_2",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "33",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "Medium",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_686e66a0c51f1",
+				"label": "Severity Level Keyword (Level 3 - High)",
+				"name": "mod_alarm_severity_keyword_level_3",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "33",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "High",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_686e6de514f86",
+				"label": "Color for low level",
+				"name": "mod_alarm_severity_level_1_color",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "",
+				"default_value": 1,
+				"ui_on_text": "Primary",
+				"ui_off_text": "Info",
+				"ui": 1
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-alarm-list"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/alarm-list"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "left",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0,
+		"acfe_display_title": "",
+		"acfe_autosync": ["json"],
+		"acfe_form": 0,
+		"acfe_meta": "",
+		"acfe_note": ""
+	}
+]

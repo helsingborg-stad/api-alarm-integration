@@ -1,273 +1,274 @@
-[{
-    "key": "group_58d24fce7d85a",
-    "title": "Disturbances",
-    "fields": [
-        {
-            "key": "field_58d2501c0f51d",
-            "label": "Activate",
-            "name": "disturbnaces_enabled",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 0,
-            "message": "Enable disturbance messages",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_58d250070f51c",
-            "label": "Alarm api url",
-            "name": "disturbances_api_url",
-            "aria-label": "",
-            "type": "url",
-            "instructions": "The base url to the api alarm manager",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "allow_in_bindings": 1,
-            "placeholder": ""
-        },
-        {
-            "key": "field_683fed7be2034",
-            "label": "Places Api url",
-            "name": "places_api_url",
-            "aria-label": "",
-            "type": "url",
-            "instructions": "The full url of the places api",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "allow_in_bindings": 1,
-            "placeholder": ""
-        },
-        {
-            "key": "field_58d26663441cc",
-            "label": "Filter places",
-            "name": "disturbances_places",
-            "aria-label": "",
-            "type": "select",
-            "instructions": "You will first need to set your api url and save this page before places will be filled with alternatives. Leave blank to get disturbances from all places.",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "multiple": 1,
-            "allow_null": 0,
-            "choices": [],
-            "default_value": [],
-            "ui": 1,
-            "ajax": 0,
-            "placeholder": "",
-            "return_format": "value",
-            "create_options": 0,
-            "save_options": 0,
-            "allow_custom": 0,
-            "search_placeholder": ""
-        },
-        {
-            "key": "field_58d250a30f51e",
-            "label": "Output automatically",
-            "name": "disturbances_output_automatically",
-            "aria-label": "",
-            "type": "checkbox",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "big": "Big disturbances",
-                "small": "Small disturbances",
-                "firelevel": "Firelevel"
-            },
-            "default_value": [],
-            "return_format": "value",
-            "allow_custom": 0,
-            "allow_in_bindings": 1,
-            "layout": "vertical",
-            "toggle": 0,
-            "save_custom": 0,
-            "custom_choice_button_text": "Add new choice"
-        },
-        {
-            "key": "field_58d2760046254",
-            "label": "Output selector for big disturbance",
-            "name": "output_selector_big_disturbance",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "CSS Selector for where to output big disturbances. Defaults to body.",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d250a30f51e",
-                        "operator": "==",
-                        "value": "big"
-                    },
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_58d2764846255",
-            "label": "Output selector for small disturbance",
-            "name": "output_selector_small_disturbance",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "CSS Selector for where to output small disturbances. Defaults to body.",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d250a30f51e",
-                        "operator": "==",
-                        "value": "small"
-                    },
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_6821ae0777ed7",
-            "label": "Output selector for firelevel",
-            "name": "output_selector_firelevel",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "CSS Selector for where to output small disturbances. Defaults to body.",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58d250a30f51e",
-                        "operator": "==",
-                        "value": "small"
-                    },
-                    {
-                        "field": "field_58d2501c0f51d",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 1,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "options_page",
-                "operator": "==",
-                "value": "api-alarm-integration-disturbances"
-            }
-        ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": "",
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
-}]
-
+[
+	{
+		"key": "group_58d24fce7d85a",
+		"title": "Disturbances",
+		"fields": [
+			{
+				"key": "field_58d2501c0f51d",
+				"label": "Activate",
+				"name": "disturbnaces_enabled",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": 0,
+				"message": "Enable disturbance messages",
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_58d250070f51c",
+				"label": "Alarm api url",
+				"name": "disturbances_api_url",
+				"aria-label": "",
+				"type": "url",
+				"instructions": "The base url to the api alarm manager",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"allow_in_bindings": 1,
+				"placeholder": ""
+			},
+			{
+				"key": "field_683fed7be2034",
+				"label": "Places Api url",
+				"name": "places_api_url",
+				"aria-label": "",
+				"type": "url",
+				"instructions": "The full url of the places api",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"allow_in_bindings": 1,
+				"placeholder": ""
+			},
+			{
+				"key": "field_58d26663441cc",
+				"label": "Filter places",
+				"name": "disturbances_places",
+				"aria-label": "",
+				"type": "select",
+				"instructions": "You will first need to set your api url and save this page before places will be filled with alternatives. Leave blank to get disturbances from all places.",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"multiple": 1,
+				"allow_null": 0,
+				"choices": [],
+				"default_value": [],
+				"ui": 1,
+				"ajax": 0,
+				"placeholder": "",
+				"return_format": "value",
+				"create_options": 0,
+				"save_options": 0,
+				"allow_custom": 0,
+				"search_placeholder": ""
+			},
+			{
+				"key": "field_58d250a30f51e",
+				"label": "Output automatically",
+				"name": "disturbances_output_automatically",
+				"aria-label": "",
+				"type": "checkbox",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"choices": {
+					"big": "Big disturbances",
+					"small": "Small disturbances",
+					"firelevel": "Firelevel"
+				},
+				"default_value": [],
+				"return_format": "value",
+				"allow_custom": 0,
+				"allow_in_bindings": 1,
+				"layout": "vertical",
+				"toggle": 0,
+				"save_custom": 0,
+				"custom_choice_button_text": "Add new choice"
+			},
+			{
+				"key": "field_58d2760046254",
+				"label": "Output selector for big disturbance",
+				"name": "output_selector_big_disturbance",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "CSS Selector for where to output big disturbances. Defaults to body.",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d250a30f51e",
+							"operator": "==",
+							"value": "big"
+						},
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_58d2764846255",
+				"label": "Output selector for small disturbance",
+				"name": "output_selector_small_disturbance",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "CSS Selector for where to output small disturbances. Defaults to body.",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d250a30f51e",
+							"operator": "==",
+							"value": "small"
+						},
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_6821ae0777ed7",
+				"label": "Output selector for firelevel",
+				"name": "output_selector_firelevel",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "CSS Selector for where to output small disturbances. Defaults to body.",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_58d250a30f51e",
+							"operator": "==",
+							"value": "small"
+						},
+						{
+							"field": "field_58d2501c0f51d",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"allow_in_bindings": 1,
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "options_page",
+					"operator": "==",
+					"value": "api-alarm-integration-disturbances"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0,
+		"acfe_display_title": "",
+		"acfe_autosync": "",
+		"acfe_form": 0,
+		"acfe_meta": "",
+		"acfe_note": ""
+	}
+]

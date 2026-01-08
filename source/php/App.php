@@ -1,31 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiAlarmIntegration;
 
-use ApiAlarmIntegration\Helper\CacheBust;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class App
 {
-    public function __construct()
+    static EnqueueManager $wpEnqueue;
+    public function __construct(EnqueueManager $wpEnqueue)
     {
-        add_action('init', function () {
+        self::$wpEnqueue = $wpEnqueue;
+
+        add_action('init', static function () {
             if (function_exists('modularity_register_module')) {
                 modularity_register_module(
                     APIALARMINTEGRATION_PATH . 'source/php/', // The directory path of the module
-                    'Module' // The class' file and class name (should be the same) withot .php extension
+                    'Module', // The class' file and class name (should be the same) withot .php extension
                 );
                 modularity_register_module(
                     APIALARMINTEGRATION_PATH . 'source/php/Module/FireDangerLevels', // The directory path of the module
-                    'FireDangerLevels' // The class' file and class name (should be the same) withot .php extension
+                    'FireDangerLevels', // The class' file and class name (should be the same) withot .php extension
                 );
                 modularity_register_module(
                     APIALARMINTEGRATION_PATH . 'source/php/Module/AlarmList', // The directory path of the module
-                    'AlarmList' // The class' file and class name (should be the same) withot .php extension
+                    'AlarmList', // The class' file and class name (should be the same) withot .php extension
                 );
             }
         });
 
-        add_action('widgets_init', array($this, 'registerWidget'));
+        add_action('widgets_init', [$this, 'registerWidget']);
 
         new \ApiAlarmIntegration\Disturbance();
     }
@@ -55,11 +60,10 @@ class App
      */
     public static function enqueueAlarmScripts()
     {
-        wp_enqueue_script('api-alarm-integration', APIALARMINTEGRATION_URL . '/dist/'. CacheBust::name('js/api-alarm-integration.js'), array('jquery'), '1.0.0', true);
-        wp_localize_script('api-alarm-integration', 'ApiAlarmIntegrationLang', array(
+        self::$wpEnqueue->add('js/api-alarm-integration.js', ['jquery'], '1.0.0', true)->with()->translation('ApiAlarmIntegrationLang', [
             'show_filters' => __('Show filters', 'api-alarm-integration'),
-            'hide_filters' => __('Hide filters', 'api-alarm-integration')
-        ));
+            'hide_filters' => __('Hide filters', 'api-alarm-integration'),
+        ]);
     }
 
     /**
@@ -68,7 +72,6 @@ class App
      */
     public static function enqueueStyle()
     {
-        wp_register_style('api-alarm-integration-css', APIALARMINTEGRATION_URL . '/dist/'. CacheBust::name('css/api-alarm-integration.css'), null, '1.0.0');
-        wp_enqueue_style('api-alarm-integration-css');
+        self::$wpEnqueue->add('css/api-alarm-integration.css', [], '1.0.0');
     }
 }

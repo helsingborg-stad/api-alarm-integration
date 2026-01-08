@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiAlarmIntegration\Module\FireDangerLevels;
 
 class FireDangerLevels extends \Modularity\Module
 {
     public $slug = 'fire-danger-levels';
     public $icon = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNS45MjYgMjAuNTc0YTcuMjYgNy4yNiAwIDAgMCAzLjAzOSAxLjUxMWMuMTA3LjAzNS4xNzktLjEwNS4xMDctLjE3NS0yLjM5NS0yLjI4NS0xLjA3OS00Ljc1OC0uMTA3LTUuODczLjY5My0uNzk2IDEuNjgtMi4xMDcgMS42MDgtMy44NjUgMC0uMTc2LjE4LS4zMTcuMzIyLS4yMTEgMS4zNTkuNzAzIDIuMjg4IDIuMjUgMi41MzggMy41MTUuMzk0LS4zODYuNTM3LS45ODQuNTM3LTEuNTExIDAtLjE3Ni4yMTQtLjMxNy4zOTMtLjE3NiAxLjI4NyAxLjE2IDMuNTAzIDUuMDk3LS4wNzIgOC4xOS0uMDcxLjA3MSAwIC4yMTIuMDcyLjE3N2E4Ljc2MSA4Ljc2MSAwIDAgMCAzLjAwMy0xLjQ0MmM1LjgyNy00LjUgMi4wMzctMTIuNDgtLjQzLTE1LjExNi0uMzIxLS4zMTctLjg5My0uMTA2LS44OTMuMzUxLS4wMzYuOTUtLjMyMiAyLjAwNC0xLjA3MiAyLjcwNy0uNTcyLTIuMzktMi40NzgtNS4xMDUtNS4xOTUtNi40NDEtLjM1Ny0uMTc2LS43ODYuMTA1LS43NS40OTIuMDcgMy4yNy0yLjA2MyA1LjM1Mi0zLjkyMiA4LjA1OS0xLjY0NSAyLjQyNS0yLjcxNyA2Ljg5LjgyMiA5LjgwOHoiIGZpbGw9IiMwMDAwMDAiLz48L3N2Zz4=';
-    public $supports = array();
-    public $plugin = array();
+    public $supports = [];
+    public $plugin = [];
     public $cacheTtl = MINUTE_IN_SECONDS * 1;
     public $refreshInterval = MINUTE_IN_SECONDS * 15;
-    public $hideTitle  = false;
+    public $hideTitle = false;
     public $isDeprecated = false;
     private $apiUrl = null;
     public $templateDir = APIALARMINTEGRATION_TEMPLATE_PATH;
@@ -29,11 +31,11 @@ class FireDangerLevels extends \Modularity\Module
         $apiDateTimeChanged = $this->getDateTimeChanged();
         $dateTimeChanged = $this->formatApiDateTime($apiDateTimeChanged);
 
-        $data['refreshInterval']        = $this->refreshInterval ?? 0;
-        $data['notices']                = $this->getNoticesData();
-        $data['dateTimeChangedLabel']   = sprintf(__('Updated at %s', 'api-alarm-integration'), $dateTimeChanged);
-        $data['isAjaxRequest']          = wp_doing_ajax() || defined('REST_REQUEST');
-        $data['ID']                     = $this->ID;
+        $data['refreshInterval'] = $this->refreshInterval ?? 0;
+        $data['notices'] = $this->getNoticesData();
+        $data['dateTimeChangedLabel'] = sprintf(__('Updated at %s', 'api-alarm-integration'), $dateTimeChanged);
+        $data['isAjaxRequest'] = wp_doing_ajax() || defined('REST_REQUEST');
+        $data['ID'] = $this->ID;
 
         return $data;
     }
@@ -59,7 +61,7 @@ class FireDangerLevels extends \Modularity\Module
                 ];
             }, $data['places'] ?? []);
         } catch (\Throwable $error) {
-            error_log("Could not get fire danger levels from Alarm API.");
+            error_log('Could not get fire danger levels from Alarm API.');
             return [];
         }
     }
@@ -75,8 +77,8 @@ class FireDangerLevels extends \Modularity\Module
         $response = wp_remote_get(
             $this->appendCacheBustQueryParam(
                 $this->apiUrl,
-                $this->cacheTtl
-            )
+                $this->cacheTtl,
+            ),
         );
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
@@ -94,24 +96,28 @@ class FireDangerLevels extends \Modularity\Module
         return add_query_arg(
             'cache_bust',
             $this->getCacheBustKey($url, $ttl),
-            $url
+            $url,
         );
     }
 
     private function getNoticeTypeFromLevel($level): string
     {
-        return [
-            '2' => 'danger',
-            '3' => 'danger-dark',
-        ][$level] ?? 'success';
+        return (
+            [
+                '2' => 'danger',
+                '3' => 'danger-dark',
+            ][$level] ?? 'success'
+        );
     }
 
     private function getIconNameFromLevel($level): string
     {
-        return [
-            '2' => 'info',
-            '3' => 'error',
-        ][$level] ?? 'check_circle';
+        return (
+            [
+                '2' => 'info',
+                '3' => 'error',
+            ][$level] ?? 'check_circle'
+        );
     }
 
     private function getNoticeTextFromLevel($level): string
@@ -120,10 +126,11 @@ class FireDangerLevels extends \Modularity\Module
         $fireBanTextStrict = _x('Strict fire ban', 'fire danger level', 'api-alarm-integration');
         $noRiskText = _x('No fire ban', 'fire danger level', 'api-alarm-integration');
 
-        $text = [
-            '2' => $fireBanText,
-            '3' => $fireBanTextStrict
-        ][$level] ?? $noRiskText;
+        $text =
+            [
+                '2' => $fireBanText,
+                '3' => $fireBanTextStrict,
+            ][$level] ?? $noRiskText;
 
         return $text;
     }

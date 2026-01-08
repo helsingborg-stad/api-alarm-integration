@@ -12,6 +12,8 @@
  * Text Domain:       api-alarm-integration
  * Domain Path:       /languages
  */
+use WpService\Implementations\NativeWpService;
+use WpUtilService\WpUtilService;
 
  // Protect agains direct file access
 if (! defined('WPINC')) {
@@ -59,5 +61,8 @@ add_action('plugins_loaded', function () {
     $acfExportManager->import();
 });
 
+$wpService = new NativeWpService();
+$wpUtilService = new WpUtilService($wpService);
+
 // Start application
-new ApiAlarmIntegration\App();
+new ApiAlarmIntegration\App($wpUtilService->enqueue(__DIR__));

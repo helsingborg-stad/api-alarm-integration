@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiAlarmIntegration;
 
 class Widget extends \WP_Widget
@@ -9,9 +11,9 @@ class Widget extends \WP_Widget
         parent::__construct(
             'api-alarm-widget',
             'Alarms',
-            array(
-                "description" => __('Displays a list with alarms', 'api-alarm-integration')
-            )
+            [
+                'description' => __('Displays a list with alarms', 'api-alarm-integration'),
+            ],
         );
     }
 

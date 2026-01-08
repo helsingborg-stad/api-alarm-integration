@@ -1,68 +1,69 @@
-[{
-    "key": "group_58cfe8b6985c1",
-    "title": "Alarm options",
-    "fields": [
-        {
-            "default_value": "",
-            "placeholder": "",
-            "key": "field_58cfe8da63a69",
-            "label": "Rest API url",
-            "name": "api_url",
-            "type": "url",
-            "instructions": "Example: http:\/\/myalarmapi.tld\/json",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
-        },
-        {
-            "default_value": 10,
-            "min": 1,
-            "max": 100,
-            "step": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "key": "field_58cfe93963a6a",
-            "label": "Alarms per page",
-            "name": "alarms_per_page",
-            "type": "number",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "mod-alarms"
-            }
-        ],
-        [
-            {
-                "param": "widget",
-                "operator": "==",
-                "value": "api-alarm-widget"
-            }
-        ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": 1,
-    "description": ""
-}]
-
+[
+	{
+		"key": "group_58cfe8b6985c1",
+		"title": "Alarm options",
+		"fields": [
+			{
+				"default_value": "",
+				"placeholder": "",
+				"key": "field_58cfe8da63a69",
+				"label": "Rest API url",
+				"name": "api_url",
+				"type": "url",
+				"instructions": "Example: http:\/\/myalarmapi.tld\/json",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				}
+			},
+			{
+				"default_value": 10,
+				"min": 1,
+				"max": 100,
+				"step": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"key": "field_58cfe93963a6a",
+				"label": "Alarms per page",
+				"name": "alarms_per_page",
+				"type": "number",
+				"instructions": "",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				}
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-alarms"
+				}
+			],
+			[
+				{
+					"param": "widget",
+					"operator": "==",
+					"value": "api-alarm-widget"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": 1,
+		"description": ""
+	}
+]
