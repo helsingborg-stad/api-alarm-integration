@@ -69,7 +69,7 @@ class FireDangerLevels extends \Modularity\Module
     private function getDateTimeChanged(): string
     {
         $data = $this->getDataFromApi();
-        return $data['dateTimeChanged'] ?? '';
+        return (string) $data['dateTimeChanged'] ?: '';
     }
 
     private function getDataFromApi()
