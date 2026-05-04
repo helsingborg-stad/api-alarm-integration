@@ -108,7 +108,7 @@ class Disturbance
             '
                 ;
 
-                echo file_get_contents(APIALARMINTEGRATION_PATH . '/dist/' . CacheBust::name('js/api-alarm-index.js'));
+                echo self::getInlineScript();
 
                 echo '</script>';
 
@@ -161,5 +161,29 @@ class Disturbance
             }
         }
         return $field;
+    }
+
+    /**
+     * Gets the built disturbance inline script when available.
+     *
+     * @return string
+     */
+    private static function getInlineScript(): string
+    {
+        $assetName = CacheBust::name('js/api-alarm-index.js');
+
+        if (!is_string($assetName) || empty($assetName)) {
+            return '';
+        }
+
+        $assetPath = rtrim(APIALARMINTEGRATION_PATH, '/') . '/assets/dist/' . $assetName;
+
+        if (!is_readable($assetPath)) {
+            return '';
+        }
+
+        $assetContents = file_get_contents($assetPath);
+
+        return is_string($assetContents) ? $assetContents : '';
     }
 }

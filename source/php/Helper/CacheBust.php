@@ -33,12 +33,23 @@ class CacheBust
      */
     public static function getRevManifest()
     {
-        $jsonPath = APIALARMINTEGRATION_PATH . apply_filters('ApiAlarmIntegration/Helper/CacheBust/RevManifestPath', 'dist/manifest.json');
+        $manifestPaths = array_unique([
+            apply_filters('ApiAlarmIntegration/Helper/CacheBust/RevManifestPath', 'assets/dist/manifest.json'),
+            'dist/manifest.json',
+        ]);
 
-        if (file_exists($jsonPath)) {
+        foreach ($manifestPaths as $manifestPath) {
+            $jsonPath = APIALARMINTEGRATION_PATH . $manifestPath;
+
+            if (!file_exists($jsonPath)) {
+                continue;
+            }
+
             return json_decode(file_get_contents($jsonPath), true);
-        } elseif (WP_DEBUG) {
-            echo '<div style="color:red">Error: Assets not built. Go to ' . APIALARMINTEGRATION_PATH . ' and run gulp. See ' . APIALARMINTEGRATION_PATH . 'README.md for more info.</div>';
+        }
+
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            echo '<div style="color:red">Error: Assets not built. Go to ' . APIALARMINTEGRATION_PATH . ' and run npm run build. See ' . APIALARMINTEGRATION_PATH . 'README.md for more info.</div>';
         }
     }
 }
