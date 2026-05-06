@@ -108,7 +108,7 @@ class Disturbance
             '
                 ;
 
-                echo file_get_contents(APIALARMINTEGRATION_PATH . '/dist/' . CacheBust::name('js/api-alarm-index.js'));
+                echo file_get_contents(APIALARMINTEGRATION_PATH . 'assets/dist/' . CacheBust::name('js/api-alarm-index.js'));
 
                 echo '</script>';
 

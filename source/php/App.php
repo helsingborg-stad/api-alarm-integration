@@ -33,6 +33,7 @@ class App
         add_action('widgets_init', [$this, 'registerWidget']);
 
         new \ApiAlarmIntegration\Disturbance();
+        self::enqueueAlarmScripts();
     }
 
     /**
