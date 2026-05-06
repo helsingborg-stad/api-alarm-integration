@@ -9,6 +9,8 @@ use WpUtilService\Features\Enqueue\EnqueueManager;
 class App
 {
     static EnqueueManager $wpEnqueue;
+    private static bool $alarmScriptsEnqueued = false;
+
     public function __construct(EnqueueManager $wpEnqueue)
     {
         self::$wpEnqueue = $wpEnqueue;
@@ -61,10 +63,16 @@ class App
      */
     public static function enqueueAlarmScripts()
     {
+        if (self::$alarmScriptsEnqueued) {
+            return;
+        }
+
         self::$wpEnqueue->add('js/api-alarm-integration.js', ['jquery'], '1.0.0', true)->with()->translation('ApiAlarmIntegrationLang', [
             'show_filters' => __('Show filters', 'api-alarm-integration'),
             'hide_filters' => __('Hide filters', 'api-alarm-integration'),
         ]);
+
+        self::$alarmScriptsEnqueued = true;
     }
 
     /**
