@@ -37,3 +37,14 @@
     box-shadow: none !important;
     border-radius: 0 !important;
 }
+
+@layer theme {
+    .mod-alarm-list-badge {
+        background-color: var(--color--surface-alt);
+        color: var(--color--surface-contrast-muted);
+        corner-shape: var(--corner-shape);
+        font-size: var(--font-size-80);
+        padding: calc(1 * var(--base)) calc(2 * var(--base));
+        border-radius: calc(var(--border-radius) * var(--base));
+    }
+}
