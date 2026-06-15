@@ -91,7 +91,7 @@
                                         'size' => 'md', 
                                         'classList' => [
                                             'u-color--' . $item->level_color, 
-                                            'u-rounded--8', 
+                                            'u-rounded--1', 
                                             'u-padding--2', 
                                             'u-align-items--center', 
                                             'u-justify-content--center',
@@ -164,21 +164,17 @@
                         @endtypography  
 
                         @if($item->moredetails)
-                            <div class="u-padding--0 u-margin__top--1">
+                            <div class="u-padding--0 u-margin__top--1 u-display--flex u-flex-wrap u-gap--1">
                                 @foreach($item->moredetails as $detail)
-                                <span class="{{ !$isAjaxRequest ? 'u-preloader' : '' }}">
+                                <div class="{{ !$isAjaxRequest ? 'u-preloader' : '' }}">
                                     @typography([
-                                        'element' => 'span', 
-                                        'variant' => 'meta', 
-                                        'classList' => [
-                                            'u-color__bg--complementary-lighter', 
-                                            'u-rounded--4', 'u-padding__x--1',
-                                            
-                                        ], 
+                                        'element' => 'div',
+                                        'variant' => 'meta',
+                                        'classList' => ['mod-alarm-list-badge'], 
                                         'attributeList' => ['data-tooltip' => $detail->date_time]])
                                         {{ $detail->unit }}
                                     @endtypography
-                                </span>
+                                </div>
                                 @endforeach
                             </div>
                         @endif
