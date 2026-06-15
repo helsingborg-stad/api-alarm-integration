@@ -90,8 +90,7 @@
                                         'icon' => $item->icon, 
                                         'size' => 'md', 
                                         'classList' => [
-                                            'u-color__text--white', 
-                                            'u-color__bg--' . $item->level_color, 
+                                            'u-color--' . $item->level_color, 
                                             'u-rounded--8', 
                                             'u-padding--2', 
                                             'u-align-items--center', 
