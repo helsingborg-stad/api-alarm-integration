@@ -11,6 +11,16 @@ class Disturbance
     public function __construct()
     {
         add_action('acf/init', [$this, 'addOptionsPage']);
+        add_action('wp_enqueue_scripts', static function () {
+            if (
+                !get_field('disturbnaces_enabled', 'options')
+                || empty(get_field('disturbances_output_automatically', 'options'))
+            ) {
+                return;
+            }
+
+            wp_enqueue_script('wp-api-fetch');
+        });
         add_action(
             'acf/load_field/name=disturbances_places',
             [$this, 'addPlaces'],

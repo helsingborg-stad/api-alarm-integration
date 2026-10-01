@@ -26,13 +26,7 @@ window.addEventListener('load', () => {
 	}
 
 	const query = params.toString();
-	fetch(`${requestUrl}${query ? `?${query}` : ''}`, { cache: 'no-store' })
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error('Request failed');
-			}
-			return response.json();
-		})
+	window.wp.apiFetch({ url: `${requestUrl}${query ? `?${query}` : ''}` })
 		.then((response) => {
 			if (disturbances.output_small_active) {
 				(response.small || []).forEach((item) => {

@@ -14,33 +14,29 @@ describe('disturbance interactions', () => {
 
 	beforeAll(() => {
 		global.disturbances = { ...settings };
-		global.fetch = jest.fn();
+		window.wp = { apiFetch: jest.fn() };
 		require('./Combined');
 	});
 
 	beforeEach(() => {
 		document.body.innerHTML = '<div id="small-output"></div><div id="big-output"></div>';
 		global.disturbances = { ...settings, inited: handlersAdded };
-		global.fetch = jest.fn();
+		window.wp.apiFetch = jest.fn();
 	});
 
 	it('fetches and renders notices without jQuery, and supports toggling', async () => {
-		global.fetch.mockResolvedValue({
-			ok: true,
-			json: async () => ({
-				small: [{ ID: 1, post_title: 'Small notice', post_content: '<p>Details</p>' }],
-				big: [{ ID: 2, post_title: 'Big notice', post_content: '<p>Details</p>' }],
-			}),
+		window.wp.apiFetch.mockResolvedValue({
+			small: [{ ID: 1, post_title: 'Small notice', post_content: '<p>Details</p>' }],
+			big: [{ ID: 2, post_title: 'Big notice', post_content: '<p>Details</p>' }],
 		});
 
 		window.dispatchEvent(new Event('load'));
 		await new Promise((resolve) => setTimeout(resolve, 0));
 		handlersAdded = true;
 
-		expect(global.fetch).toHaveBeenCalledWith(
-			'https://example.test/wp/v2/disturbances?place=1%2C2',
-			{ cache: 'no-store' },
-		);
+		expect(window.wp.apiFetch).toHaveBeenCalledWith({
+			url: 'https://example.test/wp/v2/disturbances?place=1%2C2',
+		});
 		expect(document.querySelector('#disturbance-1 strong').textContent).toBe('Small notice');
 		expect(document.querySelector('#disturbance-2')).not.toBeNull();
 
@@ -60,12 +56,9 @@ describe('disturbance interactions', () => {
 	it('does not duplicate manually placed notices', async () => {
 		document.querySelector('#small-output').innerHTML =
 			'<div id="disturbance-1" class="notice-disturbance"><button data-action="toggle-notice-content">Show more information</button><div class="notice-content" style="display:none"></div></div>';
-		global.fetch.mockResolvedValue({
-			ok: true,
-			json: async () => ({
-				small: [{ ID: 1, post_title: 'Existing notice', post_content: 'Details' }],
-				big: [],
-			}),
+		window.wp.apiFetch.mockResolvedValue({
+			small: [{ ID: 1, post_title: 'Existing notice', post_content: 'Details' }],
+			big: [],
 		});
 
 		window.dispatchEvent(new Event('load'));
@@ -79,7 +72,7 @@ describe('disturbance interactions', () => {
 
 	it('logs a request failure when the API returns an error', async () => {
 		const log = jest.spyOn(console, 'log').mockImplementation();
-		global.fetch.mockResolvedValue({ ok: false });
+		window.wp.apiFetch.mockRejectedValue(new Error('Request failed'));
 
 		window.dispatchEvent(new Event('load'));
 		await new Promise((resolve) => setTimeout(resolve, 0));
