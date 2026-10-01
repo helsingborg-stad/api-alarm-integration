@@ -35,7 +35,6 @@ class App
         add_action('widgets_init', [$this, 'registerWidget']);
 
         new \ApiAlarmIntegration\Disturbance();
-        self::enqueueAlarmScripts();
     }
 
     /**
@@ -67,7 +66,7 @@ class App
             return;
         }
 
-        self::$wpEnqueue->add('js/api-alarm-integration.js', ['jquery'], '1.0.0', true)->with()->translation('ApiAlarmIntegrationLang', [
+        self::$wpEnqueue->add('js/api-alarm-integration.js', [], '1.0.0', true)->with()->translation('ApiAlarmIntegrationLang', [
             'show_filters' => __('Show filters', 'api-alarm-integration'),
             'hide_filters' => __('Hide filters', 'api-alarm-integration'),
         ]);
