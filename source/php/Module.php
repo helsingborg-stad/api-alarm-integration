@@ -71,21 +71,34 @@ class Module extends \Modularity\Module
         \ApiAlarmIntegration\App::enqueueAlarmScripts($this->wpEnqueue);
     }
 
+    /**
+     * Get the origin of a configured API URL.
+     *
+     * @param string $sourceUrl
+     * @return string
+     */
     public static function getBaseUrl($sourceUrl)
     {
         $url = parse_url($sourceUrl);
 
-        $port = $url['port'] ? ':' . $url['port'] : '';
+        $port = isset($url['port']) ? ':' . $url['port'] : '';
         $baseUrl = $url['scheme'] . '://' . $url['host'] . $port . '/';
         return $baseUrl;
     }
 
+    /**
+     * Resolve the places endpoint, falling back to the alarm API host when needed.
+     *
+     * @param string|false|null $sourceUrl
+     * @param string $fallbackUrl
+     * @return string
+     */
     public static function getPlacesUrl($sourceUrl, $fallbackUrl)
     {
-        $url = parse_url($sourceUrl);
+        $url = is_string($sourceUrl) && $sourceUrl !== '' ? parse_url($sourceUrl) : false;
 
         // Fallback to default API URL if no path is provided
-        if ($url === false || $url['path'] === '/') {
+        if ($url === false || ($url['path'] ?? '/') === '/') {
             $url = Module::getBaseUrl($fallbackUrl);
             return $url . 'json/wp/v2/place?per_page=100';
         }
