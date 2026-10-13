@@ -25,6 +25,11 @@ class FireDangerLevels extends \Modularity\Module
         $this->description = __('Outputs a list of fire danger levels from Alarm API', 'api-alarm-integration');
     }
 
+    public function script(): void
+    {
+        $this->enqueueModuleRefresher();
+    }
+
     public function data(): array
     {
         $this->apiUrl = $this->getFields()['api_url'];

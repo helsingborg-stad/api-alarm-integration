@@ -25,6 +25,11 @@ class AlarmList extends \Modularity\Module
         $this->description = __('Outputs an alarm list from the API', 'api-alarm-integration');
     }
 
+    public function script(): void
+    {
+        $this->enqueueModuleRefresher();
+    }
+
     public function data(): array
     {
         //Get module config
