@@ -66,6 +66,7 @@ class App
             return;
         }
 
+        // The public asset uses browser APIs only; do not add a jQuery dependency here.
         self::$wpEnqueue->add('js/api-alarm-integration.js', [], '1.0.0', true)->with()->translation('ApiAlarmIntegrationLang', [
             'show_filters' => __('Show filters', 'api-alarm-integration'),
             'hide_filters' => __('Hide filters', 'api-alarm-integration'),
