@@ -4,6 +4,7 @@
 !.github
 # ignore node/grunt dependency directories
 node_modules/
+coverage/
 
 # ignore jekyll build directory
 /_site
