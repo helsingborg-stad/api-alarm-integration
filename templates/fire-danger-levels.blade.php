@@ -1,5 +1,5 @@
 @if (!empty($notices))
-    <div data-module-refresh-interval="{!! $refreshInterval !!}" data-module-id="{!! $ID !!}">
+    <div @if ($isRefreshable) data-module-refresh-interval="{!! $refreshInterval !!}" data-module-id="{!! $ID !!}" @endif>
         @if (isset($hideTitle) && !$hideTitle && !empty($postTitle))
         @typography([
             'id' => 'mod-fire-danger-levels-' . $ID . '-label',
@@ -16,13 +16,14 @@
             <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg o-grid-4@xl">
                 @notice([
                     'type' => $notice['type'],
+                    'altColor' => $notice['altColor'],
                     'message' => (object) [
                         'title' => $notice['title'],
                         'text' => $notice['text'],
                         'size' => 'sm',
                     ],
-                    'classList' => [!$isAjaxRequest ? 'u-preloader' : ''],
-                    'attributeList' => ['aria-hidden' => $isAjaxRequest ? 'false' : 'true'],
+                    'classList' => [$usePreloader ? 'u-preloader' : ''],
+                    'attributeList' => ['aria-hidden' => $usePreloader ? 'true' : 'false'],
                     'icon' => [
                         'name' => $notice['iconName'],
                         'size' => 'md',
@@ -37,8 +38,8 @@
 
         @typography([
             "element" => "p",
-            "classList" => [!$isAjaxRequest ? 'u-preloader' : ''],
-            'attributeList' => ['aria-hidden' => $isAjaxRequest ? 'false' : 'true']
+            "classList" => [$usePreloader ? 'u-preloader' : ''],
+            'attributeList' => ['aria-hidden' => $usePreloader ? 'true' : 'false']
         ])
         {!! $dateTimeChangedLabel !!}
         @endtypography

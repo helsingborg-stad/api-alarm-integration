@@ -1,5 +1,6 @@
 @notice([
-    'type' => 'error',
+    'type' => 'danger',
+    'altColor' => true,
     'message' => [
         'title' => $title, 
         'text' => $text,
@@ -11,6 +12,6 @@
         'color' => 'white'
     ],
     'stretch' => true,
-    'classList' => ['danger-dark', 'u-margin__top--0', 'u-box-shadow--0']
+    'classList' => ['u-margin__top--0', 'u-box-shadow--0']
 ])
 @endnotice
