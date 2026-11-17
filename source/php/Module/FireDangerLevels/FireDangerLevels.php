@@ -16,7 +16,7 @@ class FireDangerLevels extends \Modularity\Module
     public $isDeprecated = false;
     private $apiUrl = null;
     public $templateDir = APIALARMINTEGRATION_TEMPLATE_PATH;
-    public $isBlockCompatible = false;
+    public $isBlockCompatible = true;
 
     public function init()
     {
@@ -27,7 +27,17 @@ class FireDangerLevels extends \Modularity\Module
 
     public function script(): void
     {
+        // Blocks have no module post ID, so they can't be refreshed through the modules REST endpoint.
+        if ($this->isBlock()) {
+            return;
+        }
+
         $this->enqueueModuleRefresher();
+    }
+
+    private function isBlock(): bool
+    {
+        return $this->mode === 'block';
     }
 
     public function data(): array
@@ -40,6 +50,10 @@ class FireDangerLevels extends \Modularity\Module
         $data['notices'] = $this->getNoticesData();
         $data['dateTimeChangedLabel'] = sprintf(__('Updated at %s', 'api-alarm-integration'), $dateTimeChanged);
         $data['isAjaxRequest'] = wp_doing_ajax() || defined('REST_REQUEST');
+        // Modules render a preloader and fetch fresh content via the module refresher.
+        // Blocks can't be refreshed, so they render their content directly.
+        $data['isRefreshable'] = !$this->isBlock();
+        $data['usePreloader'] = $data['isRefreshable'] && !$data['isAjaxRequest'];
         $data['ID'] = $this->ID;
 
         return $data;
