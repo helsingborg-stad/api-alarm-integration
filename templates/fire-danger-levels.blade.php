@@ -16,6 +16,7 @@
             <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg o-grid-4@xl">
                 @notice([
                     'type' => $notice['type'],
+                    'altColor' => $notice['altColor'],
                     'message' => (object) [
                         'title' => $notice['title'],
                         'text' => $notice['text'],
